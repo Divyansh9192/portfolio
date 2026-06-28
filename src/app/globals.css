@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono.ttf') format('truetype');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Caveat';
+  src: url('/fonts/Caveat.ttf') format('truetype');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --bg: #000000;
+  --surface: #0E0E0E;
+  --surface-2: #141414;
+  --hairline: #212121;
+  --text: #E8E8E8;
+  --text-dim: #8A8A8A;
+  --text-faint: #525252;
+  --green: #25D467;
+  --green-dim: #143820;
+  --teal: #5EEAD4;
+  --amber: #FBBA27;
+  --coral: #FB7481;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-hairline: var(--hairline);
+  --color-text: var(--text);
+  --color-text-dim: var(--text-dim);
+  --color-text-faint: var(--text-faint);
+  --color-green: var(--green);
+  --color-green-dim: var(--green-dim);
+  --color-teal: var(--teal);
+  --color-amber: var(--amber);
+  --color-coral: var(--coral);
+
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Montserrat', var(--font-sans);
+  --font-hand: 'Caveat', cursive;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--teal-dim);
+  color: var(--teal);
+}
+
+:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--hairline);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--teal-dim);
+}
+
+/* Hide native cursor on devices that support hover (desktop) for custom cursor */
+/* @media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  a, button, [role="button"] {
+    cursor: none;
+  }
+} */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.status-dot {
+  box-shadow: 0 0 0 0 rgba(251, 186, 39, 0.6);
+  animation: pulse 2.4s infinite;
+}
+
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(251, 186, 39, 0.45); }
+  70%  { box-shadow: 0 0 0 6px rgba(251, 186, 39, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(251, 186, 39, 0); }
+}
+
+@keyframes gradient-slide {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+.gradient-text {
+  background-image: linear-gradient(to right, #FBBA27, #FB7481, #FBBA27);
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradient-slide 8s linear infinite;
+}
+
+.gradient-text-green {
+  background-image: linear-gradient(to right, #25D467, #5EEAD4, #25D467);
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradient-slide 8s linear infinite;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
