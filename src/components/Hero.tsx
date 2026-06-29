@@ -42,18 +42,16 @@ export default function Hero() {
             I build the systems behind the interface.
           </motion.p>
 
-          <motion.div
+          {/* <motion.div
             variants={item}
             className="inline-flex items-center gap-2 font-mono text-[13px] text-green mb-7 uppercase tracking-wide"
           >
             <span className="w-[7px] h-[7px] rounded-full bg-amber status-dot" />
             Open to internship opportunities
-          </motion.div>
+          </motion.div> */}
 
-          <motion.p variants={item} className="text-lg text-text-dim max-w-[620px] mb-8 block">
-            4th-year CSE student building backend and full-stack systems: multi-tenant
-            AI platforms, distributed microservices, semantic search, payment infrastructure.
-            I care about what happens after the request leaves the browser.
+          <motion.p variants={item} className="text-lg text-white max-w-[620px] mb-8 block">
+            I enjoy turning ideas into production-ready software by building resilient backend services, distributed architectures, and AI-driven applications. I care about scalability, clean system design, and everything that happens beyond the frontend.
           </motion.p>
 
           <motion.div variants={item} className="flex flex-wrap items-center gap-3">
@@ -62,7 +60,7 @@ export default function Hero() {
               whileTap={{ scale: 0.97 }}
               href={`mailto:${profile.email}`}
               className="inline-flex items-center gap-2 rounded-full px-5 py-3 font-semibold text-white"
-              style={{ backgroundColor: "#25D467" }}
+              style={{ backgroundColor: "#2563EB" }}
             >
               Email me
             </motion.a>

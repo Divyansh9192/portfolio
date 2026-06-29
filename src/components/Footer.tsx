@@ -16,7 +16,7 @@ export default function Footer() {
       >
         <p className="font-display text-[28px] md:text-[36px] leading-normal text-center">
           <span className="font-normal text-white">Let&apos;s build </span>
-          <span className="gradient-text font-semibold">something real</span>
+          <span className="gradient-text font-semibold" style={{ fontFamily: "var(--font-hand)" }}>something real </span>
           <span className="font-normal text-white"> :)</span>
         </p>
 
@@ -30,7 +30,7 @@ export default function Footer() {
           whileTap={{ scale: 0.96 }}
           href={`mailto:${profile.email}`}
           className="flex items-center rounded-full mt-2"
-          style={{ backgroundColor: "#25D467" }}
+          style={{ backgroundColor: "#2563EB" }}
         >
           <span className="flex items-center gap-2 px-5 py-3 font-semibold text-white">
             {profile.email}

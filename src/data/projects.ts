@@ -56,7 +56,7 @@ export const projects: Project[] = [
     slug: "orchrez",
     name: "Orchrez",
     tagline: "Multi-tenant AI marketing automation platform",
-    flag: "hardest one",
+    // flag: "hardest one",
     description:
       "Each tenant's brand identity — palette, tone, composition style, visual motifs — is encoded as structured \"brand DNA\" so AI-generated marketing assets stay on-brand without manual review. Async generation runs through Celery/RabbitMQ with LangGraph orchestrating multi-step agent pipelines, and Razorpay webhooks handle billing with idempotency to survive retries.",
     stack: ["FastAPI", "LangGraph", "Celery / RabbitMQ", "PostgreSQL + pgvector", "Redis", "Next.js", "Razorpay"],
@@ -424,7 +424,7 @@ export const profile = {
 
 export const timeline = [
   {
-    date: "2022 — 2026",
+    date: "2023 — 2027",
     title: "B.Tech, Computer Science & Engineering",
     body: "JSS Academy of Technical Education, Noida. Final-year, focused on backend systems, distributed architecture, and applied AI.",
   },
