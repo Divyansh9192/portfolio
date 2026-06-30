@@ -80,6 +80,7 @@ export default function Hero() {
               rel="noopener"
               className="inline-flex items-center gap-1.5 rounded-full border border-hairline bg-surface px-4 py-2.5 font-mono text-[13px] font-semibold text-text"
             >
+              <img src="/icons/github.svg" alt="GitHub" className="w-[14px] h-[14px] opacity-90 invert" />
               GitHub ↗
             </motion.a>
             <motion.a
@@ -90,12 +91,13 @@ export default function Hero() {
               rel="noopener"
               className="inline-flex items-center gap-1.5 rounded-full border border-hairline bg-surface px-4 py-2.5 font-mono text-[13px] font-semibold text-text"
             >
+              <img src="/icons/linkedin.svg" alt="LinkedIn" className="w-[14px] h-[14px] opacity-90" />
               LinkedIn ↗
             </motion.a>
             <motion.a
               whileHover={{ scale: 1.03, borderColor: "#25D467" }}
               whileTap={{ scale: 0.97 }}
-              href="#"
+              href="/resume.pdf"
               target="_blank"
               rel="noopener"
               className="inline-flex items-center gap-1.5 rounded-full border border-hairline bg-surface px-4 py-2.5 font-mono text-[13px] font-semibold text-text"

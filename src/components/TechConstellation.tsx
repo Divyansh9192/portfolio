@@ -12,8 +12,9 @@ const TECHS = [
   { label: "Redis",       icon: "/icons/redis.svg",       color: [220,56,45],   x:-0.65, y:-0.35, z:-0.1  },  // #DC382D
   { label: "PostgreSQL",  icon: "/icons/postgresql.svg",  color: [51,103,145],  x: 0.35, y:-0.30, z: 0.25 },  // #336791
   { label: "AWS",         icon: "/icons/aws.svg",         color: [255,153,0],   x:-0.35, y:-0.70, z: 0.15 },  // #FF9900
+  { label: "Git",         icon: "/icons/git.svg",         color: [240,80,50],   x:-0.25, y: 0.65, z: 0.1  },  // #F05032
+  { label: "Python",      icon: "/icons/python.svg",      color: [55,118,171],  x: 0.75, y:-0.40, z: 0.1  },  // #3776AB
 ];
-
 
 
 /* ─── Create a radial glow canvas — inner (tight, bright) ─── */
@@ -145,7 +146,7 @@ export default function TechConstellation() {
       rimLight.position.set(0, -2, -1);
       scene.add(rimLight);
 
-      const clock = new THREE.Clock();
+      const timer = new THREE.Timer();
       const SCALE = 1.3;
       const basePositions: THREE.Vector3[] = [];
       const sprites: THREE.Sprite[] = [];
@@ -264,7 +265,8 @@ export default function TechConstellation() {
       /* ─── Animate ─── */
       const animate = () => {
         frameRef.current = requestAnimationFrame(animate);
-        const t = clock.getElapsedTime();
+        timer.update();
+        const t = timer.getElapsed();
 
 
         // Float each node (slow 6-10s cycle, no spinning)

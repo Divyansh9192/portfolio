@@ -78,7 +78,7 @@ export const projects: Project[] = [
       body: "Vector-similarity brand checks ensure generated assets stay within a tenant's visual fingerprint across every generation, without human review.",
     },
     stack: ["FastAPI", "LangGraph", "Celery / RabbitMQ", "PostgreSQL + pgvector", "Redis", "Next.js", "Razorpay"],
-    links: { repo: "#" },
+    links: { repo: "https://github.com/Divyansh9192/Orchrez" },
     status: "In development",
     cardDiagram: {
       viewBox: "0 0 240 160",
@@ -181,7 +181,7 @@ export const projects: Project[] = [
       body: "Event-driven architecture means services never call each other directly — a new connection publishes to Kafka, feed and notifications consume it.",
     },
     stack: ["Spring Boot", "Apache Kafka", "Neo4j", "PostgreSQL", "Docker", "Kubernetes", "JWT"],
-    links: { repo: "#" },
+    links: { repo: "https://github.com/Divyansh9192/LinkedIn-Backend-System" },
     status: "Complete",
     cardDiagram: {
       viewBox: "0 0 240 170",
@@ -290,7 +290,7 @@ export const projects: Project[] = [
       body: "Payment confirmation is decoupled from checkout — a slow Stripe webhook can never block a booking from completing.",
     },
     stack: ["Spring Boot", "FastAPI", "React", "PostgreSQL", "Stripe"],
-    links: { live: "#" },
+    links: { repo: "https://github.com/Divyansh9192/NeonStays-Backend" , live: "https://neonstays.vercel.app" },
     status: "Live",
     cardDiagram: {
       viewBox: "0 0 230 160",
@@ -385,7 +385,7 @@ export const projects: Project[] = [
       body: "A sentence and a photo that mean the same thing end up as nearby vectors — Qdrant retrieves them faster than any linear scan.",
     },
     stack: ["PyTorch", "OpenCLIP", "Qdrant", "Streamlit", "Pillow"],
-    links: { repo: "#" },
+    links: { repo: "https://github.com/Divyansh9192/Project-Semages" },
     status: "Complete",
     cardDiagram: {
       viewBox: "0 0 230 160",
