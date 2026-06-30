@@ -1,8 +1,10 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, lazy, Suspense } from "react";
 import { profile } from "@/data/projects";
+
+const TechConstellation = lazy(() => import("./TechConstellation"));
 
 const container = {
   hidden: {},
@@ -24,9 +26,15 @@ export default function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <header id="about" ref={ref} className="relative pt-32 md:pt-40 pb-16 px-6 max-w-[980px] mx-auto overflow-hidden">
+    <header id="about" ref={ref} className="relative pt-32 md:pt-40 pb-16 overflow-hidden">
+      {/* Original text content — same max-w / indentation as rest of page */}
       <motion.div style={{ y, opacity }}>
-        <motion.div variants={container} initial="hidden" animate="show">
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="px-6 max-w-[980px] mx-auto relative z-10"
+        >
           <motion.h1
             variants={item}
             className="font-display font-extrabold text-[clamp(32px,5.5vw,52px)] leading-[1.15] text-white mb-3 tracking-tight text-balance"
@@ -96,6 +104,25 @@ export default function Hero() {
             </motion.a>
           </motion.div>
         </motion.div>
+      </motion.div>
+
+      {/* 3D Tech Constellation — fills right side of viewport */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.5, delay: 0.8 }}
+        className="absolute top-0 right-0 bottom-0 w-[50vw] hidden lg:block pointer-events-none"
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(251,186,39,0.04) 0%, transparent 70%)",
+          }}
+        />
+        <Suspense fallback={null}>
+          <TechConstellation />
+        </Suspense>
       </motion.div>
     </header>
   );
