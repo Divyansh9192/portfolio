@@ -32,12 +32,12 @@ export default function Footer() {
           className="flex items-center rounded-full mt-2"
           style={{ backgroundColor: "#2563EB" }}
         >
-          <span className="flex items-center gap-2 px-5 py-3 font-semibold text-white">
+          <span className="flex items-center gap-2 px-4 sm:px-5 py-3 font-semibold text-white text-sm sm:text-base break-all sm:break-normal">
             {profile.email}
           </span>
         </motion.a>
 
-        <div className="flex flex-wrap gap-3 mt-1">
+        <div className="flex flex-wrap justify-center gap-3 mt-1">
           <motion.a
             whileHover={{ scale: 1.04, borderColor: "#25D467" }}
             whileTap={{ scale: 0.96 }}
