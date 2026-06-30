@@ -4,7 +4,7 @@ import { useState, useCallback } from "react";
 import FloatingNav from "@/components/FloatingNav";
 import Hero from "@/components/Hero";
 import WorkSection from "@/components/WorkSection";
-import Timeline from "@/components/Timeline";
+// import Timeline from "@/components/Timeline";
 import Footer from "@/components/Footer";
 import CaseStudyOverlay from "@/components/CaseStudyOverlay";
 import ScrollProgress from "@/components/ScrollProgress";
@@ -30,7 +30,7 @@ export default function Home() {
 
       <div className="flex flex-col gap-22 pb-32">
         <WorkSection projects={projects} onOpen={openProject} />
-        <Timeline />
+        {/* <Timeline /> */}
         <Footer />
       </div>
 

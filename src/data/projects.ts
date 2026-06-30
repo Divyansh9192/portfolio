@@ -31,11 +31,20 @@ export type Stat = {
 };
 
 export type Project = {
+  id:number;
   slug: string;
   name: string;
+  image: string,
   tagline: string;
   flag?: string;
   description: string;
+  richDescription: string;
+  dates: string;
+  highlight: {
+    badge: string;
+    headline: string;
+    body: string;
+  };
   stack: string[];
   links: { repo?: string; live?: string };
   status: string;
@@ -53,12 +62,21 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    id: 1,
     slug: "orchrez",
     name: "Orchrez",
     tagline: "Multi-tenant AI marketing automation platform",
-    // flag: "hardest one",
+    flag: "hardest one",
+    image: "/images/orchrez.png",
     description:
       "Each tenant's brand identity — palette, tone, composition style, visual motifs — is encoded as structured \"brand DNA\" so AI-generated marketing assets stay on-brand without manual review. Async generation runs through Celery/RabbitMQ with LangGraph orchestrating multi-step agent pipelines, and Razorpay webhooks handle billing with idempotency to survive retries.",
+    richDescription: "Each tenant's **brand DNA — palette, tone, composition style, visual motifs** — is encoded as structured data so AI-generated marketing assets stay on-brand without manual review.",
+    dates: "2025 — Present",
+    highlight: {
+      badge: "Agent Architecture",
+      headline: "On-brand AI generation, every time.",
+      body: "Vector-similarity brand checks ensure generated assets stay within a tenant's visual fingerprint across every generation, without human review.",
+    },
     stack: ["FastAPI", "LangGraph", "Celery / RabbitMQ", "PostgreSQL + pgvector", "Redis", "Next.js", "Razorpay"],
     links: { repo: "#" },
     status: "In development",
@@ -148,11 +166,20 @@ export const projects: Project[] = [
     },
   },
   {
+    id: 2,
     slug: "linkedin-clone",
     name: "LinkedIn Clone",
     tagline: "6-microservice distributed system",
+    image: "/images/linkedin.png",
     description:
       "Auth, profile, feed, connections, messaging, and notifications split into independently deployable Spring Boot services, communicating over Kafka for event-driven consistency. Neo4j models the connection graph for recommendation queries that would be painful in a relational schema. Containerized with Docker, orchestrated on Kubernetes, secured with JWT.",
+    richDescription: "Auth, profile, feed, connections, messaging, and notifications split into **independently deployable Spring Boot services**, communicating over Kafka for event-driven consistency.",
+    dates: "2024",
+    highlight: {
+      badge: "Distributed Systems",
+      headline: "6 services. One coherent product.",
+      body: "Event-driven architecture means services never call each other directly — a new connection publishes to Kafka, feed and notifications consume it.",
+    },
     stack: ["Spring Boot", "Apache Kafka", "Neo4j", "PostgreSQL", "Docker", "Kubernetes", "JWT"],
     links: { repo: "#" },
     status: "Complete",
@@ -248,11 +275,20 @@ export const projects: Project[] = [
     },
   },
   {
+    id: 3,
     slug: "neonstays",
     name: "NeonStays",
-    tagline: "Hotel booking platform — deployed live",
+    tagline: "Hotel booking platform ",
+    image: "/images/neonstays.png",
     description:
       "Dual-backend architecture: Spring Boot handles bookings, auth, and the 25+ REST endpoint core, while a separate FastAPI service handles search. Stripe webhooks process payment confirmation asynchronously, decoupled from the booking flow so a slow payment provider can't block checkout.",
+    richDescription: "Booking and search run as **separate services with different scaling shapes** — Spring Boot owns the transactional core and 25+ REST endpoints, while FastAPI owns latency-sensitive search.",
+    dates: "2024 — Present",
+    highlight: {
+      badge: "Full-Stack · Deployed Live",
+      headline: "25+ endpoints. Live in production.",
+      body: "Payment confirmation is decoupled from checkout — a slow Stripe webhook can never block a booking from completing.",
+    },
     stack: ["Spring Boot", "FastAPI", "React", "PostgreSQL", "Stripe"],
     links: { live: "#" },
     status: "Live",
@@ -334,11 +370,20 @@ export const projects: Project[] = [
     },
   },
   {
+    id: 4,
     slug: "semages",
     name: "Semages",
     tagline: "Semantic image search",
+     image: "/images/semages.png",
     description:
       "Natural-language image retrieval without keyword tags. OpenCLIP encodes both query text and the image corpus into the same embedding space, and Qdrant runs the cosine-similarity search at retrieval time — so \"a dog running on a beach at sunset\" finds the right image even with zero matching metadata.",
+    richDescription: "Natural-language image retrieval with **zero tags, zero keywords, zero manual labeling** — OpenCLIP encodes both query text and images into the same shared embedding space.",
+    dates: "2024",
+    highlight: {
+      badge: "ML Infrastructure · Vector Search",
+      headline: "Search images in plain English.",
+      body: "A sentence and a photo that mean the same thing end up as nearby vectors — Qdrant retrieves them faster than any linear scan.",
+    },
     stack: ["PyTorch", "OpenCLIP", "Qdrant", "Streamlit", "Pillow"],
     links: { repo: "#" },
     status: "Complete",

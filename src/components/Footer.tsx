@@ -69,7 +69,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 font-mono text-xs text-text-faint">
-          © 2026 {profile.name}. Built from scratch, no template.
+          © 2026 {profile.name}
         </div>
       </motion.div>
     </footer>
