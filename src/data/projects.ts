@@ -71,7 +71,7 @@ export const projects: Project[] = [
     description:
       "Each tenant's brand identity — palette, tone, composition style, visual motifs — is encoded as structured \"brand DNA\" so AI-generated marketing assets stay on-brand without manual review. Async generation runs through Celery/RabbitMQ with LangGraph orchestrating multi-step agent pipelines, and Razorpay webhooks handle billing with idempotency to survive retries.",
     richDescription: "Each tenant's **brand DNA — palette, tone, composition style, visual motifs** — is encoded as structured data so AI-generated marketing assets stay on-brand without manual review.",
-    dates: "2025 — Present",
+    dates: "Apr 2026 — May 2026",
     highlight: {
       badge: "Agent Architecture",
       headline: "On-brand AI generation, every time.",
@@ -174,7 +174,7 @@ export const projects: Project[] = [
     description:
       "Auth, profile, feed, connections, messaging, and notifications split into independently deployable Spring Boot services, communicating over Kafka for event-driven consistency. Neo4j models the connection graph for recommendation queries that would be painful in a relational schema. Containerized with Docker, orchestrated on Kubernetes, secured with JWT.",
     richDescription: "Auth, profile, feed, connections, messaging, and notifications split into **independently deployable Spring Boot services**, communicating over Kafka for event-driven consistency.",
-    dates: "2024",
+    dates: "Jan 2026 — Feb 2026",
     highlight: {
       badge: "Distributed Systems",
       headline: "6 services. One coherent product.",
@@ -283,7 +283,7 @@ export const projects: Project[] = [
     description:
       "Dual-backend architecture: Spring Boot handles bookings, auth, and the 25+ REST endpoint core, while a separate FastAPI service handles search. Stripe webhooks process payment confirmation asynchronously, decoupled from the booking flow so a slow payment provider can't block checkout.",
     richDescription: "Booking and search run as **separate services with different scaling shapes** — Spring Boot owns the transactional core and 25+ REST endpoints, while FastAPI owns latency-sensitive search.",
-    dates: "2024 — Present",
+    dates: "Nov 2025 — Dec 2025",
     highlight: {
       badge: "Full-Stack · Deployed Live",
       headline: "25+ endpoints. Live in production.",
@@ -378,7 +378,7 @@ export const projects: Project[] = [
     description:
       "Natural-language image retrieval without keyword tags. OpenCLIP encodes both query text and the image corpus into the same embedding space, and Qdrant runs the cosine-similarity search at retrieval time — so \"a dog running on a beach at sunset\" finds the right image even with zero matching metadata.",
     richDescription: "Natural-language image retrieval with **zero tags, zero keywords, zero manual labeling** — OpenCLIP encodes both query text and images into the same shared embedding space.",
-    dates: "2024",
+    dates: "May 2026",
     highlight: {
       badge: "ML Infrastructure · Vector Search",
       headline: "Search images in plain English.",
