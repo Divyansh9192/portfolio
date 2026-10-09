@@ -39,13 +39,11 @@ export const metadata: Metadata = {
   description,
   applicationName: profile.name,
   authors: [{ name: profile.name, url: profile.links.github }],
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     siteName: profile.name,
     title: `${profile.name} · ${profile.role}`,
     description,
-    url: "/",
   },
   twitter: { card: "summary_large_image", title: `${profile.name} · ${profile.role}`, description },
 };

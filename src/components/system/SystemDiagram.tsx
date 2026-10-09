@@ -19,6 +19,12 @@ const KIND_LABEL: Record<NodeKind, string> = {
   ui: "frontend",
 };
 
+/** Layout options per size. Exported so callers can compute a diagram's natural width on the server. */
+export const DIAGRAM_LAYOUT = {
+  mini: { colGap: 40, rowGap: 12, nodeHeight: 30, minWidth: 74, maxWidth: 150, charWidth: 6.6, padding: 6 },
+  full: { colGap: 84, rowGap: 22 },
+} as const;
+
 const EDGE_STYLE: Record<ProtocolClass, { stroke: string; dash?: string }> = {
   sync: { stroke: "var(--sync)" },
   async: { stroke: "var(--async)", dash: "6 5" },
@@ -51,7 +57,7 @@ export function SystemDiagram({ graph, size = "full", title, className, highligh
       layoutGraph(
         graph.nodes.map((n) => ({ id: n.id, label: n.label, sublabel: mini ? undefined : n.tech })),
         graph.edges,
-        mini ? { colGap: 40, rowGap: 12, nodeHeight: 30, minWidth: 74, maxWidth: 150, charWidth: 6.6, padding: 6 } : { colGap: 84, rowGap: 22 },
+        mini ? DIAGRAM_LAYOUT.mini : DIAGRAM_LAYOUT.full,
       ),
     [graph, mini],
   );
@@ -77,8 +83,8 @@ export function SystemDiagram({ graph, size = "full", title, className, highligh
           viewBox={`0 0 ${layout.width} ${layout.height}`}
           width={layout.width}
           height={layout.height}
-          role="group"
-          aria-label={title}
+          role={mini ? "img" : "group"}
+          aria-label={mini ? `${title}: ${graph.nodes.map((n) => n.label).join(", ")}` : title}
           className={cn("block h-auto max-w-none", mini ? "w-full min-w-[420px]" : "w-full min-w-[640px]")}
           style={{ fontFamily: "var(--font-mono)" }}
         >
@@ -130,10 +136,11 @@ export function SystemDiagram({ graph, size = "full", title, className, highligh
                   transform={`translate(${p.x},${p.y})`}
                   opacity={on ? 1 : 0.35}
                   style={{ transition: "opacity 160ms", cursor: onNodeSelect ? "pointer" : "default", outline: "none" }}
-                  tabIndex={0}
-                  role="button"
-                  aria-label={`${n.label}, ${KIND_LABEL[n.kind]}, ${n.tech}${n.note ? `. ${n.note}` : ""}`}
-                  aria-pressed={isActive ? true : undefined}
+                  // Mini diagrams are pictures (one accessible name on the <svg>); only full diagrams are explorable by keyboard.
+                  tabIndex={mini ? undefined : 0}
+                  role={mini ? undefined : "button"}
+                  aria-label={mini ? undefined : `${n.label}, ${KIND_LABEL[n.kind]}, ${n.tech}${n.note ? `. ${n.note}` : ""}`}
+                  aria-pressed={!mini && isActive ? true : undefined}
                   onMouseEnter={() => setActive(p.id)}
                   onMouseLeave={() => setActive(null)}
                   onFocus={() => setActive(p.id)}

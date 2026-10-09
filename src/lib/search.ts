@@ -55,7 +55,9 @@ function stem(w: string): string {
   if (w.endsWith("ing") && w.length > 5) return w.slice(0, -3);
   if (w.endsWith("ed") && w.length > 4) return w.slice(0, -2);
   if (w.endsWith("es") && w.length > 4 && /(x|ch|sh|ss|zz)es$/.test(w)) return w.slice(0, -2);
-  if (w.endsWith("s") && !w.endsWith("ss") && w.length > 3) return w.slice(0, -1);
+  if (w.endsWith("s") && !w.endsWith("ss") && w.length > 3) w = w.slice(0, -1);
+  // Drop a final silent "e" so resume / resuming / resumed share one stem.
+  if (w.length > 4 && w.endsWith("e") && !w.endsWith("ee")) w = w.slice(0, -1);
   return w;
 }
 

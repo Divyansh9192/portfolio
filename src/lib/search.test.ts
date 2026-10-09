@@ -9,7 +9,10 @@ const docs: SearchDoc[] = [
 
 describe("tokenize", () => {
   it("drops stop words and stems plurals", () => {
-    expect(tokenize("The topics and the queues")).toEqual(["topic", "queue"]);
+    expect(tokenize("The topics and the queues")).toEqual(["topic", "queu"]);
+  });
+  it("gives resume, resumed and resuming one stem", () => {
+    expect(tokenize("resume resumed resuming")).toEqual(["resum", "resum", "resum"]);
   });
   it("keeps tech tokens like c++ and next.js", () => {
     expect(tokenize("C++ and Next.js")).toEqual(["c++", "next.js"]);

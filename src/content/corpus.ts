@@ -26,10 +26,16 @@ function buildCorpus(): SearchDoc[] {
       { id: `${p.slug}:decisions`, kind: "section", project: p.slug, title: `${p.name}: decisions and trade-offs`, url: `${base}#decisions`, text: p.caseStudy.decisions.map((d) => `${d.kind === "choice" ? "Choice" : "Trade-off"}: ${d.text}`).join(" ") },
       { id: `${p.slug}:result`, kind: "section", project: p.slug, title: `${p.name}: where it stands`, url: `${base}#result`, text: `${p.caseStudy.result} Next: ${p.caseStudy.nextSteps.join(" ")}` },
       { id: `${p.slug}:metrics`, kind: "section", project: p.slug, title: `${p.name}: numbers`, url: `${base}#metrics`, text: p.metrics.map((m) => `${m.value} ${m.label} (${m.source}).`).join(" ") },
-      ...p.facts.map((f, i) => ({ id: `${p.slug}:fact:${i}`, kind: "fact" as const, project: p.slug, title: `${p.name} fact`, url: `${base}#evidence`, text: `${f.claim} (source: ${f.evidence})` })),
+      ...p.facts.map((f, i) => ({ id: `${p.slug}:fact:${i}`, kind: "fact" as const, project: p.slug, title: `${p.name}: ${shortTitle(f.claim)}`, url: `${base}#evidence`, text: `${f.claim} (source: ${f.evidence})` })),
     );
   }
   return docs;
+}
+
+/** First few words of a claim, for a readable result title. */
+function shortTitle(claim: string, words = 7): string {
+  const parts = claim.replace(/[.;:]$/, "").split(/\s+/);
+  return parts.length > words ? `${parts.slice(0, words).join(" ")}…` : parts.join(" ");
 }
 
 export const corpus: SearchDoc[] = buildCorpus();
