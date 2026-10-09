@@ -363,6 +363,23 @@ describe("credit ledger", () => {
 });
 
 describe("SSE with Last-Event-ID", () => {
+  it("reconnecting to a finished run delivers one batch of at most 50, as events.py does", () => {
+    const s = sim({ requireApproval: false });
+    const id = start(s);
+    s.sseConnect(id);
+    s.advance(1000);
+    s.sseDisconnect();
+    const cursor = s.sse.cursor;
+    until(s, id, ["succeeded", "failed"]);
+    const missed = s.runEvents(id).filter((e) => e.id > cursor).length;
+    s.sseConnect(id, cursor);
+    s.advance(5000);
+    expect(s.sse.ended).not.toBeNull();
+    const delivered = s.sse.received.filter((r) => r.id > cursor).length;
+    expect(delivered).toBe(Math.min(missed, 50));
+    expect(s.sseLost().length).toBe(Math.max(0, missed - 50));
+  });
+
   it("a dropped connection loses nothing: reconnecting replays every event written meanwhile", () => {
     const s = sim({ requireApproval: true });
     const id = start(s);

@@ -8,14 +8,14 @@ const linkedin: Project = {
   name: "LinkedIn Clone",
   tagline: "Event-driven Spring Boot microservices",
   summary:
-    "A LinkedIn-style backend split into six Spring Boot services behind a Spring Cloud Gateway. Posts and connection requests publish to Kafka, a notification service consumes them, and the connection graph lives in Neo4j.",
-  headline: "6 services, 4 Kafka topics, 1 gateway that checks every token.",
+    "A LinkedIn-style backend of six Spring Boot services in Docker Compose: a Spring Cloud Gateway, a Eureka registry, and user, posts, connections and notification services. Posts and connection requests publish to Kafka, the notification service consumes them, and the connection graph lives in Neo4j.",
+  headline: "Four Kafka topics, a Neo4j graph and a gateway that checks every token.",
   period: { label: "Jan 2026 – Feb 2026", start: "2026-01", end: "2026-02" },
   status: "complete",
   stack: ["Java", "Spring Boot", "Spring Cloud Gateway", "Eureka", "Apache Kafka", "Neo4j", "PostgreSQL", "OpenFeign", "Docker Compose"],
   links: { repo: "https://github.com/Divyansh9192/LinkedIn-Backend-System" },
   repoBranch: "main",
-  image: { src: "/images/linkedin.png", alt: "LinkedIn clone feed screen on a desktop monitor", width: 1536, height: 1024 },
+  image: { src: "/images/linkedin.png", alt: "Illustrative mockup of a LinkedIn-style feed on a monitor (the project itself is backend-only)", width: 1536, height: 1024 },
   metrics: [
     { value: "6", label: "Spring Boot services in Docker Compose", source: "services defined in docker-compose.yml" },
     { value: "4 × 3", label: "Kafka topics × partitions", source: "NewTopic beans in both KafkaTopicConfig classes" },
@@ -78,6 +78,7 @@ const linkedin: Project = {
     result:
       "Six Spring Boot services, four Kafka topics and three PostgreSQL databases plus Neo4j, defined in Docker Compose and routed through Eureka and the gateway. It is the project I use to talk about service boundaries, identity at the edge and event delivery.",
     nextSteps: [
+      "Fix the accept check: it looks for a REQUESTED_TO edge from the current user to the other person, so today only the person who sent a request can accept it.",
       "Add retries and a dead-letter topic to the notification consumer so a poison event cannot be lost or block a partition.",
       "Remove the synchronous Feign call from the post-created consumer by carrying recipients in the event.",
       "Add container health checks so Compose starts the services in dependency order without manual restarts.",
@@ -109,17 +110,17 @@ const orchrez: Project = {
   summary:
     "A multi-tenant platform where LangGraph agents research a brand from its website, plan a month of content, write and illustrate every piece, wait for a human to approve, then publish. Runs are queued through RabbitMQ, checkpointed in PostgreSQL, streamed live over Server-Sent Events and paid for on a credit ledger.",
   headline: "Agent runs that pause for human approval and resume from a Postgres checkpoint.",
-  period: { label: "Apr 2026 – May 2026", start: "2026-04", end: "2026-05" },
+  period: { label: "Apr 2026 – present", start: "2026-04" },
   status: "in-development",
   stack: ["Python", "FastAPI", "LangGraph", "Celery", "RabbitMQ", "PostgreSQL", "pgvector", "Redis", "Server-Sent Events", "Next.js", "Razorpay", "Docker Compose"],
   links: { repo: "https://github.com/Divyansh9192/Orchrez" },
   repoBranch: "frontend",
-  image: { src: "/images/orchrez.png", alt: "Orchrez asset review and approval screen on a laptop", width: 2310, height: 1664 },
+  image: { src: "/images/orchrez.png", alt: "Illustrative mockup of an Orchrez asset-review screen on a laptop", width: 2310, height: 1664 },
   metrics: [
     { value: "445", label: "backend tests (295 unit, 150 integration)", source: "test functions counted in backend/tests" },
-    { value: "4 → 17 + 11", label: "LangGraph nodes: metagraph, research and execution subgraphs", source: "add_node calls in metagraph.py and both subgraph.py files" },
+    { value: "4 → 17 + 11", label: "LangGraph nodes: metagraph, research and execution subgraphs", source: "add_node calls in build_metagraph, build_research_graph and build_execution_graph" },
     { value: "33", label: "REST endpoints across 11 routers", source: "route decorators in backend/app/api/v1" },
-    { value: "5", label: "durable RabbitMQ queues, including a dead-letter queue", source: "task_queues in backend/app/core/celery_app.py" },
+    { value: "5", label: "durable RabbitMQ queues: default, content, research, high and dlq", source: "task_queues in backend/app/core/celery_app.py" },
   ],
   system: {
     nodes: [
@@ -162,20 +163,21 @@ const orchrez: Project = {
     ],
     constraints: [
       "Runs outlive processes. Workers restart and approvals take hours, so run state cannot live in memory.",
-      "Tenants share infrastructure. Every API route is scoped to the workspace in the caller's auth context.",
+      "Tenants share infrastructure. Every route that touches tenant data (28 of 33) is scoped to the workspace in the caller's auth context; health checks, plans and the two signed webhooks are public.",
       "Credits must be counted once. They are held when a run starts and settled when it ends, and Razorpay can deliver the same webhook more than once.",
       "People should watch progress as it happens, without the browser polling a dozen endpoints.",
     ],
     architecture:
-      "Starting a run inserts a workflow_runs row, places a credit hold on the ledger and enqueues conductor_task on RabbitMQ. A Celery worker (acks_late, prefetch 1) invokes a LangGraph metagraph with thread_id set to the run's id, so PostgresSaver checkpoints the run under that id; the subgraphs inherit the same checkpointer under their own namespaces. The metagraph routes load_run_context into a 17-node research subgraph (crawl, classify the business, extract positioning, audience, messaging and keywords, build the brand profile) and an 11-node execution subgraph (plan the content mix, generate the calendar, fan out one generator per entry with Send, generate images, approval gate, schedule, publish). persist_results then commits or releases the credits. The approval gate calls interrupt(), which parks the run in awaiting_approval; POST /approve flips it to resuming with a compare-and-set and re-enqueues the conductor with Command(resume=…). Workers write run events to Postgres and publish a wake-up on Redis. The dashboard follows them over Server-Sent Events, and the endpoint resumes from a Last-Event-ID cursor, so a client that reconnects catches up on what it missed.",
+      "Starting a run inserts a workflow_runs row, places a credit hold on the ledger (outside development mode) and enqueues conductor_task on RabbitMQ. A Celery worker (acks_late, prefetch 1) invokes a LangGraph metagraph with thread_id set to the run's id, so PostgresSaver checkpoints the run under that id; the subgraphs inherit the same checkpointer under their own namespaces. The metagraph routes load_run_context into a 17-node research subgraph (crawl, classify the business, extract positioning, audience, messaging and keywords, build the brand profile) and an 11-node execution subgraph (plan the content mix, generate the calendar, fan out one generator per entry with Send, generate images, approval gate, schedule, publish). persist_results then commits or releases the credits. The approval gate calls interrupt(), which parks the run in awaiting_approval; POST /approve flips it to resuming with a compare-and-set and re-enqueues the conductor with Command(resume=…). Workers write run events to Postgres and publish a wake-up on Redis. The dashboard follows them over Server-Sent Events, and the endpoint resumes from a Last-Event-ID cursor, so a client that reconnects while the run is going catches up on what it missed.",
     decisions: [
       { kind: "choice", text: "Use the run's database id as the LangGraph thread_id. One identifier ties together the queue message, the checkpoint history, the run events and the credit hold." },
       { kind: "choice", text: "Pause for approval with LangGraph's interrupt() instead of ending the run and starting a new one. The graph's own state stays the source of truth for what was generated and what is waiting." },
       { kind: "choice", text: "Guard approval with a compare-and-set from awaiting_approval to resuming. A double-click or a retried request gets a 409 instead of resuming the run twice." },
-      { kind: "choice", text: "Stream progress over Server-Sent Events that tail the run_events table, with Redis pub/sub used only as a wake-up. Events are durable in Postgres, so a client reconnecting with Last-Event-ID gets the events it missed." },
+      { kind: "choice", text: "Stream progress over Server-Sent Events that tail the run_events table, with Redis pub/sub used only as a wake-up. Events are durable in Postgres, so a client reconnecting with Last-Event-ID picks up from its cursor." },
       { kind: "choice", text: "Keep credits on a ledger: hold when a run starts, commit on success, release on failure. Razorpay webhooks are deduplicated by a UNIQUE event id, and top-ups by a UNIQUE payment id." },
       { kind: "tradeoff", text: "One conductor task runs the whole graph up to the approval interrupt, so a run has to reach that point inside Celery's 20-minute soft time limit. The code to split runs into per-phase tasks on the research and content queues exists but is not switched on yet." },
-      { kind: "tradeoff", text: "Tenant isolation is enforced in application code on every route rather than with Postgres row-level security. It is simpler to reason about, but it relies on every query carrying the workspace filter, so it depends on review and tests." },
+      { kind: "tradeoff", text: "Once a run has finished, the event stream sends one batch of at most 50 events and closes. A client that reconnects to a finished run after missing more than 50 never gets the rest; looping until the batch comes back empty before sending stream_end would fix it." },
+      { kind: "tradeoff", text: "Tenant isolation is enforced in application code on every tenant route rather than with Postgres row-level security. It is simpler to reason about, but it relies on every query carrying the workspace filter, so it depends on review and tests." },
     ],
     result:
       "The backend is built and tested: 445 test functions across unit and integration suites, 33 endpoints, three workflow types (full pipeline, research only, execution only), publishing to LinkedIn, WordPress and Mailchimp, and Razorpay billing on the credit ledger. The dashboard starts runs, streams their progress live and handles approvals. It is the project I point to first for agent orchestration, durable workflows and async pipelines.",
@@ -208,7 +210,7 @@ const orchrez: Project = {
     { claim: "A beat job, dlq_reaper, fails runs stuck in running for over 2 hours, records a dead_lettered event and releases their credits.", evidence: "backend/app/workers/tasks.py:367-419" },
     { claim: "Network and LLM steps in the research graph get up to 3 attempts with exponential backoff and jitter.", evidence: "backend/app/agents/research/subgraph.py:43-44" },
     { claim: "Agent memory lives in memory_blocks with a 1536-dimension pgvector column and an HNSW cosine index.", evidence: "backend/alembic/versions/0001_init.py:254-259" },
-    { claim: "A full pipeline run costs 10 credits, research only 3 and execution only 6.", evidence: "backend/app/api/v1/workflows.py:25-29" },
+    { claim: "A full pipeline run is priced at 10 credits, research only at 3 and execution only at 6 (placeholder prices in the code).", evidence: "backend/app/api/v1/workflows.py:24-29" },
   ],
   tags: ["ai agents", "langgraph", "multi-agent", "durable workflows", "human in the loop", "checkpoints", "celery", "rabbitmq", "sse", "billing", "ledger", "idempotency", "multi-tenant", "python"],
 };
@@ -218,17 +220,17 @@ const neonstays: Project = {
   name: "NeonStays",
   tagline: "Hotel booking backend",
   summary:
-    "A Spring Boot hotel booking API with inventory per room per night, row locks that stop two guests booking the last room, a decorator chain for dynamic pricing, and Stripe Checkout confirmed by a signed webhook.",
-  headline: "35 endpoints, and inventory locked per room per night so the last room can't be sold twice.",
+    "A Spring Boot hotel booking API with inventory per room per night, row locks that stop two concurrent reservations taking the last room, a decorator chain for dynamic pricing, and Stripe Checkout confirmed by a signed webhook.",
+  headline: "35 endpoints, and inventory locked per room per night so two guests can't both reserve the last room.",
   period: { label: "Nov 2025 – Dec 2025", start: "2025-11", end: "2025-12" },
   status: "live",
   stack: ["Java 17", "Spring Boot 3.5", "Spring Security", "PostgreSQL", "Stripe", "Google OAuth2", "Swagger", "Docker"],
   links: { repo: "https://github.com/Divyansh9192/NeonStays-Backend", live: "https://neonstays.vercel.app" },
   repoBranch: "main",
-  image: { src: "/images/neonstays.png", alt: "NeonStays landing page on a laptop", width: 1536, height: 1024 },
+  image: { src: "/images/neonstays.png", alt: "Mockup of the NeonStays landing page on a tablet", width: 1536, height: 1024 },
   metrics: [
     { value: "35", label: "REST endpoints across 10 controllers", source: "mapping annotations counted in the controller package" },
-    { value: "5", label: "pricing strategies chained as decorators", source: "classes in the strategy package" },
+    { value: "4", label: "pricing decorators chained on a base price", source: "decorator classes wired in PricingService" },
     { value: "10 min", label: "window to add guests and pay after reserving", source: "hasBookingExpired in BookingServiceImpl" },
   ],
   system: {
@@ -278,7 +280,7 @@ const neonstays: Project = {
       { kind: "choice", text: "Precompute prices hourly and keep a daily minimum price per hotel for search. Search reads one small table instead of pricing every room on every request." },
       { kind: "tradeoff", text: "Search shows prices the hourly job precomputed, so they can be up to an hour old. The booking itself is priced live when it is created, so the total at checkout can differ slightly from what search showed." },
       { kind: "choice", text: "Treat Stripe's signed webhook as the only proof of payment. The browser's redirect back to the site never confirms a booking." },
-      { kind: "tradeoff", text: "The webhook handler confirms without recording which Stripe events it has already processed, so a redelivered event is handled again. The lab for this project shows what that means and how storing event ids fixes it." },
+      { kind: "tradeoff", text: "The webhook handler confirms without recording which Stripe events it has already processed or checking the booking's status, so a redelivered event is handled again. It can re-confirm a cancelled booking and move another guest's hold to booked, so the lock protects concurrent reservations but not every path to an oversold night. The lab for this project shows each case and how storing event ids fixes it." },
     ],
     result:
       "The API has 35 endpoints across 10 controllers: sign-up and login with JWTs and a 7-day refresh cookie, Google sign-in, hotel and room management, inventory controls, search, booking and payments, documented with Swagger. The frontend is deployed at neonstays.vercel.app.",
@@ -305,7 +307,7 @@ const neonstays: Project = {
     { claim: "Urgency pricing multiplies the price by 1.25 for dates within the next 7 days.", evidence: "src/main/java/com/divyansh/airbnbapp/strategy/UrgencyPricingStrategy.java:21-23" },
     { claim: "Surge pricing multiplies by an admin-set surgeFactor stored on each inventory row.", evidence: "src/main/java/com/divyansh/airbnbapp/strategy/SurgePricingStrategy.java:16" },
     { claim: "Holiday pricing multiplies by 1.4; the holiday check is currently always true.", evidence: "src/main/java/com/divyansh/airbnbapp/strategy/HolidayPricingStrategy.java:17-21" },
-    { claim: "An hourly job reprices inventory for the next year, 100 hotels per page, and updates the HotelMinPrice table.", evidence: "src/main/java/com/divyansh/airbnbapp/service/PricingUpdateService.java:39-56" },
+    { claim: "An hourly job reprices inventory for the next year, 100 hotels per page, and updates the HotelMinPrice table.", evidence: "src/main/java/com/divyansh/airbnbapp/service/PricingUpdateService.java:39-63" },
     { claim: "Access tokens last 10 minutes and refresh tokens 7 days.", evidence: "src/main/java/com/divyansh/airbnbapp/security/JWTService.java:29-38" },
   ],
   tags: ["payments", "stripe", "webhooks", "idempotency", "booking", "inventory", "locking", "concurrency", "dynamic pricing", "decorator pattern", "spring boot", "java"],
@@ -362,7 +364,7 @@ const semages: Project = {
       { kind: "choice", text: "Use a pretrained CLIP model instead of training one. The goal was the retrieval system, not the model." },
       { kind: "choice", text: "Normalise every vector, for images and queries alike, so cosine similarity is a plain dot product and scores are comparable across queries." },
       { kind: "choice", text: "Move from an in-memory similarity matrix to Qdrant, so the index persists and search no longer needs every vector loaded in the app." },
-      { kind: "tradeoff", text: "Points get random ids, so indexing the same folder twice creates duplicates. Content-hash ids would make indexing idempotent." },
+      { kind: "tradeoff", text: "The images folder is re-indexed with fresh random ids every time the app starts, so after a restart the top two results are often the same photo twice. Content-hash ids would make indexing idempotent." },
       { kind: "tradeoff", text: "A general-purpose model knows nothing about a specific domain. For a narrow collection, a fine-tuned or domain model would rank better." },
     ],
     result:

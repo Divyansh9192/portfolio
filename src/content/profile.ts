@@ -7,7 +7,7 @@ export const profile: Profile = {
   role: "Backend & AI-agent engineer",
   pitch: "I build the systems behind the interface: event-driven services, durable agent workflows and the queues, ledgers and indexes that keep them honest.",
   about: [
-    "I'm a final-year Computer Science student at JSS Academy of Technical Education, Noida. Most of what I build lives behind an API: microservices that talk over Kafka, LangGraph workflows that survive restarts, payment flows that don't double-charge, and vector search that finds images by meaning.",
+    "I'm a final-year Computer Science student at JSS Academy of Technical Education, Noida. Most of what I build lives behind an API: microservices that talk over Kafka, LangGraph workflows that survive restarts, credit ledgers and signed payment webhooks, and vector search that finds images by meaning.",
     "I care about the parts that only show up under load or failure: retries, idempotency, isolation between tenants, and what a system does when a dependency is slow. This site is built the same way. It traces your request, exposes its own health, and answers to curl and to AI agents as well as browsers.",
   ],
   location: "Noida, India",

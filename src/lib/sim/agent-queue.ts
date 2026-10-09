@@ -796,12 +796,16 @@ export class AgentQueueSim {
     this.version++;
   }
 
-  /** Every run_events id for a run that the client has not received (should be empty after catch-up). */
+  /**
+   * Every run_events id the client has not received: gaps behind the cursor while streaming, plus,
+   * once the stream has closed with stream_end, every event it will now never deliver.
+   */
   sseLost(): number[] {
     const r = this.sse.runId;
     if (!r) return [];
     const got = new Set(this.sse.received.map((x) => x.id));
-    return this.events.filter((e) => e.runId === r && e.id <= this.sse.cursor && !got.has(e.id)).map((e) => e.id);
+    const closed = this.sse.ended !== null;
+    return this.events.filter((e) => e.runId === r && (closed || e.id <= this.sse.cursor) && !got.has(e.id)).map((e) => e.id);
   }
 
   /* ---------------- read helpers ---------------- */
@@ -1875,13 +1879,13 @@ export class AgentQueueSim {
       s.cursor = e.id;
     }
     if (s.received.length > 400) s.received.splice(0, s.received.length - 400);
+    // As in the code: once the run is terminal, the stream closes after this one batch (LIMIT 50),
+    // so a client that reconnects to a finished run with more than 50 events to catch up loses the rest.
     if (!run || TERMINAL_STATES.has(run.state)) {
-      if (batch.length < 50) {
-        s.ended = run ? run.state : "failed";
-        s.connected = false;
-        this.version++;
-        return;
-      }
+      s.ended = run ? run.state : "failed";
+      s.connected = false;
+      this.version++;
+      return;
     }
     this.sseToken++;
     this.heap.push(this.now + 500, { k: "sse", token: this.sseToken, via: "poll" });

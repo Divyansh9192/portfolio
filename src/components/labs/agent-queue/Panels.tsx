@@ -151,9 +151,10 @@ export function SsePanel({ sim, run, onChange, announce }: { sim: AgentQueueSim;
       </div>
       {s?.lastReconnect ? (
         <p className="text-[12.5px] leading-snug text-text-2">
-          Reconnected with <span className="font-mono">Last-Event-ID: {s.lastReconnect.from}</span>. The server re-read{" "}
-          <span className="tnum">{s.lastReconnect.replayed}</span> event{s.lastReconnect.replayed === 1 ? "" : "s"} written while the browser was away.
+          Reconnected with <span className="font-mono">Last-Event-ID: {s.lastReconnect.from}</span>.{" "}
+          <span className="tnum">{s.lastReconnect.replayed}</span> event{s.lastReconnect.replayed === 1 ? " was" : "s were"} written while the browser was away.
           Missing now: <span className={cn("tnum font-mono", lost ? "text-crit" : "text-ok")}>{lost}</span>.
+          {lost && s.ended ? " The run had already finished, so the server sent one batch of at most 50 and closed the stream with stream_end." : ""}
         </p>
       ) : s && !s.connected && s.disconnectedAt !== null ? (
         <p className="text-[12.5px] leading-snug text-text-2">

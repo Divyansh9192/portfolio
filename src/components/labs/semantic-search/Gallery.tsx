@@ -11,7 +11,7 @@ import { formatMs } from "./engine";
 import { Thumb } from "./SearchPanel";
 
 const GROUPS: { source: CorpusSource; title: string; note: string }[] = [
-  { source: "project", title: "Project images", note: "From this site's /images folder." },
+  { source: "project", title: "Project artwork", note: "Mockups and illustrations from this site's /images folder, not screenshots." },
   { source: "generated", title: "Generated samples", note: "Drawn on a canvas in your browser just now, so CLIP has simple scenes to tell apart." },
   { source: "yours", title: "Your photos", note: "" },
 ];
