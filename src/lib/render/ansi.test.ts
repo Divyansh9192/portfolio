@@ -93,6 +93,19 @@ describe("renderAnsi", () => {
     expect(res.body).toContain("/cv");
     for (const p of projects) expect(res.body).toContain(`/work/${p.slug}`);
   });
+
+  it("never echoes control characters from the requested path", () => {
+    const res = renderAnsiPage("/x%0a%1b%5b2J%1b%5d52%3bc%3bZXZpbA%3d%3d%07%c2%9b", { color: false, origin: ORIGIN });
+    expect(res.status).toBe(404);
+    const firstLine = res.body.split("\n")[0];
+    expect(firstLine).toBe("404 not found: /x[2J]52;c;ZXZpbA==");
+    expect(res.body).not.toMatch(/[\u0000-\u0009\u000b-\u001f\u007f-\u009f]/);
+  });
+
+  it("caps very long requested paths", () => {
+    const res = renderAnsiPage(`/${"a".repeat(5000)}`, { color: false, origin: ORIGIN });
+    expect(res.body.split("\n")[0].length).toBeLessThan(160);
+  });
 });
 
 describe("options", () => {

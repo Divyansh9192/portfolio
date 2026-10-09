@@ -83,9 +83,12 @@ export function createRateLimiter(opts: RateLimiterOptions): RateLimiter {
 }
 
 /**
- * Client IP from the first x-forwarded-for entry (the original client on Vercel and most
- * proxies), then x-real-ip. Returns "unknown" when neither is present, so all such
- * requests share one bucket rather than bypassing the limit.
+ * Client IP from the first x-forwarded-for entry, then x-real-ip. Returns "unknown" when
+ * neither is present, so all such requests share one bucket rather than bypassing the limit.
+ *
+ * Trusting the first entry is only safe where the edge overwrites x-forwarded-for, as Vercel
+ * does. Behind a proxy that appends to it (nginx `$proxy_add_x_forwarded_for`, Cloudflare),
+ * the first entry is client-controlled: read the hop your own proxy adds instead.
  */
 export function clientIp(headers: Headers): string {
   const xff = headers.get("x-forwarded-for");

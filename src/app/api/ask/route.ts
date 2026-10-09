@@ -25,7 +25,9 @@ export const maxDuration = 30;
 const MAX_BODY_BYTES = 2048;
 const PER_MINUTE = 8;
 const DAY_MS = 86_400_000;
-const LLM_DAILY_CAP = Math.max(0, Number.parseInt(process.env.ASK_LLM_DAILY_CAP ?? "", 10) || 300);
+const capSetting = Number.parseInt(process.env.ASK_LLM_DAILY_CAP ?? "", 10);
+// 0 is a valid cap (retrieval-only answers); unset or invalid falls back to 300.
+const LLM_DAILY_CAP = Number.isFinite(capSetting) && capSetting >= 0 ? capSetting : 300;
 
 const perIp = createRateLimiter({ capacity: PER_MINUTE, refill: PER_MINUTE, intervalMs: 60_000 });
 const llmBudget = createRateLimiter({ capacity: LLM_DAILY_CAP, refill: LLM_DAILY_CAP, intervalMs: DAY_MS, maxKeys: 1 });

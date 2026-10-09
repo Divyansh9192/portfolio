@@ -1,19 +1,22 @@
-import { markdownPaths, renderMarkdown } from "@/lib/render/markdown";
+import { renderMarkdown } from "@/lib/render/markdown";
 
 /**
  * Markdown twins. `src/proxy.ts` rewrites `<path>.md` and `Accept: text/markdown`
  * requests here (`/index.md` and `/` map to the home page).
- * Known pages are generated at build time; unknown paths render a markdown 404.
+ * Rendering is pure string work, so this runs per request: prerendering would also
+ * persist a cached 404 for every unknown path anyone asks for.
  */
-export function generateStaticParams() {
-  return markdownPaths().map((p) => ({ path: p === "/" ? [] : p.slice(1).split("/") }));
-}
+export const dynamic = "force-dynamic";
 
 export async function GET(_request: Request, { params }: { params: Promise<{ path?: string[] }> }) {
   const { path } = await params;
   const { status, body } = renderMarkdown(`/${(path ?? []).join("/")}`);
   return new Response(body, {
     status,
-    headers: { "Content-Type": "text/markdown; charset=utf-8", "X-Content-Type-Options": "nosniff" },
+    headers: {
+      "Content-Type": "text/markdown; charset=utf-8",
+      "X-Content-Type-Options": "nosniff",
+      "Cache-Control": status === 200 ? "public, max-age=300, s-maxage=86400, stale-while-revalidate=86400" : "no-store",
+    },
   });
 }

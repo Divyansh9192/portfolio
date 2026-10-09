@@ -485,8 +485,9 @@ function utf8Length(s: string): number {
 }
 
 function mentionsInitialize(parsed: unknown): boolean {
-  if (Array.isArray(parsed)) return parsed.some(mentionsInitialize);
-  return isRecord(parsed) && parsed.method === "initialize";
+  // One level only: a batch is a flat array, and recursing into arbitrary nesting overflows the stack.
+  const isInit = (m: unknown) => isRecord(m) && m.method === "initialize";
+  return Array.isArray(parsed) ? parsed.some(isInit) : isInit(parsed);
 }
 
 /** The whole Streamable HTTP endpoint as a pure function. */

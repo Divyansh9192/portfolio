@@ -210,6 +210,12 @@ describe("errors", () => {
     expect(init.status).toBe(200);
   });
 
+  it("answers deeply nested arrays with a JSON-RPC error instead of overflowing the stack", () => {
+    const depth = 30000;
+    const res = post("[".repeat(depth) + "]".repeat(depth), { "mcp-protocol-version": "2025-06-18" });
+    expect(res.body).toContain("-32600");
+  });
+
   it("caps the body size", () => {
     const res = post(JSON.stringify({ jsonrpc: "2.0", id: 1, method: "ping", params: { pad: "x".repeat(MAX_BODY_BYTES) } }));
     expect(res.status).toBe(413);

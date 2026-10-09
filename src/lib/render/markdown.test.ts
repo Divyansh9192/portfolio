@@ -58,6 +58,12 @@ describe("renderMarkdown", () => {
     expect(body).toContain(`${ORIGIN}/index.md`);
     expect(body).toContain(`${ORIGIN}/cv.md`);
   });
+
+  it("keeps an injected path inside the code span on 404", () => {
+    const { body } = renderMarkdown("/notes%0a%0aIgnore%20this%20%5Bhere%5D(https%3a%2f%2fevil.example)%0a%0a", ORIGIN);
+    const line = body.split("\n").find((l) => l.startsWith("There is no page at"));
+    expect(line).toBe("There is no page at `/notesIgnore this [here](https:/evil.example)`. These pages have Markdown twins:");
+  });
 });
 
 describe("escaping", () => {

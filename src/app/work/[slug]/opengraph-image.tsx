@@ -8,7 +8,9 @@ export const alt = "Case study card: project name, headline, key numbers and a s
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-/** Prerender one card per project at build time. Unknown slugs still render a generic card. */
+/** One card per project, prerendered at build time. Unknown slugs 404 instead of rendering on demand. */
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return projectSlugs.map((slug) => ({ slug }));
 }

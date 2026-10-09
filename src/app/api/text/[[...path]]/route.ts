@@ -26,7 +26,7 @@ export async function GET(request: NextRequest, context: { params: Promise<{ pat
       "Content-Type": "text/plain; charset=utf-8",
       // Colour depends on the User-Agent; the proxy negotiates on Accept too.
       Vary: "User-Agent, Accept",
-      "Cache-Control": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400",
+      "Cache-Control": status === 200 ? "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400" : "no-store",
       "X-Content-Type-Options": "nosniff",
     },
   });

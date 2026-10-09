@@ -16,7 +16,7 @@ import {
   type Project,
 } from "@/content";
 import { SITE_URL } from "@/lib/site";
-import { absUrl, mdUrl, normalizePath, pageEntries, statusLabel } from "./routes";
+import { absUrl, mdUrl, normalizePath, pageEntries, statusLabel, truncatePath } from "./routes";
 
 export interface RenderResult {
   status: number;
@@ -469,7 +469,7 @@ function renderNotFound(path: string, origin: string): string {
   return [
     "# 404 not found",
     "",
-    `There is no page at ${code(path)}. These pages have Markdown twins:`,
+    `There is no page at ${code(truncatePath(path))}. These pages have Markdown twins:`,
     "",
     bullets(pageEntries().map((e) => `${link(e.title, mdUrl(e.path, origin))}: ${code(e.path)}`)),
     "",

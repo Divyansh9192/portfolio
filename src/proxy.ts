@@ -18,6 +18,16 @@ export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
   const headers = request.headers;
 
+  // Malformed percent-encoding would otherwise surface as a 500 from route param decoding.
+  try {
+    decodeURIComponent(pathname);
+  } catch {
+    return new NextResponse("Bad Request: malformed percent-encoding in the path\n", {
+      status: 400,
+      headers: { "Content-Type": "text/plain; charset=utf-8", "x-request-id": requestId },
+    });
+  }
+
   const decision = negotiate(request.method, pathname, search, headers.get("accept"), headers.get("user-agent"));
   const response = decision.rewrite ? NextResponse.rewrite(new URL(decision.rewrite, request.url)) : NextResponse.next();
 

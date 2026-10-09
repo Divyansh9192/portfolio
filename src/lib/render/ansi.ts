@@ -5,7 +5,7 @@
  */
 import { achievements, education, getProject, labs, profile, projects, protocolClass, skills, type Project } from "@/content";
 import { SITE_URL } from "@/lib/site";
-import { absUrl, mdUrl, normalizePath, pageEntries, statusLabel } from "./routes";
+import { absUrl, mdUrl, normalizePath, pageEntries, statusLabel, truncatePath } from "./routes";
 
 export interface AnsiOptions {
   /** Emit SGR colour/weight codes. */
@@ -576,7 +576,7 @@ function renderColophon(o: Writer, origin: string): void {
 }
 
 function renderNotFound(o: Writer, path: string, origin: string): void {
-  o.push(o.paint("404 not found:", "bold", "red") + " " + path);
+  o.push(o.paint("404 not found:", "bold", "red") + " " + truncatePath(path));
   o.push();
   o.para("Valid paths:", { indent: 0 });
   o.kv(pageEntries().map((e) => ({ key: e.path, value: e.title })), { keyStyles: ["cyan"] });

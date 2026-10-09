@@ -63,9 +63,20 @@ export function hostOf(origin: string = SITE_URL): string {
   }
 }
 
+/** Remove C0/C1 control characters so a decoded path can't carry terminal escapes or line breaks. */
+function stripControls(s: string): string {
+  let out = "";
+  for (const ch of s) {
+    const c = ch.codePointAt(0) ?? 0;
+    if (c > 0x1f && (c < 0x7f || c > 0x9f)) out += ch;
+  }
+  return out;
+}
+
 /**
  * Normalise a requested path: drop query and hash, collapse slashes, drop a
  * trailing slash, a `.md`/`.txt` suffix and a trailing `/index`. "" and "/index" become "/".
+ * Control characters are removed after decoding, since 404 pages echo the path back.
  */
 export function normalizePath(raw: string | null | undefined): string {
   let p = (raw ?? "/").trim();
@@ -76,6 +87,7 @@ export function normalizePath(raw: string | null | undefined): string {
   } catch {
     // keep the raw path if it is not valid percent-encoding
   }
+  p = stripControls(p);
   if (!p.startsWith("/")) p = `/${p}`;
   p = p.replace(/\/{2,}/g, "/");
   p = p.replace(/\.(md|txt)$/i, "");
@@ -83,6 +95,11 @@ export function normalizePath(raw: string | null | undefined): string {
   if (p === "/index" || p === "") p = "/";
   else if (p.endsWith("/index")) p = p.slice(0, -"/index".length) || "/";
   return p;
+}
+
+/** Shorten a requested path before echoing it back on a 404. */
+export function truncatePath(path: string, max = 120): string {
+  return path.length > max ? `${path.slice(0, max - 1)}…` : path;
 }
 
 /** Find the page for a normalised path, if it exists. */
