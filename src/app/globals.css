@@ -1,70 +1,103 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: 'JetBrains Mono';
-  src: url('/fonts/JetBrainsMono.ttf') format('truetype');
-  font-weight: 100 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Inter';
-  src: url('/fonts/Inter.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  src: url('/fonts/Montserrat.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Caveat';
-  src: url('/fonts/Caveat.ttf') format('truetype');
-  font-weight: 400 700;
-  font-style: normal;
-  font-display: swap;
-}
+/*
+  Live System design tokens.
+  Dark-first "control room": graphite neutrals, hairline structure, mono data labels.
+  Colour carries meaning and nothing else:
+    --ok / --warn / --crit  are reserved for health state (never decoration, never a series colour)
+    --sync                  synchronous calls (HTTP, Feign, gRPC) — drawn solid
+    --async                 messages (Kafka, AMQP, webhooks)     — drawn dashed
+    data-store edges use --text-3 and are drawn dotted
+  The light theme is a "paper" reading mode with the same roles.
+*/
 
 :root {
-  --bg: #000000;
-  --surface: #0E0E0E;
-  --surface-2: #141414;
-  --hairline: #212121;
-  --text: #E8E8E8;
-  --text-dim: #8A8A8A;
-  --text-faint: #525252;
-  --green: #25D467;
-  --green-dim: #143820;
-  --teal: #5EEAD4;
-  --amber: #FBBA27;
-  --coral: #FB7481;
+  --bg: #0a0c0f;
+  --bg-raised: #0e1115;
+  --surface: #12161b;
+  --surface-2: #181d24;
+  --line: #1f252e;
+  --line-strong: #2d3541;
+  --text: #e7eaee;
+  --text-2: #a2aab7;
+  --text-3: #6b7381;
+  --ok: #3ddc84;
+  --ok-dim: rgb(61 220 132 / 0.14);
+  --warn: #f2b33d;
+  --warn-dim: rgb(242 179 61 / 0.14);
+  --crit: #ff5c5c;
+  --crit-dim: rgb(255 92 92 / 0.14);
+  --sync: #3987e5;
+  --sync-dim: rgb(57 135 229 / 0.16);
+  --async: #d55181;
+  --async-dim: rgb(213 81 129 / 0.16);
+  --link: #8fb6ff;
+  --focus: #8fb6ff;
+  --selection: rgb(57 135 229 / 0.35);
+  --grid: rgb(255 255 255 / 0.035);
+  --shadow: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 12px 32px -16px rgb(0 0 0 / 0.6);
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg: #f4f5f7;
+  --bg-raised: #eef0f3;
+  --surface: #ffffff;
+  --surface-2: #f7f8fa;
+  --line: #e1e4e9;
+  --line-strong: #cdd2da;
+  --text: #11151a;
+  --text-2: #4a5262;
+  --text-3: #788091;
+  --ok: #11805a;
+  --ok-dim: rgb(17 128 90 / 0.12);
+  --warn: #a36500;
+  --warn-dim: rgb(163 101 0 / 0.12);
+  --crit: #c8322f;
+  --crit-dim: rgb(200 50 47 / 0.1);
+  --sync: #2a78d6;
+  --sync-dim: rgb(42 120 214 / 0.12);
+  --async: #c2457a;
+  --async-dim: rgb(194 69 122 / 0.12);
+  --link: #1f5fc2;
+  --focus: #1f5fc2;
+  --selection: rgb(42 120 214 / 0.22);
+  --grid: rgb(0 0 0 / 0.04);
+  --shadow: 0 1px 2px rgb(16 24 40 / 0.04), 0 8px 24px -12px rgb(16 24 40 / 0.12);
+  color-scheme: light;
 }
 
 @theme inline {
   --color-bg: var(--bg);
+  --color-bg-raised: var(--bg-raised);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
-  --color-hairline: var(--hairline);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
   --color-text: var(--text);
-  --color-text-dim: var(--text-dim);
-  --color-text-faint: var(--text-faint);
-  --color-green: var(--green);
-  --color-green-dim: var(--green-dim);
-  --color-teal: var(--teal);
-  --color-amber: var(--amber);
-  --color-coral: var(--coral);
+  --color-text-2: var(--text-2);
+  --color-text-3: var(--text-3);
+  --color-ok: var(--ok);
+  --color-ok-dim: var(--ok-dim);
+  --color-warn: var(--warn);
+  --color-warn-dim: var(--warn-dim);
+  --color-crit: var(--crit);
+  --color-crit-dim: var(--crit-dim);
+  --color-sync: var(--sync);
+  --color-sync-dim: var(--sync-dim);
+  --color-async: var(--async);
+  --color-async-dim: var(--async-dim);
+  --color-link: var(--link);
 
-  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-display: 'Montserrat', var(--font-sans);
-  --font-hand: 'Caveat', cursive;
+  --font-display: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-plex), "Segoe UI", system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -72,95 +105,145 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  background: var(--bg);
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 4.5rem;
 }
 
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
 }
 
 ::selection {
-  background: var(--teal-dim);
-  color: var(--teal);
+  background: var(--selection);
+  color: var(--text);
 }
 
 :focus-visible {
-  outline: 2px solid var(--teal);
+  outline: 2px solid var(--focus);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-track {
-  background: var(--bg);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--hairline);
-  border-radius: 6px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--teal-dim);
+/* Tabular figures wherever numbers line up */
+.tnum {
+  font-variant-numeric: tabular-nums;
 }
 
-/* Hide native cursor on devices that support hover (desktop) for custom cursor */
-/* @media (hover: hover) and (pointer: fine) {
-  body {
-    cursor: none;
-  }
-  a, button, [role="button"] {
-    cursor: none;
-  }
-} */
+/* Hairline blueprint grid used behind hero / system surfaces */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
 
+/* Health LED with a calm pulse (disabled under reduced motion) */
+.led {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: currentColor;
+  box-shadow: 0 0 0 0 currentColor;
+}
+.led[data-pulse="true"] {
+  animation: led-pulse 2.4s var(--ease-out-quart) infinite;
+}
+@keyframes led-pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 45%, transparent); }
+  70% { box-shadow: 0 0 0 6px color-mix(in srgb, currentColor 0%, transparent); }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+/* Scrollbars */
+* {
+  scrollbar-color: var(--line-strong) transparent;
+  scrollbar-width: thin;
+}
+
+/* View transitions: a quiet crossfade by default; shared elements morph */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 220ms;
+  animation-timing-function: var(--ease-out-quart);
+}
+
+/* Incident mode: global hook other components react to (topology, LEDs, header) */
+:root[data-incident="on"] {
+  --ok: var(--crit);
+  --ok-dim: var(--crit-dim);
+}
+
+/* Reduced motion: honour the OS setting AND the in-site override (data-motion="reduce") */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  :root:not([data-motion="full"]) *,
+  :root:not([data-motion="full"]) *::before,
+  :root:not([data-motion="full"]) *::after {
     animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+  :root:not([data-motion="full"]) ::view-transition-group(*),
+  :root:not([data-motion="full"]) ::view-transition-old(*),
+  :root:not([data-motion="full"]) ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+:root[data-motion="reduce"] *,
+:root[data-motion="reduce"] *::before,
+:root[data-motion="reduce"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+:root[data-motion="reduce"] ::view-transition-group(*),
+:root[data-motion="reduce"] ::view-transition-old(*),
+:root[data-motion="reduce"] ::view-transition-new(*) {
+  animation: none !important;
 }
 
-.status-dot {
-  box-shadow: 0 0 0 0 rgba(251, 186, 39, 0.6);
-  animation: pulse 2.4s infinite;
-}
-
-@keyframes pulse {
-  0%   { box-shadow: 0 0 0 0 rgba(251, 186, 39, 0.45); }
-  70%  { box-shadow: 0 0 0 6px rgba(251, 186, 39, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(251, 186, 39, 0); }
-}
-
-@keyframes gradient-slide {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 300% 50%; }
-}
-
-.gradient-text {
-  background-image: linear-gradient(to right, #FBBA27, #FB7481, #FBBA27);
-  background-size: 300% 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  animation: gradient-slide 8s linear infinite;
-}
-
-.gradient-text-green {
-  background-image: linear-gradient(to right, #25D467, #5EEAD4, #25D467);
-  background-size: 300% 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  animation: gradient-slide 8s linear infinite;
-}
-
-.text-balance {
-  text-wrap: balance;
+/* Print: the CV and case studies print as clean paper */
+@media print {
+  :root {
+    --bg: #ffffff;
+    --bg-raised: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #ffffff;
+    --line: #dddddd;
+    --line-strong: #bbbbbb;
+    --text: #000000;
+    --text-2: #333333;
+    --text-3: #555555;
+    --link: #000000;
+    color-scheme: light;
+  }
+  [data-print="hide"] {
+    display: none !important;
+  }
 }
