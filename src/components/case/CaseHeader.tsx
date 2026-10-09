@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { ViewTransition } from "react";
-import { ArrowUpRight, FlaskConical } from "lucide-react";
+import { ArrowDown, ArrowUpRight, FlaskConical } from "lucide-react";
 import type { Project } from "@/content/types";
 import { buttonClass, MonoLabel, Tag } from "@/components/ui/primitives";
+import { MiniDiagram } from "@/components/home/shared";
 import { AskAgentButton } from "./AskAgentButton";
 import { ProjectStatus } from "./ProjectStatus";
 
@@ -12,7 +13,7 @@ import { ProjectStatus } from "./ProjectStatus";
  * then the headline and summary.
  */
 export function CaseHeader({ project }: { project: Project }) {
-  const { slug, name, tagline, status, period, links, lab, stack, headline, summary } = project;
+  const { slug, name, tagline, status, period, links, lab, stack, headline, summary, system } = project;
   return (
     <header data-arch="CaseHeader" data-arch-kind="server" className="pt-8 sm:pt-12">
       <nav aria-label="Breadcrumb" className="font-mono text-[12.5px] text-text-3">
@@ -47,6 +48,10 @@ export function CaseHeader({ project }: { project: Project }) {
       </div>
 
       <div className="mt-5 flex flex-wrap items-center gap-2" data-print="hide">
+        <Link href={`/labs/${lab.slug}`} className={buttonClass("primary", "min-h-10 px-3.5 py-2 text-[13.5px]")}>
+          <FlaskConical className="size-4" aria-hidden />
+          Open the lab
+        </Link>
         <a href={links.repo} target="_blank" rel="noopener noreferrer" className={buttonClass("secondary", "min-h-10 px-3 py-2 text-[13.5px]")}>
           Source on GitHub
           <ArrowUpRight className="size-4 text-text-3" aria-hidden />
@@ -59,10 +64,6 @@ export function CaseHeader({ project }: { project: Project }) {
             <span className="sr-only">(opens in a new tab)</span>
           </a>
         ) : null}
-        <Link href={`/labs/${lab.slug}`} className={buttonClass("secondary", "min-h-10 px-3 py-2 text-[13.5px]")}>
-          <FlaskConical className="size-4 text-text-3" aria-hidden />
-          Open the lab
-        </Link>
         <AskAgentButton question={`Tell me about ${name}'s architecture`} />
       </div>
 
@@ -82,6 +83,20 @@ export function CaseHeader({ project }: { project: Project }) {
           ))}
         </ul>
       </div>
+
+      {/* The system at a glance, in the first screen; the explorable version is in the Architecture section. */}
+      <figure className="mt-8 rounded-xl border border-line bg-surface p-3 sm:p-4" data-print="hide">
+        <MiniDiagram graph={system} title={`${name} architecture`} className="[&_svg]:mx-auto" />
+        <figcaption className="mt-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 font-mono text-[11.5px] text-text-3">
+          <span className="tnum">
+            {system.nodes.length} components · {system.edges.length} connections
+          </span>
+          <Link href="#architecture" className="inline-flex min-h-8 items-center gap-1 text-text-2 hover:text-text">
+            Explore the architecture
+            <ArrowDown className="size-3.5" aria-hidden />
+          </Link>
+        </figcaption>
+      </figure>
 
       <div className="mt-12 border-t border-line pt-10 sm:mt-14 sm:pt-12">
         <p className="max-w-[24ch] font-display text-[clamp(1.75rem,4.2vw,3rem)] font-bold leading-[1.08] tracking-[-0.015em] text-text [font-stretch:112%] [text-wrap:balance]">
