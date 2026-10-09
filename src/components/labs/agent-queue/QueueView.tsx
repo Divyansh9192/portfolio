@@ -84,7 +84,7 @@ export function QueueView({
             Burst ×10
           </Btn>
         </div>
-        <div className="mt-3 grid gap-x-6 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-3 grid grid-cols-[minmax(0,1fr)] gap-x-6 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
           <Slider
             label="Arrival rate"
             value={p.arrivalPerMin}
@@ -201,9 +201,9 @@ export function QueueView({
         <SubHead id={`${uid}-topology`} meta={`next dlq_reaper ${clockLabel(sim.nextReaperAt)}`}>
           Queue topology
         </SubHead>
-        <div className="mt-3 grid gap-3 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
+        <div className="mt-3 grid grid-cols-[minmax(0,1fr)] gap-3 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
           <div>
-            <p className="font-mono text-[11.5px] text-text-3">
+            <p className="font-mono text-[11.5px] text-text-3 [overflow-wrap:anywhere]">
               FastAPI · celery beat <span aria-hidden>⇢</span> RabbitMQ (AMQP, delivery_mode 2) <Cite at={CITE.queues}>celery_app.py</Cite>
             </p>
             <ul className="mt-2 flex flex-col gap-1.5">
@@ -243,7 +243,7 @@ export function QueueView({
             </ul>
           </div>
           <div>
-            <p className="font-mono text-[11.5px] text-text-3">
+            <p className="font-mono text-[11.5px] text-text-3 [overflow-wrap:anywhere]">
               celery worker --concurrency={p.concurrency} --prefetch-multiplier={CELERY.prefetchMultiplier} · acks_late · reject_on_worker_lost{" "}
               <Cite at={CITE.workerCommand}>compose</Cite>
             </p>
@@ -301,7 +301,7 @@ export function QueueView({
       </section>
 
       {/* Metrics */}
-      <section aria-labelledby={`${uid}-metrics`} className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+      <section aria-labelledby={`${uid}-metrics`} className="grid grid-cols-[minmax(0,1fr)] gap-3 md:grid-cols-2 xl:grid-cols-4">
         <h3 id={`${uid}-metrics`} className="sr-only">
           Metrics
         </h3>
@@ -320,7 +320,7 @@ export function QueueView({
           <SubHead meta={<Cite at={CITE.workflowState}>WorkflowState</Cite>}>Runs by state</SubHead>
           <ul className="mt-2 flex flex-col gap-1">
             {WORKFLOW_STATES.map((st) => (
-              <li key={st} className="grid grid-cols-[8.5rem_1fr_2.5rem] items-center gap-2">
+              <li key={st} className="grid grid-cols-[8.5rem_minmax(0,1fr)_2.5rem] items-center gap-2">
                 <StateBadge state={st} className="text-[11.5px]" />
                 <span className="h-1.5 rounded-full bg-line">
                   <span className="block h-full rounded-full bg-text-3" style={{ width: `${(counts[st] / maxCount) * 100}%` }} />
@@ -370,7 +370,7 @@ export function QueueView({
       {/* Retry layers */}
       <section aria-labelledby={`${uid}-retries`} className={card}>
         <SubHead id={`${uid}-retries`}>Two retry layers</SubHead>
-        <div className="mt-2 grid gap-3 md:grid-cols-2">
+        <div className="mt-2 grid grid-cols-[minmax(0,1fr)] gap-3 md:grid-cols-2">
           <div className="rounded-lg border border-line bg-bg/40 p-3">
             <p className="font-mono text-[12px] text-text">
               1 · LangGraph RetryPolicy, inside the graph <span className="tnum text-text-2">({sim.stats.graphRetries} retries)</span>
@@ -472,7 +472,7 @@ export function QueueView({
               .reverse()
               .slice(0, 30)
               .map((l, i) => (
-                <li key={`${l.at}-${i}`} className="grid grid-cols-[4.6rem_1fr] gap-2 py-0.5 text-[12px] leading-snug">
+                <li key={`${l.at}-${i}`} className="grid grid-cols-[4.6rem_minmax(0,1fr)] gap-2 py-0.5 text-[12px] leading-snug">
                   <span className="tnum font-mono text-text-3">{clockLabel(l.at)}</span>
                   <span className={l.tone === "crit" ? "text-crit" : l.tone === "warn" ? "text-warn" : l.tone === "ok" ? "text-ok" : "text-text-2"}>{l.text}</span>
                 </li>

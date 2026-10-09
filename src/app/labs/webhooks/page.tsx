@@ -116,7 +116,7 @@ export default function WebhooksLabPage() {
           </p>
           <ol className="mt-6 flex flex-col border-t border-line">
             {REAL.map((r, i) => (
-              <li key={i} className="grid gap-x-4 gap-y-1.5 border-b border-line py-4 sm:grid-cols-[2rem_1fr]">
+              <li key={i} className="grid gap-x-4 gap-y-1.5 border-b border-line py-4 sm:grid-cols-[2rem_minmax(0,1fr)]">
                 <span className="font-mono text-[12px] text-text-3 tnum">{String(i + 1).padStart(2, "0")}</span>
                 <div className="min-w-0">
                   <p className="text-[15px] leading-relaxed text-text">{r.claim}</p>

@@ -100,52 +100,55 @@
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-* {
-  box-sizing: border-box;
-}
+/* Element defaults live in the base layer so Tailwind utilities (e.g. text-* on links) always win. */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
 
-html {
-  background: var(--bg);
-  -webkit-text-size-adjust: 100%;
-  scroll-padding-top: 4.5rem;
-}
+  html {
+    background: var(--bg);
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 4.5rem;
+  }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-sans);
-  font-size: 1rem;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  overflow-x: clip;
-}
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
 
-h1,
-h2,
-h3,
-h4 {
-  text-wrap: balance;
-}
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
 
-p {
-  text-wrap: pretty;
-}
+  p {
+    text-wrap: pretty;
+  }
 
-a {
-  color: inherit;
-}
+  a {
+    color: inherit;
+  }
 
-::selection {
-  background: var(--selection);
-  color: var(--text);
-}
+  ::selection {
+    background: var(--selection);
+    color: var(--text);
+  }
 
-:focus-visible {
-  outline: 2px solid var(--focus);
-  outline-offset: 3px;
-  border-radius: 4px;
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
 }
 
 /* Tabular figures wherever numbers line up */

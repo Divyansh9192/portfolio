@@ -255,7 +255,7 @@ export function ArchitectureOverlay({ on, onClose }: { on: boolean; onClose: () 
               <div>
                 <h3 className="font-mono text-[11.5px] uppercase tracking-[0.1em] text-text-3">This page&apos;s request</h3>
                 {nav ? (
-                  <dl className="tnum mt-2 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 font-mono text-[12px]">
+                  <dl className="tnum mt-2 grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-1 font-mono text-[12px]">
                     <dt className="text-text-3">request id</dt>
                     <dd className="truncate text-text">{nav.reqid ?? "unknown"}</dd>
                     <dt className="text-text-3">region</dt>

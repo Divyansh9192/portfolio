@@ -7,7 +7,7 @@ import { MotionToggle } from "./MotionToggle";
 export function SiteFooter() {
   return (
     <footer data-arch="SiteFooter" data-arch-kind="server" className="mt-24 border-t border-line" data-print="hide">
-      <Container wide className="grid gap-10 py-12 sm:grid-cols-[1.4fr_1fr_1fr]">
+      <Container wide className="grid gap-10 py-12 sm:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)]">
         <div className="flex flex-col gap-3">
           <MonoLabel as="p">Contact</MonoLabel>
           <p className="max-w-[44ch] text-text-2">{profile.availability}</p>

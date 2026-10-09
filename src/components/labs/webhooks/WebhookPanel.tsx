@@ -232,7 +232,7 @@ export function WebhookPanel({ compact }: { compact: boolean }) {
 
       <LatestResult entry={last} />
 
-      <div className="grid gap-4 @3xl:grid-cols-2">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-4 @3xl:grid-cols-2">
         <div className="flex flex-col gap-2">
           <MonoTitle>Inventory rows (totalCount {world.rows[0].totalCount})</MonoTitle>
           <InventoryTable rows={world.rows} caption="Inventory rows for booking 101's nights" />

@@ -162,7 +162,7 @@ export function RacePanel({ compact }: { compact: boolean }) {
       </div>
 
       <section aria-label="Transaction timeline">
-        <div className="grid grid-cols-[1.75rem_1fr_1fr] gap-x-2 border-b border-line pb-1.5">
+        <div className="grid grid-cols-[1.75rem_minmax(0,1fr)_minmax(0,1fr)] gap-x-2 border-b border-line pb-1.5">
           <span aria-hidden />
           {(["A", "B"] as TxId[]).map((t) => (
             <div key={t} className="min-w-0">
@@ -176,7 +176,7 @@ export function RacePanel({ compact }: { compact: boolean }) {
         ) : (
           <ol className="flex flex-col">
             {race.events.map((e) => (
-              <li key={e.seq} className="grid grid-cols-[1.75rem_1fr_1fr] gap-x-2 border-b border-line/60 py-1">
+              <li key={e.seq} className="grid grid-cols-[1.75rem_minmax(0,1fr)_minmax(0,1fr)] gap-x-2 border-b border-line/60 py-1">
                 <span className="pt-1.5 font-mono text-[11px] text-text-3 tnum">{e.seq}</span>
                 {(["A", "B"] as TxId[]).map((t) =>
                   e.tx === t ? (
@@ -192,7 +192,7 @@ export function RacePanel({ compact }: { compact: boolean }) {
           </ol>
         )}
         {(["A", "B"] as TxId[]).some((t) => race.tx[t].http) ? (
-          <div className="mt-2 grid grid-cols-[1.75rem_1fr_1fr] gap-x-2">
+          <div className="mt-2 grid grid-cols-[1.75rem_minmax(0,1fr)_minmax(0,1fr)] gap-x-2">
             <span aria-hidden />
             {(["A", "B"] as TxId[]).map((t) => {
               const h = race.tx[t].http;

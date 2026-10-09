@@ -1,9 +1,8 @@
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { getProject, profile, projectSlugs } from "@/content";
 import type { Project } from "@/content/types";
 import { STATUS_LABEL, archStrip } from "@/components/case/case-utils";
+import { OG_FONT, loadOgFonts } from "../../_og-fonts/load";
 
 export const alt = "Case study card: project name, headline, key numbers and a simplified architecture";
 export const size = { width: 1200, height: 630 };
@@ -28,27 +27,13 @@ const C = {
   text3: "#6b7381",
 } as const;
 
-type FontSpec = { name: string; data: Buffer; weight: 400; style: "normal" };
-
-async function loadFonts(): Promise<FontSpec[] | null> {
-  try {
-    const dir = join(process.cwd(), "public", "fonts");
-    const [sans, mono] = await Promise.all([readFile(join(dir, "Inter.ttf")), readFile(join(dir, "JetBrainsMono.ttf"))]);
-    return [
-      { name: "Inter", data: sans, weight: 400, style: "normal" },
-      { name: "JetBrains Mono", data: mono, weight: 400, style: "normal" },
-    ];
-  } catch {
-    return null;
-  }
-}
-
 function Card({ project, custom }: { project?: Project; custom: boolean }) {
   // Satori chokes on `fontFamily: undefined`, so only set it when custom fonts loaded.
-  const sans = custom ? { fontFamily: "Inter" } : {};
-  const mono = custom ? { fontFamily: "JetBrains Mono" } : {};
+  const display = custom ? { fontFamily: OG_FONT.display } : {};
+  const sans = custom ? { fontFamily: OG_FONT.sans } : {};
+  const mono = custom ? { fontFamily: OG_FONT.mono } : {};
   const name = project?.name ?? "Work";
-  const nameSize = name.length > 16 ? 76 : 92;
+  const nameSize = name.length > 12 ? 72 : 88;
   const headline = project?.headline ?? profile.pitch;
   const metrics = project?.metrics.slice(0, 3) ?? [];
   const strip = project ? archStrip(project.system, 8, 2) : [];
@@ -77,7 +62,7 @@ function Card({ project, custom }: { project?: Project; custom: boolean }) {
       </div>
 
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <div style={{ display: "flex", fontSize: nameSize, lineHeight: 1, letterSpacing: -3, color: C.text }}>{name}</div>
+        <div style={{ display: "flex", ...display, fontSize: nameSize, lineHeight: 1, letterSpacing: -2, color: C.text }}>{name}</div>
         <div style={{ display: "flex", marginTop: 16, fontSize: 29, lineHeight: 1.3, color: C.text2, maxWidth: 1040 }}>{headline}</div>
       </div>
 
@@ -96,7 +81,7 @@ function Card({ project, custom }: { project?: Project; custom: boolean }) {
                 borderLeft: i === 0 ? "none" : `1px solid ${C.line}`,
               }}
             >
-              <div style={{ display: "flex", fontSize: 38, lineHeight: 1, color: C.text, letterSpacing: -1 }}>{m.value}</div>
+              <div style={{ display: "flex", ...display, fontSize: 36, lineHeight: 1, color: C.text, letterSpacing: -1 }}>{m.value}</div>
               <div style={{ display: "flex", marginTop: 8, fontSize: 17, lineHeight: 1.3, color: C.text3 }}>{m.label}</div>
             </div>
           ))}
@@ -144,10 +129,9 @@ export default async function Image({ params }: { params: Promise<{ slug: string
     project = undefined;
   }
 
-  // The bundled TTFs are variable fonts, which Satori cannot parse ("reading '256'").
-  // Try them anyway (static instances dropped into public/fonts will just work), and fall
-  // back to next/og's default font so the card never fails to render.
-  const fonts = await loadFonts();
+  // Render with the site's typefaces, and fall back to next/og's default font so the card
+  // never fails to render.
+  const fonts = await loadOgFonts();
   if (fonts) {
     try {
       const res = new ImageResponse(<Card project={project} custom />, { ...size, fonts });

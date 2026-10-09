@@ -73,7 +73,7 @@ export default function LabsPage() {
         <ol className="border-t border-line">
           {labs.map((lab, i) => (
             <li key={lab.slug} className="group relative border-b border-line transition-colors hover:bg-surface">
-              <div className="grid gap-x-6 gap-y-2 px-1 py-6 sm:grid-cols-[3rem_1fr_auto] sm:px-3">
+              <div className="grid gap-x-6 gap-y-2 px-1 py-6 sm:grid-cols-[3rem_minmax(0,1fr)_auto] sm:px-3">
                 <MonoLabel className="tnum pt-1 text-[12px]">{String(i + 1).padStart(2, "0")}</MonoLabel>
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-2">

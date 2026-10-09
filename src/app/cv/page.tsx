@@ -142,7 +142,7 @@ export default function CvPage() {
               </CvSection>
 
               <CvSection id="skills" title="Skills" arch="CvSkills">
-                <dl className="grid gap-x-6 gap-y-1.5 text-[14px] sm:grid-cols-[minmax(8.5rem,auto)_1fr]">
+                <dl className="grid gap-x-6 gap-y-1.5 text-[14px] sm:grid-cols-[minmax(8.5rem,auto)_minmax(0,1fr)]">
                   {skills.map((g) => (
                     <div key={g.label} className="cv-row contents">
                       <dt className="pt-px font-mono text-[12px] text-text-3 sm:pt-0.5">{g.label}</dt>

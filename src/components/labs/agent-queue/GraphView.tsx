@@ -237,7 +237,7 @@ export function GraphView({
         </div>
       </section>
 
-      <div className="grid gap-4 xl:grid-cols-[auto_minmax(0,1fr)]">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-4 xl:grid-cols-[auto_minmax(0,1fr)]">
         <section aria-labelledby={`${ids}-meta`} className={card}>
           <SubHead id={`${ids}-meta`} meta={<Cite at={CITE.metagraphNodes}>metagraph.py</Cite>}>
             Metagraph
@@ -296,7 +296,7 @@ export function GraphView({
         </section>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-4 lg:grid-cols-2">
         <section aria-labelledby={`${ids}-appr`} className={card}>
           <SubHead id={`${ids}-appr`} meta={run.state === "awaiting_approval" ? "waiting for you" : undefined}>
             Approval gate

@@ -19,7 +19,7 @@ function LabPlaceholder({ title = "the lab" }: { title?: string }) {
       <p className="font-mono text-[12px] text-text-3">Loading {title}…</p>
       <div aria-hidden className="flex flex-1 flex-col gap-3">
         <div className="h-9 w-2/3 rounded-md bg-surface-2" />
-        <div className="grid flex-1 grid-cols-1 gap-3 sm:grid-cols-[2fr_1fr]">
+        <div className="grid flex-1 grid-cols-1 gap-3 sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
           <div className="rounded-lg bg-surface-2" />
           <div className="hidden rounded-lg bg-surface-2 sm:block" />
         </div>

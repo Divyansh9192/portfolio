@@ -88,7 +88,7 @@ export default function AgentQueueLabPage() {
           <MonoLabel as="p">Things to try</MonoLabel>
           <ol className="mt-3 flex flex-col gap-2.5">
             {TRY.map((t, i) => (
-              <li key={t} className="grid grid-cols-[1.5rem_1fr] text-[14.5px] leading-snug text-text-2">
+              <li key={t} className="grid grid-cols-[1.5rem_minmax(0,1fr)] text-[14.5px] leading-snug text-text-2">
                 <span className="tnum font-mono text-[12px] text-text-3">{String(i + 1).padStart(2, "0")}</span>
                 <span>{t}</span>
               </li>

@@ -36,7 +36,7 @@ export function RealVsSimulated() {
           ›
         </span>
       </summary>
-      <div className="grid gap-6 border-t border-line px-4 py-4 md:grid-cols-2">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-6 border-t border-line px-4 py-4 md:grid-cols-2">
         <div>
           <h3 className="font-mono text-[11.5px] uppercase tracking-[0.1em] text-text-3">Taken from the code</h3>
           <ul className="mt-2 flex flex-col gap-2.5">

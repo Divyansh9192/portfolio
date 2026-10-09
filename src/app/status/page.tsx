@@ -160,7 +160,7 @@ export default async function StatusPage() {
           <h2 id="legend-title" className="font-display text-xl font-bold text-text [font-stretch:112%]">
             Legend
           </h2>
-          <dl className="mt-4 grid gap-3 text-[14px] sm:grid-cols-[auto_1fr] sm:gap-x-5">
+          <dl className="mt-4 grid gap-3 text-[14px] sm:grid-cols-[auto_minmax(0,1fr)] sm:gap-x-5">
             {(
               [
                 ["ok", "Healthy", `Answered with 2xx or 3xx in under ${HEALTH_POLICY.slowMs} ms.`],

@@ -310,7 +310,7 @@ export function RunLogPanel({ run, className }: { run: Run; className?: string }
   return (
     <ol className={cn(box, "max-h-64 overflow-y-auto px-2 py-1.5", className)} aria-label={`Log for run ${run.short}, newest first`}>
       {lines.map((l, i) => (
-        <li key={`${l.at}-${i}`} className="grid grid-cols-[4.6rem_1fr] gap-2 py-0.5 text-[12px] leading-snug">
+        <li key={`${l.at}-${i}`} className="grid grid-cols-[4.6rem_minmax(0,1fr)] gap-2 py-0.5 text-[12px] leading-snug">
           <span className="tnum font-mono text-text-3">{clockLabel(l.at)}</span>
           <span className={TONE[l.tone]}>{l.text}</span>
         </li>

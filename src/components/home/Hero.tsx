@@ -91,19 +91,22 @@ export function Hero() {
             </ButtonLink>
           </div>
 
-          <p className="mt-4 text-[13.5px] leading-6 text-text-3">
+          <p className="mt-4 flex flex-wrap items-center gap-x-1 text-[13.5px] leading-6 text-text-3">
             <OperatorButton
               event="open"
-              className="-mx-1 inline-flex min-h-10 items-center gap-1 rounded-md px-1 align-middle text-text-2 hover:text-text"
+              className="-mx-1 inline-flex min-h-10 items-center gap-1 rounded-md px-1 text-text-2 hover:text-text"
             >
-              Press <Kbd>⌘</Kbd>
-              <Kbd>K</Kbd> to run a command
+              <span className="inline-flex items-center gap-1 pointer-coarse:hidden">
+                Press <Kbd>⌘</Kbd>
+                <Kbd>K</Kbd> to run a command
+              </span>
+              <span className="hidden pointer-coarse:inline">Open the command shell</span>
             </OperatorButton>
-            , or{" "}
+            <span className="-ml-1">, or</span>
             <a href="#talk" className="underline decoration-line-strong underline-offset-4 hover:text-text-2 hover:decoration-text-3">
               <code className="font-mono text-[12.5px] text-text-2">curl</code> this domain
             </a>
-            .
+            <span className="-ml-1">.</span>
           </p>
 
           {stats.length ? (

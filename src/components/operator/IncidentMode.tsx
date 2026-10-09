@@ -110,7 +110,7 @@ export function IncidentMode({ on, run, onDismiss }: { on: boolean; run: number;
           <p className="text-[13px] leading-snug text-text-2">{script.simulationNote}</p>
           <ol className="mt-3 space-y-2 font-mono text-[12px] leading-snug">
             {steps.map((s) => (
-              <li key={s.at} className="grid grid-cols-[2.75rem_1fr] gap-2">
+              <li key={s.at} className="grid grid-cols-[2.75rem_minmax(0,1fr)] gap-2">
                 <span className="tnum text-text-3">+{pad(s.at)}s</span>
                 <span>
                   <span className={PHASE_TONE[s.phase]}>{s.phase}</span> <span className="text-text-2">{s.text}</span>
