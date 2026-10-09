@@ -1,0 +1,3029 @@
+[
+ {
+  "n": "Bruno Simon — Folio 2025",
+  "u": "https://bruno-simon.com",
+  "c": "Drive a tiny car around an island world; full rebuild of the 2019 classic",
+  "t": "three.js WebGPURenderer + TSL, Rapier physics, Blender-name-driven level editing, KTX2 via glTF-Transform, WebSocket game server (msgpack, reconnect, offline CSS state)",
+  "s": "Put a real backend inside the toy, and design the 'server offline' state as carefully as the online one",
+  "o": "Awwwards SOTD + DEV + Site of the Month (Jan 2026); MIT open source",
+  "e": "gh",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Bruno Simon — My Room in 3D",
+  "u": "https://my-room-in-3d.vercel.app",
+  "c": "Cozy desk room, the Three.js Journey capstone",
+  "t": "Fully baked Blender lighting; forks blend day/night lightmaps in a shader",
+  "s": "Bake once, switch moods with one uniform — e.g. a red 'incident mode' driven by real health checks",
+  "o": "4.5k★ repo",
+  "e": "gh",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Henry Heffernan",
+  "u": "https://henryheffernan.com",
+  "c": "3D 90s desk — zoom into the CRT and use a working Win95-style OS holding his projects",
+  "t": "three.js room + separate React OS app in an iframe mapped onto the screen via CSS3DRenderer",
+  "s": "3D only as a frame; the content stays a real, crawlable 2D app",
+  "o": "Show HN 2022; built for his job search; heavily forked",
+  "e": "gh",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Edward Hinrichsen (edh.dev)",
+  "u": "https://edh.dev",
+  "c": "Retro computer whose screen runs a tiny hand-written UNIX",
+  "t": "TypeScript + three.js shaders; own shell, file system, markdown renderer and text layout engine",
+  "s": "The wow is systems work, not art — a shell you wrote yourself, with `ls ~/projects` and `cat orchrez.md`",
+  "o": "437★",
+  "e": "gh",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Jesse Zhou",
+  "u": "https://jesse-zhou.com",
+  "c": "Stylised ramen-shop diorama",
+  "t": "Blender scene rendered in three.js, static hosting",
+  "s": "One coherent diorama beats a sprawling world",
+  "o": "Awards + several job offers; moved from consulting into SWE",
+  "e": "search",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Robin Payot",
+  "u": "https://robinpayot.com",
+  "c": "Wind-Waker-style archipelago of 6 islands",
+  "t": "LOD per island, day/night + weather, fake buoyancy, mini-game; later TSL/WebGPU work",
+  "s": "6 microservices as islands, Kafka topics as shipping lanes",
+  "o": "Awwwards Portfolio 2022 SOTD nominee",
+  "e": "search",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Jordan Breton",
+  "u": "https://jordan-breton.com",
+  "c": "Floating sky island with grass, waterfall, fire, wind, butterflies",
+  "t": "three.js; camera hops between fixed viewpoints rather than free roam",
+  "s": "Fixed viewpoints = no fiddly controls, no motion sickness; persona is a full-stack SaaS engineer who also does 3D",
+  "o": "FWA SOTD (Oct 2025)",
+  "e": "search",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Samsy (Samuel Honigstein)",
+  "u": "https://samsy.ninja",
+  "c": "Multiplayer neon cyberpunk city — visitors roam as avatars",
+  "t": "WebGPU-first + WebGL2 fallback, TSL, Draco in a Worker, instanced city, PartyKit room with lerped remote players, scene state machine",
+  "s": "Other live visitors prove you can build realtime infrastructure",
+  "e": "search",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Xianyao Wei — Weisdevice",
+  "u": "https://weisdevice.xyz",
+  "c": "Lonely glitchy island with a malfunctioning robot; 2D + 3D + sound",
+  "t": "three.js + GLSL + Howler + GSAP; raycasting throttled to 30fps; render loop pauses under overlays",
+  "s": "Treat the frame budget like an SLO",
+  "o": "Codrops feature (Oct 2025)",
+  "e": "search",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Mathis Biabiany (new portfolio)",
+  "u": "https://discourse.threejs.org/t/mathis-biabiany-new-portfolio/93340",
+  "c": "Series of scenes, each with its own art direction",
+  "t": "WebGPU + TSL, GPU-tiering, MSDF text in WebGL, Nuxt 4 SSG, Prismic, Cloudflare R2",
+  "s": "Publish an 'architecture of this site' page — infra choices are part of the story",
+  "e": "search",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Tomasz 'ITom' Szmajda",
+  "u": "https://itomdev.com",
+  "c": "Endless corridor of rooms; 'a 3D portfolio without a single 3D model'",
+  "t": "React 19 + R3F 9 + Vite; gl.compileAsync warm-up; baked textures; device tiering by deviceMemory; sr-only DOM copy for SEO",
+  "s": "His README is a production checklist for exactly Divyansh's React stack",
+  "o": "Codrops (Jun 2026)",
+  "e": "gh",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Aurélien Vigne — Aurel's Grand Theater",
+  "u": "https://aurelienvigne.com",
+  "c": "Explorable theater where mysteries unlock secret pages",
+  "t": "three.js + cannon-es + Vue + GSAP + Blender; ~1 year build",
+  "s": "Hide an engineering puzzle ('fix the race condition') that unlocks a deep-dive",
+  "e": "search",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Andrii Babintsev — Interactive Workspace",
+  "u": "https://www.andriibabintsev.com",
+  "c": "His real desk in 3D with 14 interactive objects + a physics mini-game",
+  "t": "three.js + cannon-es; Theatre.js intro; PDF.js résumé in-scene; Tweakpane panel with FPS meter",
+  "s": "An ops/debug panel (FPS, draw calls, server RTT) — engineers love visible telemetry",
+  "e": "gh",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Johansen Junias",
+  "u": "https://johansenjunias20.github.io",
+  "c": "Peer-to-peer multiplayer 3D portfolio",
+  "t": "three.js + WebRTC (PeerJS), Socket.io signalling in Docker, Coturn TURN, interpolation",
+  "s": "The portfolio is literally a distributed system — overlay the peer graph, RTTs, relayed vs direct",
+  "e": "gh",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "'A portfolio you can live in'",
+  "u": "https://discourse.threejs.org/t/a-portfolio-you-can-live-in-a-cozy-lab-on-a-mountain-and-a-village-anyone-can-build/95102",
+  "c": "Cozy mountain lab plus a village every visitor can add to",
+  "t": "Blender, vertex-colour baked day/night, toon shader + ink outline",
+  "s": "A persistent shared world needs a real backend: event log, rate limits, moderation",
+  "e": "search",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Simone Andreotti — open-world space",
+  "u": "https://discourse.threejs.org/t/an-open-world-space-experience-as-a-portfolio/74951",
+  "c": "Map homepage, then fly a solar system and land on planets",
+  "t": "three.js open world + WebXR",
+  "s": "Two doors: a quick map for recruiters, an open world for explorers",
+  "e": "search",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Where Worlds Take Shape",
+  "u": "https://www.awwwards.com/sites/where-worlds-take-shape",
+  "c": "Playable WebGL portfolio with mini-games",
+  "t": "three.js + GLSL",
+  "s": "Gate one project behind a micro-game that mirrors what it does",
+  "o": "Awwwards SOTD (May 2026)",
+  "e": "search",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Joshua's World",
+  "u": "https://www.awwwards.com/sites/joshuas-world",
+  "c": "Explorable 3D island portfolio",
+  "t": "three.js island diorama",
+  "s": "Island as home base, landmarks as projects",
+  "o": "Awwwards SOTD",
+  "e": "search",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "'A 3D Game-Like Portfolio'",
+  "u": "https://thefwa.com/cases/a-3d-game-like-portfolio",
+  "c": "First-person walkthrough with physics",
+  "t": "React + three.js + ambient shaders",
+  "s": "First-person walk through a data centre where each rack is a service",
+  "o": "FWA of the Day (Mar 2025)",
+  "e": "search",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Andrew Woan — Mr. Panda's Psychologically Safe Portfolio",
+  "u": "https://www.mr-pandas-psychologically-safe-portfolio.com",
+  "c": "Concept piece against toxicity in creative industry",
+  "t": "Blender + three.js + hand-painted Krita textures; .blend open-sourced",
+  "s": "Concept beats tech flex; open-sourcing adds credibility",
+  "o": "FWA of the Day + Awwwards SOTD",
+  "e": "gh",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Andrew Woan — Aimee's Papercraft World",
+  "u": "https://aimees-papercraft-world.com",
+  "c": "Papercraft world that changes with the seasons",
+  "t": "Blender + three.js + Krita; author lists loader & responsive bugs",
+  "s": "Time-based variants from one asset set keep it fresh cheaply",
+  "o": "FWA of the Day",
+  "e": "gh",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "bokoko33",
+  "u": "https://bokoko33.me",
+  "c": "Blender + three.js portfolio, widely recreated",
+  "t": "Blender scene in three.js",
+  "s": "Creator asks people not to copy — originality is the point",
+  "o": "Award-winning; 540★ tutorial clone",
+  "e": "gh",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Ring Hyacinth",
+  "u": "https://ringhyacinth.github.io/hyacinth.im-site/",
+  "c": "Low-poly storybook plaza; steer a caped cat to project boards",
+  "t": "R3F + drei + @react-three/rapier; WebP posters; >1MB physics chunk kept off mobile critical path",
+  "s": "Lazy-init heavy subsystems like you would a service",
+  "e": "gh",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Fantasy floating-island (Hunyuan3D)",
+  "u": "https://discourse.threejs.org/t/fantasy-themed-floating-island-portfolio-built-with-r3f-and-hunyuan3d-2/87480",
+  "c": "Fantasy island with AI-generated 3D models",
+  "t": "R3F + Hunyuan3D-2 generated assets",
+  "s": "For an AI engineer: generate assets with an AI pipeline and write up how",
+  "e": "search",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Neural Workspace",
+  "u": "https://discourse.threejs.org/t/neural-workspace-a-3d-metaverse-portfolio/85435",
+  "c": "Metaverse workspace with a third-person player and drones",
+  "t": "three.js; controllable bots/drones",
+  "s": "LangGraph agents as drones you dispatch — a playable Orchrez control room",
+  "e": "search",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Tiny three.js game portfolio",
+  "u": "https://discourse.threejs.org/t/i-turned-my-portfolio-into-a-tiny-three-js-game-bikes-cars-police-and-a-jetpack/93130",
+  "c": "Bikes, cars, police chase and a jetpack",
+  "t": "Vanilla three.js + Rapier; whole world procedural, no imported models",
+  "s": "Procedural geometry = tiny download, fast first load",
+  "e": "search",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Meng To — Sublevel Studio",
+  "u": "https://mengto.github.io/sublevel-studio/",
+  "c": "Kyoto townhouse lobby with CRTs and an arcade cabinet, handing off to editorial case studies",
+  "t": "Single HTML file, no build; VHS post-processing; procedural canvas textures",
+  "s": "3D lobby → plain editorial page for real content",
+  "e": "gh",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "ljj.world",
+  "u": "https://ljj.world",
+  "c": "Animated scenes; a 'Server story' machine opens into network/hardware/AI/data/container modules",
+  "t": "React 19 + Vite, three.js DNA helix indexes 12 projects, OGL galleries, Playwright visual tests, reduced-motion fallback",
+  "s": "Most stealable: an exploded-view machine of Orchrez where each module shows role + metrics",
+  "e": "gh",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "hexianWeb — Island",
+  "u": "https://island.vercel.app",
+  "c": "2.5D pixel résumé you play",
+  "t": "three.js character controller; proximity-triggered panels; skills as collectibles; Playwright E2E",
+  "s": "Proximity panels instead of menus",
+  "e": "gh",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Hamish Williams",
+  "u": "https://hamishw.com",
+  "c": "Design portfolio with a morphing shader sphere hero",
+  "t": "Remix + three.js DisplacementSphere shader + Framer Motion, Cloudflare Pages",
+  "s": "Restraint: one shader moment + fast 2D content",
+  "o": "3.5k★ repo",
+  "e": "gh",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Evangelos Giatsidis",
+  "u": "https://giats.me",
+  "c": "3 layers: 3D background, content with cut-out windows, cursor fluid sim on top",
+  "t": "Next.js + R3F + GSAP ScrollTrigger; fluid with mix-blend-mode",
+  "s": "Keep content in the DOM; let WebGL show through gaps",
+  "o": "CSSDA WOTD, Awwwards HM, GSAP SOTD",
+  "e": "gh",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Mohit Virli",
+  "u": "https://clevir.li",
+  "c": "3D scroll portfolio that doubles as an open template",
+  "t": "Next.js + R3F + drei + GSAP + zustand",
+  "s": "One store as single source of truth for DOM and canvas",
+  "o": "398★",
+  "e": "gh",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Moncy",
+  "u": "https://www.moncy.dev",
+  "c": "Developer portfolio led by a custom 3D avatar",
+  "t": "React + TS + three.js + GSAP",
+  "s": "A personal avatar is memorable; keep your signature asset private",
+  "o": "1.1k★",
+  "e": "gh",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "David Heckhoff",
+  "u": "https://david-hckh.com",
+  "c": "Case-study portfolio with light 3D and shader demos, EN/DE",
+  "t": "Vue 3 + TS + Vite, three.js, vite-plugin-glsl, Lenis, Howler",
+  "s": "Typed content files + i18n: content is data, 3D is presentation",
+  "e": "gh",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Roman Jean-Elie — Portfolio '25",
+  "u": "https://tympanus.net/codrops/2025/11/27/letting-the-creative-process-shape-a-webgl-portfolio/",
+  "c": "WebGL portfolio with portals into each section",
+  "t": "Next.js + R3F + GSAP; MeshPortal render-to-texture; hash routing",
+  "s": "Deep-linkable 3D sections so a recruiter can share one project URL",
+  "o": "Codrops case study",
+  "e": "search",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Merouane Bali",
+  "u": "https://tympanus.net/codrops/2025/01/21/the-journey-of-creating-a-3d-portfolio/",
+  "c": "Blender-designed scene, desktop-only, separate mobile version",
+  "t": "three.js + React; Context bridges WebGL events and DOM",
+  "s": "A clean event bridge between canvas and app state",
+  "o": "Codrops case study",
+  "e": "search",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Giulio — 'They Call Me Giulio'",
+  "u": "https://tympanus.net/codrops/2026/04/14/they-call-me-giulio-the-making-of-a-cinematic-cyberpunk-portfolio/",
+  "c": "Four film-inspired cyberpunk scenes; his 5th version",
+  "t": "Blender avatar, cinematic camera direction",
+  "s": "One scene per project; every animation serves the story",
+  "o": "Codrops case study (Apr 2026)",
+  "e": "search",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Diego Sevilla — Portfolio 2025",
+  "u": "https://www.awwwards.com/inspiration/mobile-diego-sevilla-portfolio-2025",
+  "c": "Dev portfolio with experience timeline and 3D Octocat",
+  "t": "Intro animation, page transitions, 3D model",
+  "s": "Render real GitHub data in 3D",
+  "e": "search",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Michał Tyszkiewicz — Gaussian splatting",
+  "u": "https://jatentaki.github.io/portfolio/gaussian-splatting/",
+  "c": "Researcher portfolio with his own splat viewer",
+  "t": "Hand-written WebGPU splat renderer",
+  "s": "Show Semages' CLIP space as a WebGPU point cloud you fly through",
+  "e": "gh",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Spline splat self-portrait",
+  "u": "https://www.linkedin.com/posts/splinetool_interactive-portfolio-page-using-3d-gaussian-activity-7133948128499576833-Tz-R",
+  "c": "Portfolio hero built around a Gaussian-splat scan of the creator",
+  "t": "Spline no-code splat import",
+  "s": "Low-effort photoreal 'you' captured on a phone",
+  "e": "search",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Shrey Jain — shrey-pc",
+  "u": "https://github.com/shreyjain7/shrey-pc",
+  "c": "CRT computer you boot to read a CV",
+  "t": "three.js + CSS3DRenderer (Heffernan pattern)",
+  "s": "Boot sequence as systemd-style logs starting each of your services",
+  "e": "gh",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Stefan Vitasović — Portfolio 2025",
+  "u": "https://tympanus.net/codrops/2025/03/05/case-study-stefan-vitasovic-portfolio-2025/",
+  "c": "Minimal portfolio with shader-driven media",
+  "t": "R3F; videos as WebGL textures; one shared plane geometry",
+  "s": "Cheap shader effects on project thumbnails without heavy 3D",
+  "o": "Codrops case study",
+  "e": "search",
+  "lanes": [
+   "3d"
+  ]
+ },
+ {
+  "n": "Dennis Snellenberg",
+  "u": "https://dennissnellenberg.com",
+  "c": "Clean freelance folio: big type, parallax-rich",
+  "t": "Magnetic buttons, curved page transition, multilingual 'Hello' preloader",
+  "s": "Cautionary: cloned so often he built copydennis.com. Borrow one idea — a preloader cycling your service names",
+  "o": "Awwwards SOTD",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Aristide Benoist",
+  "u": "https://aristidebenoist.com",
+  "c": "Typography-led cinematic folio",
+  "t": "Hand-rolled vanilla JS + WebGL transitions, no framework",
+  "s": "Write a tiny custom transition state machine instead of piling up libraries",
+  "o": "Awwwards SOTM (Jun 2021)",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Cyd Stumpel",
+  "u": "https://www.awwwards.com/inspiration/page-transition-cyd-stumpel-portfolio-2023",
+  "c": "Accessible award-winning creative dev",
+  "t": "Swup + GSAP + three.js + clip-path transitions; native View Transitions in client work",
+  "s": "View Transitions to morph a project card into its case-study hero, with reduced-motion fallback",
+  "o": "Awwwards inspiration",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Niccolò Miranda",
+  "u": "https://niccolomiranda.com",
+  "c": "Portfolio as an interactive 3-page newspaper",
+  "t": "Paper texture, marquee headlines, click-and-hold reveals",
+  "s": "An 'engineering broadsheet': one headline per project, columns of p99/throughput",
+  "o": "Webflow pick",
+  "e": "search",
+  "lanes": [
+   "motion",
+   "concept"
+  ]
+ },
+ {
+  "n": "Pacôme Pertant (dev: Louis Bocquet)",
+  "u": "https://www.awwwards.com/inspiration/list-view-pacome-pertant-portfolio",
+  "c": "Director folio with switchable spiral ↔ list views",
+  "t": "Layout morph, mouse trail, custom video player",
+  "s": "One dataset, two views: service topology graph that morphs into a table (GSAP Flip)",
+  "o": "Awwwards SOTD + DEV (Jun 2026)",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Stas Bondar '25",
+  "u": "https://stabondar.com",
+  "c": "5th self-portfolio, over a year of iteration",
+  "t": "Astro + hand-written GSAP + three.js + physics; homepage cube; loader→hero",
+  "s": "Physics-driven stack badges that collide and settle on scroll",
+  "o": "GSAP SOTW + SOTM; Awwwards case study",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Lynn Fisher",
+  "u": "https://lynnandtonic.com",
+  "c": "Annual redesign from a blank CSS file, 10+ versions",
+  "t": "Pure CSS Grid/Flexbox; layout transforms on resize",
+  "s": "Version the site like an API (/archive/2026 + changelog)",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Olivier Larose",
+  "u": "https://blog.olivierlarose.com",
+  "c": "Tutorials rebuilding award-site patterns",
+  "t": "Next.js + Framer Motion + GSAP + Lenis",
+  "s": "Same stack as Divyansh — baseline implementations to customise",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Corentin Bernadou",
+  "u": "https://tympanus.net/codrops/2026/03/05/inside-corentin-bernadous-portfolio-swiss-inspired-layouts-webgl-geometry-and-thoughtful-motion/",
+  "c": "Swiss-style folio with clickable 1px rulers and an Option+G grid overlay",
+  "t": "three.js/GLSL geometry; GSAP + Lenis; vanilla JS + JSON data",
+  "s": "TOP STEAL: an Option+G 'architecture overlay' showing component boxes, render ms and live API latency",
+  "o": "Awwwards SOTD + DEV — landed him an agency job",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Thibault Guignand",
+  "u": "https://tympanus.net/codrops/2026/05/06/from-shader-uniforms-to-clip-path-wipes-how-gsap-drives-my-portfolio/",
+  "c": "Portfolio as a 'technical handshake'",
+  "t": "React 18 + TS; three.js rewritten in OGL; GSAP SplitText/ScrollTrigger drive shader uniforms; Lenis on GSAP ticker; reduced-motion layouts",
+  "s": "One motion orchestrator as single source of truth, like an event bus",
+  "o": "Codrops case study",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Joffrey Spitzer",
+  "u": "https://tympanus.net/codrops/2026/02/18/joffrey-spitzer-portfolio-a-minimalist-astro-gsap-build-with-reveals-flip-transitions-and-subtle-motion/",
+  "c": "Minimalist with a brutalist edge, shipped on a self-imposed deadline",
+  "t": "Astro + vanilla JS; GSAP Flip; Lenis; Swup",
+  "s": "Flip a project card into its case study; ship on a deadline",
+  "o": "Codrops case study",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Ravi Klaassens — R—K '26",
+  "u": "https://tympanus.net/codrops/2026/04/07/r-k-26-the-thinking-and-code-behind-a-portfolio-led-by-presence/",
+  "c": "'Portfolio led by presence' after a year of motion studies",
+  "t": "Identity, rhythm and interaction as one system",
+  "s": "Motion tokens (durations/eases) defined like SLOs",
+  "o": "Codrops case study",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Eloy Benoffi",
+  "u": "https://tympanus.net/codrops/2025/10/15/from-blank-canvas-to-mayhem-eloy-benoffis-brutalist-glitchy-portfolio-built-with-webflow-and-gsap/",
+  "c": "Brutalist, glitchy anti-polish",
+  "t": "Webflow + GSAP",
+  "s": "A 'chaos mode' toggle that injects failures, then explains retries and circuit breakers",
+  "o": "Codrops case study",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Federico Pian",
+  "u": "https://tympanus.net/codrops/2024/10/02/case-study-federico-pian-portfolio-2024/",
+  "c": "Page transitions with 'no pauses or delays'",
+  "t": "Nuxt 3 + GSAP + TresJS; JSON instead of CMS",
+  "s": "Persistent layout so routes never blank",
+  "o": "Codrops case study",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Yichen Xie",
+  "u": "https://tympanus.net/codrops/tag/case-study/",
+  "c": "Infinite bubble canvas as the portfolio opener",
+  "t": "WebGL 'pop' interactions",
+  "s": "Bubbles as queued tasks — click to consume and ack",
+  "o": "Codrops case study (Oct 2026)",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Daiki Fujita",
+  "u": "https://tympanus.net/codrops/tag/case-study/",
+  "c": "Tokyo designer's Portfolio 2025 process",
+  "t": "—",
+  "s": "Japanese editorial restraint as a counterweight to neon",
+  "o": "Codrops",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Jackie Zhang",
+  "u": "https://tympanus.net/codrops/tag/case-study/",
+  "c": "'Stopped chasing references and built a portfolio that feels like me'",
+  "t": "—",
+  "s": "Voice over trends",
+  "o": "Codrops (Mar 2026)",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Chanh M. Ho",
+  "u": "https://tympanus.net/codrops/2026/04/09/a-single-dm-a-first-sotd-and-the-start-of-chanh-m-hos-creative-journey/",
+  "c": "A cold DM led to a first SOTD",
+  "t": "GSAP",
+  "s": "The outreach story is part of the brand",
+  "o": "Codrops spotlight",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Léo Parpeix — Portfolio 2026",
+  "u": "https://www.awwwards.com/leoparpeix/",
+  "c": "Art director at Locomotive",
+  "t": "—",
+  "s": "—",
+  "o": "Awwwards SOTD + DEV (Sep 2026)",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Artiom Yakushev",
+  "u": "https://art-yakushev.com",
+  "c": "Creative digital designer",
+  "t": "—",
+  "s": "—",
+  "o": "Awwwards Portfolio Honors + SOTD (Dec 2025)",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Gianluca Gradogna",
+  "u": "https://www.awwwards.com/websites/winner_category_portfolio/",
+  "c": "Portfolio Honors winner",
+  "t": "—",
+  "s": "—",
+  "o": "Awwwards DEV + SOTD (Jan 2025)",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Elliott Mangham",
+  "u": "https://www.awwwards.com/websites/winner_category_portfolio/",
+  "c": "Portfolio Honors winner",
+  "t": "—",
+  "s": "—",
+  "o": "Awwwards DEV + SOTD (Dec 2025)",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Antoine Wodniack",
+  "u": "https://www.awwwards.com/websites/winner_category_portfolio/",
+  "c": "Portfolio Honors winner",
+  "t": "—",
+  "s": "—",
+  "o": "Awwwards DEV + SOTD (Dec 2024)",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Grégory Lallé '24",
+  "u": "https://www.awwwards.com/websites/winner_category_portfolio/",
+  "c": "Portfolio Honors winner",
+  "t": "—",
+  "s": "—",
+  "o": "Awwwards SOTD (Oct 2024)",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Guillaume Colombel — Portfolio 2024",
+  "u": "https://www.awwwards.com/websites/winner_category_portfolio/",
+  "c": "Portfolio Honors winner",
+  "t": "—",
+  "s": "—",
+  "o": "Awwwards DEV + SOTD (Oct 2024)",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Artem Shcherban",
+  "u": "https://www.awwwards.com/inspiration/desktop-artem-shcherban-portfolio",
+  "c": "Showreel + filterable work + blog + CV",
+  "t": "Filtered project index",
+  "s": "Filter projects by domain: distributed, AI agents, payments, search",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "Joseph Santamaria — Folio '25",
+  "u": "https://www.awwwards.com/websites/portfolio/",
+  "c": "Year-versioned folio naming",
+  "t": "—",
+  "s": "'Folio 26' naming signals iteration",
+  "o": "Awwwards HM (Jul 2025)",
+  "e": "search",
+  "lanes": [
+   "motion"
+  ]
+ },
+ {
+  "n": "daedalOS (Dustin Brett)",
+  "u": "https://dustinbrett.com",
+  "c": "Windows-like desktop 'as if remotely connected to my personal machine'",
+  "t": "Next.js/React/TS; BrowserFS→IndexedDB real file system; terminal with Python/Git/WASM; v86 & js-dos emulators; Workers + OffscreenCanvas; Playwright",
+  "s": "A real virtual FS where /projects/orchrez/ARCHITECTURE.md actually exists; heavy work in workers",
+  "o": "13k★",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "ryOS (Ryo Lu)",
+  "u": "https://os.ryo.lu",
+  "c": "System 7 / Aqua / XP / 98 desktop with an AI that drives the OS",
+  "t": "React 19, TS, Tailwind 4, Zustand, Vercel AI SDK tool calls, virtual FS, deep links, Redis",
+  "s": "An agent that operates the portfolio via tool calls — with the tool-call trace visible",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "PostHog.com 'Why OS'",
+  "u": "https://posthog.com/blog/why-os",
+  "c": "Company site redesigned as a desktop OS (Sep 2025)",
+  "t": "Windows, snapping, shortcuts",
+  "s": "Cautionary: HN said it 'gets in the way of native browser features' — never break back button, cmd-click or mobile",
+  "o": "Mixed/negative HN reception",
+  "e": "search",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "Mitch Ivin XP",
+  "u": "https://mitchivin.com",
+  "c": "Pixel-accurate Windows XP",
+  "t": "Boot sound, Start menu, taskbar, hidden extras",
+  "s": "Craft sells it, but XP is a saturated metaphor",
+  "e": "search",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "Vivek Patel — Ubuntu",
+  "u": "https://vivek9patel.github.io",
+  "c": "Ubuntu 20.04 desktop",
+  "t": "Next.js + Tailwind; apps.config.js registry",
+  "s": "Config-driven 'app registry': each project is a manifest",
+  "o": "4.3k★, 695 forks",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "playground-macos (Xiaohan Zou)",
+  "u": "https://portfolio.zxh.me",
+  "c": "macOS desktop",
+  "t": "React, Zustand, UnoCSS; real Battery API in the menubar",
+  "s": "Wire real signals into the chrome — menubar shows live health of NeonStays",
+  "o": "3.5k★",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "wins95Portfolio (Yuteoctober)",
+  "u": "https://yuteoctober.github.io/wins95Portfolio",
+  "c": "Windows 95 with a real backend",
+  "t": "React/Vite; MSN chat over WebSockets (Express/Mongo); live BTC via Coinbase WS; Task Manager; mobile tile mode",
+  "s": "Task Manager listing your real running services",
+  "o": "274★",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "phuctm97",
+  "u": "https://phuctm97.com",
+  "c": "Win95 with an in-browser LLM",
+  "t": "Next.js, React95, Jotai, WebLLM — no network requests",
+  "s": "On-device inference as a demo (Semages' text encoder in-browser)",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "portfoliov2 (ellipog)",
+  "u": "https://portfolio.aaenz.no",
+  "c": "Windows XP with BIOS/POST boot and Clippy",
+  "t": "Remix, TS, Tailwind, Bun",
+  "s": "A skippable POST screen that runs real health checks on live services",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "Skillz's Computer / web-xp",
+  "u": "https://aduncan.dev",
+  "c": "Windows XP with 13 apps and an XP-wizard About page",
+  "t": "React 18, styled-components, Vite",
+  "s": "Wizard-style guided tour for non-technical recruiters",
+  "e": "search",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "Kali desktops (Nixon-GUI, albertodrake)",
+  "u": "https://github.com/Nixon-H/Nixon-GUI",
+  "c": "Kali Linux desktop; one variant hides a CTF",
+  "t": "Next.js/Tailwind; working terminal + file system",
+  "s": "A hidden challenge that needs real skill — find a flag via the public API",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "awesome-web-desktops",
+  "u": "https://github.com/syxanash/awesome-web-desktops",
+  "c": "Curated list of ~70 personal web-desktop sites",
+  "t": "List",
+  "s": "Evidence the OS metaphor is commoditised",
+  "o": "2.1k★",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "LiveTerm (Cveinnt)",
+  "u": "https://liveterm.vercel.app",
+  "c": "Web-terminal template",
+  "t": "Next.js, TS, Tailwind; everything in config.json",
+  "s": "One content config drives every surface",
+  "o": "5.4k★, 612 forks",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "M4TT72 terminal",
+  "u": "https://term.fathi.me",
+  "c": "Web terminal with real utility commands",
+  "t": "Svelte 4; safe calculator parser; Vitest + Playwright at 85%+ coverage; Docker image",
+  "s": "Show rigor: coverage badges, safe parser, container image",
+  "o": "1.6k★",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "satnaing terminal-portfolio",
+  "u": "https://terminal.satnaing.dev",
+  "c": "Web terminal with 6 themes",
+  "t": "React, TS; autocomplete; PWA offline; Vitest",
+  "s": "Offline/PWA — the portfolio survives a network partition",
+  "o": "822★",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "kuber.studio (Kuber Mehta)",
+  "u": "https://kuber.studio",
+  "c": "Web terminal with 28+ commands",
+  "t": "React 19; Levenshtein typo correction; neofetch; CRT scanlines; PWA",
+  "s": "'Did you mean' + no dead ends (HN complained `clear` leaves an empty prompt)",
+  "o": "Show HN",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "Termfolio (Solomon Neas)",
+  "u": "https://solomonneas.dev/projects/termfolio",
+  "c": "Shell over a virtual FS — every project is a file",
+  "t": "man pages, history, tab completion, sudo/cowsay eggs",
+  "s": "`man orchrez` returns a real design doc",
+  "e": "search",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "terminal-portfolio-website (SouleymaneSy7)",
+  "u": "https://github.com/SouleymaneSy7/terminal-portfolio-website",
+  "c": "46-command terminal with 31 themes",
+  "t": "Next.js 16, React 19, Tailwind 4 (Divyansh's exact stack); WCAG AA",
+  "s": "Accessibility as a first-class terminal requirement",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "bdadams.dev",
+  "u": "https://bdadams.dev",
+  "c": "Editorial site with a live shell in the hero",
+  "t": "C compiled to a WASM shell; site is curl-able",
+  "s": "Run real compiled code in the browser — e.g. a consistent-hashing simulator",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "Termfolio (shettysach)",
+  "u": "https://shettysach.github.io/Termfolio/",
+  "c": "Terminal written in Rust",
+  "t": "Rust + Leptos + WASM",
+  "s": "Write the terminal itself in a systems language",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "Kielx terminal-portfolio",
+  "u": "https://github.com/Kielx/terminal-portfolio",
+  "c": "Terminals as draggable windows",
+  "t": "Gatsby + winbox.js",
+  "s": "tmux-like panes: logs, metrics, shell side-by-side",
+  "o": "148★",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "terminal.shop",
+  "u": "https://terminal.shop",
+  "c": "Coffee shop over `ssh terminal.shop`",
+  "t": "Go, Wish, Bubble Tea, Lip Gloss; SSH key as identity; REST API with Stainless SDKs in 6 languages + MCP",
+  "s": "API-first: TUI, web and SDKs are all clients of one documented API",
+  "o": "Sold out within days",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "Shellfolio (Mosam Biswas)",
+  "u": "https://github.com/BiswasMosam/Shellfolio",
+  "c": "`ssh mosambiswas.com` TUI + `curl` résumé",
+  "t": "Go/Wish; non-PTY exec path; 256-colour curl, /plain; per-IP rate limit; 64-session cap; OSC 52 copy",
+  "s": "The production checklist for an SSH surface",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "termfolio (Kuday Yurter)",
+  "u": "https://github.com/kudayyurter/ssh-portfolio",
+  "c": "`ssh term.kudayyurter.dev` TUI + read-only shell",
+  "t": "Go/Wish/Glamour; unknown commands exit 127; golden-file tests at 4 terminal sizes",
+  "s": "Real exit codes and golden tests visibly signal rigor",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "sshfolio (ZachLTech)",
+  "u": "https://github.com/ZachLTech/sshfolio",
+  "c": "`ssh zachl.tech` markdown TUI",
+  "t": "Go/Wish/Glamour; same binary = SSH server or local TUI",
+  "s": "Ship one binary via go install / brew AND over SSH",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "termfolio (Toshiki)",
+  "u": "https://github.com/andatoshiki/termfolio",
+  "c": "`ssh ssh.toshiki.dev` with RSS and visitor stats",
+  "t": "Go/Wish + SQLite unique-visitor counter, GeoLite2, GoReleaser",
+  "s": "Observability of the portfolio itself",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "Qezta ssh (Divit)",
+  "u": "https://github.com/Qezta/ssh",
+  "c": "SSH username selects a persona",
+  "t": "Go/Wish, Nix flake; `projects --infrastructure` flags",
+  "s": "`ssh recruiter@…` → summary, `ssh engineer@…` → architecture depth",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "Matt Gleich terminal",
+  "u": "https://github.com/gleich/terminal",
+  "c": "SSH version of his website",
+  "t": "Go/Charm, Docker, GitHub Actions deploy",
+  "s": "CI/CD deploys the SSH app alongside the site",
+  "o": "In Wish's official showcase",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "Omer Duran",
+  "u": "https://omerduran.dev",
+  "c": "`ssh -p 23234 hi.omerduran.dev` Matrix-rain TUI",
+  "t": "Go/Wish; pulls from his web API, falls back to cache when down",
+  "s": "Graceful degradation as a visible feature",
+  "e": "search",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "Akshay Gupta",
+  "u": "https://dev.to/akshay_gupta/terminal-resume-sshakshayguptalive-3mbk",
+  "c": "`ssh ssh.akshaygupta.live` résumé",
+  "t": "Node + ssh2, figlet banner",
+  "s": "The Node path if you don't want Go",
+  "e": "search",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "JSON Résumé over curl (Hugo)",
+  "u": "https://hugo.md/post/json-resume-curl/",
+  "c": "curl at the root returns JSON",
+  "t": "nginx UA regex / Caddy rewrite",
+  "s": "`curl divyansh.dev` → machine-readable JSON",
+  "e": "search",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "whoami.dulith.me (terminal-cv)",
+  "u": "https://github.com/dulithdivisekara/terminal-cv",
+  "c": "curl-able ANSI CLI résumé",
+  "t": "Cloudflare Worker UA sniffing; browsers 301 to main site; custom HTTP headers for engineers",
+  "s": "Easter eggs in response headers: X-Hire-Me, Server-Timing, trace ID",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "Ruben Marcus — agent-ready portfolio",
+  "u": "https://github.com/mateusalexandre/portfolio",
+  "c": "Portfolio as a protocol surface for agents",
+  "t": "Remote MCP server on the official MCP Registry, Agent Skill, llms.txt, curl résumé, WebGL site for humans (Astro 5, Svelte 5, three.js)",
+  "s": "'Ask my MCP server about me' — the closest match to an AI-agent engineer",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "JSON Resume registry",
+  "u": "https://registry.jsonresume.org",
+  "c": "Résumé as a standard schema with ~52 themes",
+  "t": "Next.js registry + API",
+  "s": "Serve /resume.json in the standard schema",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "Faraz Shaikh — personal API",
+  "u": "https://github.com/FarazzShaikh/api",
+  "c": "'Curl me!' Deno personal API powering site and blog",
+  "t": "Deno",
+  "s": "api.divyansh.dev with /openapi.json + Swagger",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "npx bitandbang (Tierney Cyren)",
+  "u": "https://github.com/bnb/bitandbang",
+  "c": "Business card in the terminal via npx",
+  "t": "Node bin package",
+  "s": "`npx divyansh` / `uvx divyansh` with --json",
+  "o": "496★, 506 forks; started the npx-card trend",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "vscode-portfolio (Nitin Ranganath)",
+  "u": "https://vscode-portfolio.vercel.app",
+  "c": "VS Code UI with tabs and themes",
+  "t": "Next.js; pulls dev.to articles",
+  "s": "Projects as real files in tabs: docker-compose.yml, graph.py, schema.sql",
+  "o": "1.25k★ (+ several forks/variants)",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "Neovim portfolio (Mayaan Hafeez)",
+  "u": "https://github.com/mayaanhafeez/PortfolioWebsite",
+  "c": "Neovim UI with Telescope and an :ai assistant",
+  "t": "Next.js 16, React 19, Gemini tool calls, Upstash rate limiting",
+  "s": "Telescope = ⌘K; agent with tool calls and rate limiting",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "AJ Astro theme",
+  "u": "https://astro.build/themes/details/aj/",
+  "c": "Normal site with an optional Neovim mode",
+  "t": "Astro",
+  "s": "The metaphor as a toggle, not the default",
+  "e": "search",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "mylcin.vercel.app",
+  "u": "https://mylcin.vercel.app",
+  "c": "Man page MUSTAFA(1) + ⌘K console whose cwd always matches the URL",
+  "t": "Next.js 16, React 19, Tailwind 4, MDX; native <dialog>; console code-split on hover; View Transitions; reduced motion",
+  "s": "Best hybrid found, on Divyansh's exact stack",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "Man-page portfolios (codelif.in, STEVEN(1))",
+  "u": "https://github.com/codelif/codelif.in",
+  "c": "'A man page that happens to be a portfolio'",
+  "t": "HTML; one variant on a CRT with a three.js ASCII gem",
+  "s": "ORCHREZ(1): NAME / SYNOPSIS / ARCHITECTURE / FAILURE MODES / SEE ALSO",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "bypeira portfolio",
+  "u": "https://github.com/quietzeroo/bypeira-portfolio",
+  "c": "Network-operations-centre / Grafana layout",
+  "t": "Astro + React islands + Tailwind v4; tmux status bar as scrollspy nav",
+  "s": "tmux status-bar nav + panel grid fed with REAL metrics",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "dev-portfolio (bavya14)",
+  "u": "https://github.com/bavya14/dev-portfolio",
+  "c": "Career as `git log --graph`; projects as PR cards with +/− stats",
+  "t": "Vanilla JS; skip link, aria-live, reduced motion",
+  "s": "git-log timeline whose hashes link to real commits",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "wallace-portfolio",
+  "u": "https://github.com/itotiamugo56-hub/wallace-portfolio",
+  "c": "'Anti-navigation' site for a backend engineer",
+  "t": "TS/Vite; fuzzy command palette; live API demo with structured logs + correlation IDs",
+  "s": "Every page view shows its own request trace and correlation ID",
+  "e": "gh",
+  "lanes": [
+   "os"
+  ]
+ },
+ {
+  "n": "Sam Rose (samwho)",
+  "u": "https://samwho.dev",
+  "c": "Hand-built animated explainers of load balancing, hashing, bloom filters, queues",
+  "t": "Vanilla JS / TS + Bun; reader drives FIFO/LIFO/priority queues and watches drops pile up; source public",
+  "s": "'Orchrez under load': dots flow FastAPI→RabbitMQ→Celery with sliders for rate, workers, retry policy and live p99",
+  "o": "Queueing essay took 70+ hours",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Ben Johnson — The Secret Lives of Data",
+  "u": "https://thesecretlivesofdata.com/raft",
+  "c": "Narrated step-through of Raft consensus",
+  "t": "Static JS",
+  "s": "Build the Kafka visualisation his README lists as planned but never shipped",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Ben Dicken",
+  "u": "https://benjdd.com",
+  "c": "'IO Devices and Latency' explainer + explodable 3D hardware models",
+  "t": "three.js; 250+ hours on one essay",
+  "s": "An exploded 3D K8s cluster where hover traces a request path",
+  "o": "443 HN points",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Bartosz Ciechanowski",
+  "u": "https://ciechanow.ski",
+  "c": "Every figure is a real-time 3D model you can drag",
+  "t": "Hand-rolled WebGL",
+  "s": "Rule: no static diagram where a slider-driven one is possible",
+  "o": "Patreon-funded",
+  "e": "prior",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Julia Evans — Mess With DNS",
+  "u": "https://messwithdns.net",
+  "c": "Zines + real playgrounds: a real DNS server, your own subdomain, live query log",
+  "t": "PowerDNS + SQLite, WebSocket log stream, Fly.io",
+  "s": "A real Semages playground: queries hit real Qdrant and a live log streams each embedding and top-k",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Brendan Gregg",
+  "u": "https://brendangregg.com",
+  "c": "Inventor of flame graphs; site is a hub of interactive SVG perf visuals",
+  "t": "FlameGraph → SVG, d3-flame-graph",
+  "s": "Publish real clickable flame graphs from load tests (py-spy for FastAPI, async-profiler for Spring)",
+  "e": "search",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Kyle Kingsbury (aphyr / Jepsen)",
+  "u": "https://jepsen.io",
+  "c": "Fault-injection analyses of distributed databases",
+  "t": "Clojure; gnuplot + Graphviz anomaly graphs",
+  "s": "A 'mini-Jepsen report' on his own LinkedIn clone: kill a broker, show what clients saw",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Marc Brooker",
+  "u": "https://brooker.co.za",
+  "c": "Plain-HTML blog of short argued posts on backoff, jitter, overload",
+  "t": "Static; simulation plots",
+  "s": "Back each design choice with a small simulation chart (retries with vs without jitter)",
+  "e": "search",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Martin Kleppmann",
+  "u": "https://martin.kleppmann.com",
+  "c": "Academic site: each talk has abstract, slides, video, venue",
+  "t": "Static",
+  "s": "A Talks & Writing index where every entry carries its artifacts",
+  "e": "search",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Phil Eaton",
+  "u": "https://eatonphil.com",
+  "c": "'Intuitions' posts on consensus and OLTP with measured latency repos",
+  "t": "Static",
+  "s": "Benchmark post: pgvector vs Qdrant p50/p99 at 10k/100k/1M vectors",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Arpit Bhayani",
+  "u": "https://arpitbhayani.me",
+  "c": "System-design hub of 166+ blogs and 250+ videos, topic-tagged",
+  "t": "—",
+  "s": "Short topic-tagged notes per internal: outbox, idempotency keys, HNSW, consumer groups",
+  "e": "search",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Hussein Nasser",
+  "u": "https://husseinnasser.com",
+  "c": "Backend fundamentals educator (TCP, TLS, WebSockets)",
+  "t": "—",
+  "s": "Per project: 'what happens on the wire' for one request",
+  "e": "search",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "ByteByteGo (Alex Xu)",
+  "u": "https://bytebytego.com",
+  "c": "One-diagram cheat sheets of systems",
+  "t": "system-design-101 repo",
+  "s": "One shareable 'X in one diagram' poster per project — doubles as its OG image",
+  "o": "90k★ repo",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Ivan Velichko (iximiuz)",
+  "u": "https://iximiuz.com",
+  "c": "Excalidraw-style container/K8s diagrams + microVM playgrounds",
+  "t": "Go/TS; visual K8s explorer",
+  "s": "Hand-drawn (rough.js) diagrams + a 'view the manifests' panel",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Brendan Bycroft — LLM Visualization",
+  "u": "https://bbycroft.net/llm",
+  "c": "3D interactive GPT running real minGPT weights with a guided camera tour",
+  "t": "Next.js, TS, Tailwind, WebGL",
+  "s": "Use three.js to EXPLAIN: a guided 3D tour of Orchrez's LangGraph graph on a real trace",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Jay Alammar",
+  "u": "https://jalammar.github.io",
+  "c": "The Illustrated Transformer — colour-coded step-by-step illustrations",
+  "t": "Jekyll",
+  "s": "'Illustrated Orchrez': one colour per tenant, plan, tool call and vector",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Lilian Weng — Lil'Log",
+  "u": "https://lilianweng.github.io",
+  "c": "Reference-grade long posts with diagrams and citations",
+  "t": "Static",
+  "s": "A citation-dense deep-dive on his own agent architecture",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Eugene Yan",
+  "u": "https://eugeneyan.com",
+  "c": "Applied ML/LLM patterns writing + ml-design-docs template",
+  "t": "—",
+  "s": "Publish a design doc per project: requirements, method, implementation, evaluation",
+  "o": "applied-ml list 30k★",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Hamel Husain",
+  "u": "https://hamel.dev",
+  "c": "Evals-first LLM writing",
+  "t": "—",
+  "s": "Show Orchrez agent eval results: pass rate, failure taxonomy, regressions",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Vicki Boykis",
+  "u": "https://vickiboykis.com",
+  "c": "'What are embeddings' deep dive",
+  "t": "—",
+  "s": "Semages explainer: 2D projection of CLIP space where the query lands live",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Simon Willison",
+  "u": "https://simonwillison.net",
+  "c": "20+ years of weblog, link blog and TILs",
+  "t": "Django + Datasette",
+  "s": "Add /til; every shipped feature gets a post",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Josh W. Comeau",
+  "u": "https://www.joshwcomeau.com",
+  "c": "Hand-built interactive widget for nearly every post; tasteful sounds",
+  "t": "Next.js App Router, next-mdx-remote, lazy widgets, use-sound",
+  "s": "Opt-in 'ack' tick when a simulated consumer commits an offset",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Brittany Chiang",
+  "u": "https://brittanychiang.com",
+  "c": "The most-cloned dev portfolio (v4: navy + mint)",
+  "t": "Next.js + Tailwind; sticky left column, scroll-spy, hover-highlighted rows, cursor spotlight",
+  "s": "Copy her information architecture, not her palette",
+  "o": "v4 repo 8.3k★, 4.2k forks",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Rauno Freiberg",
+  "u": "https://rauno.me",
+  "c": "Interaction-craft reference; author of Web Interface Guidelines",
+  "t": "Next.js/React; interface sounds",
+  "s": "Audit the whole site against his interfaces checklist",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Emil Kowalski",
+  "u": "https://emilkowal.ski",
+  "c": "Sonner, Vaul, animations.dev",
+  "t": "React",
+  "s": "Sonner-style toasts in demos: 'job queued → running → done'",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Paco Coursey",
+  "u": "https://paco.me",
+  "c": "Extreme minimalism; author of cmdk and next-themes",
+  "t": "Next.js",
+  "s": "⌘K palette: 'jump to NeonStays', 'run load test', 'replay webhook'",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Lee Robinson",
+  "u": "https://leerob.com",
+  "c": "Text-first minimalism; open-sourced his site",
+  "t": "Next.js, Tailwind, Postgres",
+  "s": "A tiny real backend behind a simple surface",
+  "o": "7.6k★ repo",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Delba de Oliveira",
+  "u": "https://delba.dev",
+  "c": "'React visually explained' animated videos",
+  "t": "—",
+  "s": "A 60–90s animated architecture walkthrough on each project page",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Maxime Heckel",
+  "u": "https://blog.maximeheckel.com",
+  "c": "Interactive essays with playgrounds; site and design system are public",
+  "t": "Next.js, MDX, Vitest, Cypress",
+  "s": "Open-source the site with tests; extract a small design-system package",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Amelia Wattenberger",
+  "u": "https://wattenberger.com",
+  "c": "D3/React/SVG essays; keeps old versions live",
+  "t": "D3, React, Svelte",
+  "s": "Keep v1 at a subdomain to show growth",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Shu Ding",
+  "u": "https://shud.in",
+  "c": "Author of Satori, SWR, cobe (5KB WebGL globe)",
+  "t": "—",
+  "s": "A cobe globe of real NeonStays request origins; Satori OG image per project",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Guillermo Rauch",
+  "u": "https://rauchg.com",
+  "c": "Manifesto essays ('7 Principles of Rich Web Applications')",
+  "t": "Next.js, Tailwind, MDX",
+  "s": "One principled essay: 'Principles for idempotent payment flows'",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Anthony Fu",
+  "u": "https://antfu.me",
+  "c": "Generative-art backgrounds + experiments",
+  "t": "Vite, Vue, UnoCSS",
+  "s": "A background generated from REAL data (commit graph, request log)",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Kent C. Dodds",
+  "u": "https://kentcdodds.com",
+  "c": "The personal site is a full-stack app",
+  "t": "React Router v7 on Cloudflare Workers (D1/KV/R2), migrations, Playwright",
+  "s": "Make the portfolio itself a backend showcase: public repo, CI, tests, migrations",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Dan Abramov — overreacted",
+  "u": "https://overreacted.io",
+  "c": "Typography-only design; ships /llms.txt",
+  "t": "Next.js, Tailwind",
+  "s": "Add /llms.txt so recruiters' AI agents can parse the site",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Nikita Prokopov (tonsky)",
+  "u": "https://tonsky.me",
+  "c": "Personality: dark mode that hides images and 'glows', live visitor cursors",
+  "t": "Clojure",
+  "s": "One on-brand egg: dark mode becomes 'incident mode' with pager styling",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Brian Lovin (briOS)",
+  "u": "https://brianlovin.com",
+  "c": "Site runs on a real backend",
+  "t": "Next.js, GraphQL, Prisma",
+  "s": "A guestbook/AMA backed by his own Postgres",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Maggie Appleton",
+  "u": "https://maggieappleton.com",
+  "c": "Illustrated essays; digital garden labelled by growth stage",
+  "t": "Astro, MDX",
+  "s": "Tag notes 'seedling / evergreen' — honesty about maturity",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Amit Patel — Red Blob Games",
+  "u": "https://www.redblobgames.com",
+  "c": "Draggable interactive algorithm explanations",
+  "t": "Vue",
+  "s": "A 'how I built this diagram' post — craft signal",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Nicky Case",
+  "u": "https://ncase.me",
+  "c": "Explorable explanations (Evolution of Trust, LOOPY)",
+  "t": "JS",
+  "s": "LOOPY-style loop: producer rate ↔ queue depth ↔ autoscaler",
+  "o": "6.3k★",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "raft-visualizer (2026 student)",
+  "u": "https://github.com/Raminshiraz/raft-visualizer",
+  "c": "Crash nodes, partition network; invariants machine-checked",
+  "t": "JS",
+  "s": "Generic Raft visualisers are now common among students — differentiate with YOUR deployed systems and real data",
+  "o": "139★",
+  "e": "gh",
+  "lanes": [
+   "elite"
+  ]
+ },
+ {
+  "n": "Robby Leonardi — Interactive Resume",
+  "u": "http://www.rleonardi.com/interactive-resume/",
+  "c": "Mario-style side-scroller through skills and experience",
+  "t": "Illustrated side-scroller ending at a contact form",
+  "s": "Career 'levels' where every path ends at a CTA",
+  "o": "Viral 2013–14; hire claims unconfirmed",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "JSLegendDev — 2D game portfolio",
+  "u": "https://www.freecodecamp.org/news/create-a-developer-portfolio-as-a-2d-game/",
+  "c": "Kaboom.js top-down room — walk to an object to open its dialog",
+  "t": "Kaboom.js",
+  "s": "'Walk to a node, inspect it' fits a cluster map",
+  "o": "Became a freeCodeCamp course → now a template",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "runboli.com — 'Finish the Story'",
+  "u": "https://runboli.com",
+  "c": "First-person three.js walk through Halo 3's Guardian map",
+  "t": "three.js; quests, mini-games, easter eggs",
+  "s": "A quest log/achievements that reward reading the deep design docs",
+  "o": "Show HN (Sep 2026)",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Pablo Stanley — Pablo's World",
+  "u": "https://aiuxplayground.com/playground/world-pablostanley",
+  "c": "Arrow-key isometric world instead of a case-study grid",
+  "t": "Isometric art direction",
+  "s": "An isometric 'datacenter floor' where each rack is a project",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Alyssa X — arcade game",
+  "u": "https://alyssax.substack.com/p/building-an-arcade-game-within-my",
+  "c": "Shareable arcade game embedded in a normal maker portfolio",
+  "t": "—",
+  "s": "Ship a shareable side-toy (load-balancer mini-game) that links back",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "PortfolioViewer5000",
+  "u": "https://ishandutta.itch.io/portfolioviewer5000",
+  "c": "Pokémon-Emerald-style overworld",
+  "t": "Unity WebGL",
+  "s": "Pixel overworld only with your own art",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Hack Club Stardance — Pokémon trainer card",
+  "u": "https://stardance.hackclub.com/projects/36706/devlogs/25778",
+  "c": "FireRed trainer card that flips to projects",
+  "t": "'Wild encounter' flash transition",
+  "s": "A 'trainer card' stat block (stack, uptime, p95) that flips to architecture",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Spritefolio (Framer template)",
+  "u": "https://www.framer.com/marketplace/templates/spritefolio/",
+  "c": "Walkable pixel kingdom with real-clock day/night",
+  "t": "Framer",
+  "s": "Game portfolios are now paid templates — the format alone no longer signals skill",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Hytale Codex (template)",
+  "u": "https://prodigy137.gumroad.com/l/hytale-codex",
+  "c": "Game-menu UI: projects as quests, skills as RPG systems",
+  "t": "Template",
+  "s": "Skill tree with prerequisites: Kafka → event sourcing → CQRS",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Alterego Games portfolio",
+  "u": "https://clydexyz.itch.io/alterego-games-portfolio",
+  "c": "Downloadable walk-around portfolio",
+  "t": "Game build",
+  "s": "Anti-pattern: never require an install",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Neal Agarwal — neal.fun",
+  "u": "https://neal.fun",
+  "c": "An arcade of web toys — the body of work is the portfolio",
+  "t": "Web toys",
+  "s": "One viral systems toy beats a polished CV",
+  "o": "Infinite Craft ~21M impressions on X",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Platane/snk",
+  "u": "https://github.com/Platane/snk",
+  "c": "GitHub contribution graph as a snake game",
+  "t": "GitHub Action → SVG/GIF",
+  "s": "Gamify your real telemetry",
+  "o": "6.1k★",
+  "e": "gh",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "toukoum.fr",
+  "u": "https://toukoum.fr",
+  "c": "'World first AI-native portfolio' — chat-first with an AI avatar",
+  "t": "OpenAI + GitHub token for live repo data",
+  "s": "Beat it by exposing the agent's tool calls and LangGraph state",
+  "o": "288★, 71 forks",
+  "e": "gh",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Jacob Fu",
+  "u": "https://jacobfu.com",
+  "c": "An AI clone replaces the project list",
+  "t": "Persona prompt on résumé",
+  "s": "Keep persona separate from grounded facts",
+  "e": "gh",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Mrigank Singh — Mrigank AI",
+  "u": "https://mrigank-portfolio-website.vercel.app",
+  "c": "RAG: Gemini embeddings → Pinecone → Gemini, FastAPI on HF Spaces",
+  "t": "RAG pipeline",
+  "s": "A 'debug mode' toggle showing retrieved chunks, scores and latency",
+  "e": "gh",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Kanishka Waghmare — KanBot",
+  "u": "https://kanishkawaghmare.com",
+  "c": "Floating RAG assistant",
+  "t": "FastAPI, FAISS, Cloud Run",
+  "s": "A widget, not a wall",
+  "e": "gh",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Dhruvil Mistry",
+  "u": "https://peerlist.io/bydhruvil/project/dhruvil-mistry--ai-engineer",
+  "c": "Cloned voice answers the 3 most-asked questions",
+  "t": "Llama 3.1 via Groq + voice clone",
+  "s": "Voice only for canned FAQs — bounded cost and risk",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "okasputra — Chat with my resume",
+  "u": "https://dev.to/okasputra/stop-sending-static-resumes-how-i-built-a-chat-with-my-resume-bot-nextjs-rag-4kdm",
+  "c": "Next.js RAG without LangChain",
+  "t": "Single best chunk retrieval",
+  "s": "Publish the trade-off write-up alongside the bot",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Lovely McInerney",
+  "u": "https://medium.com/@lovely.mcinerney/built-a-portfolio-site-with-my-own-ai-chatbot-using-claude-code-66ca39ae15b7",
+  "c": "Bot grounded in CV + blog posts so it has opinions",
+  "t": "Claude-built chatbot",
+  "s": "Ground the bot on writing so it has a point of view",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Adda-Bot",
+  "u": "https://huggingface.co/spaces/addaweathers/Adda-Bot",
+  "c": "Recruiter-facing RAG bot as proof of skill",
+  "t": "Llama 3.2, LangChain, ChromaDB",
+  "s": "Treat the bot as a documented project of its own",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Philippe Dubost — Amazon résumé",
+  "u": "https://www.peoplematters.in/article/talent-acquisition/phillippe-dubost-the-job-applicant-who-sold-himself-on-amazon-2552",
+  "c": "Résumé as an Amazon product page with reviews and 'only 1 left in stock'",
+  "t": "Familiar-UI parody",
+  "s": "Frame yourself in a UI devs know: Stripe dashboard, GitHub PR, Datadog",
+  "o": "~1.3M visitors in 3 weeks; 100+ job offers",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Nina Mufleh — Nina4Airbnb",
+  "u": "https://nina4airbnb.com",
+  "c": "Airbnb-styled site containing real market analysis for Airbnb",
+  "t": "Targeted clone",
+  "s": "A 'for <Company>' page with a teardown of their infra or API",
+  "o": "Airbnb CEO tweeted 'Very impressive'; interview",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Receipt (Framer template)",
+  "u": "https://www.framer.com/templates/receipt/",
+  "c": "Receipt/invoice look",
+  "t": "Template",
+  "s": "Per-project 'receipt': line items are services, totals are p95 and $/req",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Eleonora Papini — Netflix résumé",
+  "u": "https://www.nbcmiami.com/news/business/money-report/should-you-get-creative-with-your-resume-experts-decide-whether-youre-more-likely-to-land-your-dream-job/2940969/",
+  "c": "Résumé recreating Netflix's home screen; a Lush-styled one for Lush",
+  "t": "Per-company skins",
+  "s": "Per-company skins as targeted outreach",
+  "o": "CNBC coverage",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Shergill — Netflix-trailer CV",
+  "u": "https://www.businesstoday.in/trending/story/watch-indian-man-in-canada-uses-netflix-trailers-to-create-eye-catching-resume-for-a-job-358244-2022-12-29",
+  "c": "CV cut from Netflix trailer dialogue",
+  "t": "Video",
+  "s": "Shareable but low substance",
+  "o": "Viral on LinkedIn",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Stewart Smith — Google Showcase (Beta)",
+  "u": "https://stewartsmith.io/work/googleshowcase",
+  "c": "Portfolio = Google Images results for his domain, framed as a fake Google product",
+  "t": "Redirect hack",
+  "s": "Let a REAL system render you (real Qdrant search over your work)",
+  "o": "Official portfolio for 1+ year",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Alec Brownstein — Google Job Experiment",
+  "u": "https://www.dandad.org/work/d-ad-awards-archive/the-google-job-experiment",
+  "c": "$6 of Google ads on creative directors' names",
+  "t": "Targeted ads",
+  "s": "Target where engineering managers already look (their OSS repos)",
+  "o": "4/5 called, 2 offers, hired; D&AD Pencil",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "SearchFolio (template)",
+  "u": "https://peerlist.io/sh20raj/project/searchfolio--googlestyle-portfolio",
+  "c": "Portfolio as a Google results page",
+  "t": "Template",
+  "s": "Only worth it if the search box really searches",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Mauhan Zonoozy",
+  "u": "https://www.itsnicethat.com/articles/vicine-mauhan-digital-project-080424",
+  "c": "Portfolio as a fake Google Meet call",
+  "t": "—",
+  "s": "Design for screenshots — screenshots drive virality",
+  "o": "1M+ Instagram impressions in hours",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Fatiya Labibah — Spotify portfolio",
+  "u": "https://my-spotify-portfolio-891617309900.asia-southeast1.run.app",
+  "c": "Projects as playlist tracks",
+  "t": "Full-stack + MongoDB",
+  "s": "Projects as 'tracks' with duration = build time",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Luan Nguyen",
+  "u": "https://luannguyen.net",
+  "c": "Spotify-inspired Next.js site with now-playing + contribution graph",
+  "t": "Next.js",
+  "s": "Warning: same black + green palette as Divyansh's current site",
+  "o": "33★",
+  "e": "gh",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Playfolio (template)",
+  "u": "https://www.framer.com/community/marketplace/templates/playfolio/",
+  "c": "Music-player portfolio with persistent bottom player",
+  "t": "Template",
+  "s": "Persistent bottom bar showing the current deploy instead of a song",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "The Marok Gazette",
+  "u": "https://newspaper-portfolio-liart.vercel.app",
+  "c": "Newspaper whose issue number is the day of the year, with live weather",
+  "t": "Live data",
+  "s": "A daily edition generated from that day's commits and deploys",
+  "e": "gh",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Maurya Oganja",
+  "u": "https://mauryaoganja.vercel.app",
+  "c": "About text as Matter.js letters that fall and pile up",
+  "t": "Matter.js",
+  "s": "Words fall into a visible 'queue' bucket",
+  "e": "gh",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Sajad Mahyaei",
+  "u": "https://github.com/Sajadmhy/Sajad-Mahyaei-Portfolio/pull/4",
+  "c": "Draggable physics panels; letters spring from cursor",
+  "t": "Physics",
+  "s": "Drag panels onto a pipeline to 'wire' a system",
+  "e": "gh",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Mafaz Siddiqua",
+  "u": "https://github.com/mafazsiddi/my-portfolio",
+  "c": "Matter.js loader + draggable skills playground",
+  "t": "Matter.js",
+  "s": "Drag stack bodies into an architecture diagram that snaps into place",
+  "e": "gh",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Cursor Party (PartyKit)",
+  "u": "https://github.com/partykit/cursor-party",
+  "c": "One script tag adds multiplayer cursors + hidden cursor chat",
+  "t": "PartyKit",
+  "s": "Add presence, then publish its WebSocket/edge architecture as a case study",
+  "o": "144★",
+  "e": "gh",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Matt Webb — interconnected.org",
+  "u": "https://interconnected.org/more/2023/partykit/sketchbook.html",
+  "c": "Long-running blog with a multiplayer sketchbook",
+  "t": "PartyKit",
+  "s": "Multiplayer as a light touch on a serious site",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "playhtml (Spencer Chang)",
+  "u": "https://playhtml.fun",
+  "c": "can-move / can-toggle attributes that persist and sync across visitors",
+  "t": "Shared state",
+  "s": "Shared persistent state doubles as a CRDT/consistency demo",
+  "o": "504★",
+  "e": "gh",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Cursor Crowd (Framer)",
+  "u": "https://www.framer.com/marketplace/components/cursor-crowd/",
+  "c": "Live cursors via Cloudflare relay; rooms of 10",
+  "t": "Cloudflare",
+  "s": "Show room sharding and capacity limits explicitly",
+  "e": "search",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "One Million Checkboxes (Nolen Royalty)",
+  "u": "https://github.com/nolenroyalty/one-million-checkboxes",
+  "c": "1,000,000 checkboxes synced for everyone",
+  "t": "Realtime sync; published scaling write-up",
+  "s": "Build a tiny global-state toy, then publish the scaling write-up — that's the credential",
+  "o": "Has its own Wikipedia article",
+  "e": "gh",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "novatorem",
+  "u": "https://github.com/novatorem/novatorem",
+  "c": "Real-time Spotify now-playing in a GitHub README",
+  "t": "Serverless SVG",
+  "s": "Live signals: current deploy, last commit, queue depth",
+  "o": "758★, 2.7k forks",
+  "e": "gh",
+  "lanes": [
+   "concept"
+  ]
+ },
+ {
+  "n": "Karthik Panchala — imkarthik.in",
+  "u": "https://imkarthik.in",
+  "c": "Product designer (Hyderabad); the layout Divyansh's site is based on",
+  "t": "Next.js 16 + Cache Components, Sanity v4, shadcn; case studies as drawers via intercepting routes with real URLs; light reading theme; nav pushed up by CSS scroll-driven animation",
+  "s": "Case studies need real, shareable URLs + a light reading theme; metrics in headlines (92% less debugging, 20→3 min)",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Dillion Verma",
+  "u": "https://dillion.io",
+  "c": "Single-column résumé + floating macOS dock; creator of Magic UI",
+  "t": "Next.js, one resume.tsx config",
+  "s": "Hackathon timeline yes, dock no",
+  "o": "Template 1.5k★/427 forks; Magic UI 22.5k★",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Manu Arora",
+  "u": "https://manuarora.in",
+  "c": "Founder of Aceternity — his library created the 2024–25 look",
+  "t": "Next.js; /inspiration page",
+  "s": "A curated /inspiration page as a taste signal",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "JS Mastery 'Modern & Minimal'",
+  "u": "https://minimal-portfolio-swart.vercel.app",
+  "c": "Spotlight hero + bento + GitHub globe + testimonial marquee",
+  "t": "Aceternity components",
+  "s": "Nothing — this is where the cliché started",
+  "o": "3.66k★ / 793 forks + YouTube tutorial",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Magic Portfolio (Once UI)",
+  "u": "https://magic-portfolio.com",
+  "c": "Deliberately timeless MDX template",
+  "t": "Auto preview images, protected pages, i18n",
+  "s": "An auto-generated preview image per case study",
+  "o": "1.4k★ / 936 forks",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Naresh Khatri",
+  "u": "https://nareshkhatri.dev",
+  "c": "3D Spline keyboard where each key is a skill + live cursors, chat, multiplayer zombie game",
+  "t": "Spline, realtime presence",
+  "s": "Live presence as a real backend feature",
+  "o": "1.3k★ / 256 forks; widely cloned",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Abhijit Zende",
+  "u": "https://abhijitzende.com",
+  "c": "Clone of Naresh's keyboard + space particles",
+  "t": "Credits Naresh",
+  "s": "Shows how fast an idea becomes a cliché",
+  "o": "321★",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Sanidhya Kumar Verma",
+  "u": "https://sanidhyy.name",
+  "c": "High-school freelancer's Next.js 'space portfolio'",
+  "t": "Starfield",
+  "s": "Clones build a following; the space theme itself is a cliché",
+  "o": "536★ / 178 forks",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Ramkrishna Swarnkar",
+  "u": "https://ramx.in",
+  "c": "Clean shadcn site; contact form posts to a Telegram bot",
+  "t": "MDX, Umami analytics",
+  "s": "A contact form that pings your phone instantly",
+  "o": "288★ template",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Pulkit",
+  "u": "https://pulkit.page",
+  "c": "Final-year CS student (Delhi) linking RUNNABLE distributed-systems demos",
+  "t": "Markdown-first static monorepo; .md twin per page; /llms.txt; CI checks Lighthouse; demos of Bloom filters, consistent hashing, Kafka consumer groups, Redis Lua rate limiting, leader election",
+  "s": "Closest positioning to Divyansh — study, then out-do with his OWN deployed systems",
+  "o": "Podcast with Harkirat Singh; keeps v1–v4 live",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Anish De",
+  "u": "https://anishde.dev",
+  "c": "Student single page with zero client JS + /photos",
+  "t": "One data file",
+  "s": "Fast, plain and human",
+  "o": "137★",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Shoubhit Dash (nexxel)",
+  "u": "https://nexxel.dev",
+  "c": "Blog-first minimal MDX site",
+  "t": "MDX",
+  "s": "Writing instead of widgets",
+  "o": "281★",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Piyush Garg",
+  "u": "https://piyushgarg.dev",
+  "c": "Opened his personal site to Hacktoberfest contributors",
+  "t": "Next.js",
+  "s": "The portfolio as an open-source project",
+  "o": "1.7k forks, 678 PRs",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Anurag Hazra",
+  "u": "https://anuraghazra.github.io",
+  "c": "Portfolio around creative-coding projects",
+  "t": "Gatsby",
+  "s": "One famous tool as the headline",
+  "o": "github-readme-stats 79.8k★",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Prasenjit Nayak",
+  "u": "https://prasen.dev",
+  "c": "Magic UI site with ⌘K, visitor counter, embedded X testimonials",
+  "t": "Magic UI",
+  "s": "Real tweets as social proof",
+  "o": "210★",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Manish Basargekar",
+  "u": "https://mnsh.me",
+  "c": "Moving bento grid — nav rearranges the grid",
+  "t": "Layout animation",
+  "s": "Motion as navigation, not decoration",
+  "o": "'Countless people asked for the source'",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Aman Varshney",
+  "u": "https://amanv.dev",
+  "c": "His Better-T-Stack CLI is effectively the portfolio",
+  "t": "CLI",
+  "s": "Lead with one tool people actually use",
+  "o": "5.8k★ CLI; DevRel at Prisma",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Dhravya Shah",
+  "u": "https://dhravya.dev",
+  "c": "Proof by shipping",
+  "t": "Supermemory, cloudflare-saas-stack",
+  "s": "A shipping log with star counts",
+  "o": "Supermemory 31k★; '2x acquired founder'",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Kartik Labhshetwar",
+  "u": "https://kartikk.tech",
+  "c": "AI engineer site + an npm-package portfolio",
+  "t": "Next.js 16, GitHub API, Upstash Redis",
+  "s": "`npx divyansh` terminal card",
+  "o": "better-shot 2.4k★",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Nitish Kumar",
+  "u": "https://nitishkr.fun",
+  "c": "2026 portfolio told as a narrative 'anthology'",
+  "t": "—",
+  "s": "Chapter-style storytelling",
+  "e": "search",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Fayaz Ahmed",
+  "u": "https://portfolio-site-template.fayaz.workers.dev",
+  "c": "Desktop of folders that open into collections",
+  "t": "Cloudflare Workers",
+  "s": "A folder per project holding diagrams, ADRs and demos",
+  "o": "192★",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "devb.io",
+  "u": "https://devb.io",
+  "c": "AI turns GitHub activity into a self-updating portfolio",
+  "t": "FastAPI, Redis, Groq",
+  "s": "A 'shipped this week' feed from GitHub",
+  "o": "354★; Product Hunt",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "soumyajit4419 Portfolio",
+  "u": "https://github.com/soumyajit4419/Portfolio",
+  "c": "Purple particles + typewriter + GitHub calendar",
+  "t": "React",
+  "s": "The default Indian student look — avoid",
+  "o": "6.5k★ / 3.4k forks",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "masterPortfolio",
+  "u": "https://github.com/ashutosh1919/masterPortfolio",
+  "c": "Config-driven React template with splash screen",
+  "t": "React",
+  "s": "Avoid",
+  "o": "4.2k★ / 1.7k forks",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "vCard (codewithsadee)",
+  "u": "https://github.com/codewithsadee/vcard-personal-portfolio",
+  "c": "Sidebar contact card + tabbed résumé",
+  "t": "HTML/CSS/JS",
+  "s": "Avoid — recruiters have seen it thousands of times",
+  "o": "8.1k★ / 4.5k forks",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Chun-Ho Lin",
+  "u": "https://v0.1chooo.com",
+  "c": "vCard extended with comments, view counter, view transitions",
+  "t": "Next.js; 2,350 commits",
+  "s": "A guestbook",
+  "o": "314★",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Chánh Đại",
+  "u": "https://chanhdai.com",
+  "c": "Portfolio doubles as a shadcn registry; /llms.txt; raw .md endpoints; PWA",
+  "t": "Next.js",
+  "s": "Portfolio as an installable artifact — for backend: `docker compose up` per project",
+  "o": "2.4k★ / 332 forks",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Eric Wu",
+  "u": "https://ericwu.me",
+  "c": "Liquid-glass bento where the period in 'Hey, I'm Eric.' is a draggable magnifying lens",
+  "t": "Draggable cards, live Seattle sky, ⌘K",
+  "s": "ONE signature micro-interaction beats ten effects",
+  "o": "373★; AWS SDE II",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "ibelick — Nim",
+  "u": "https://nim-fawn.vercel.app",
+  "c": "Ultra-minimal one-page template",
+  "t": "Motion-Primitives author",
+  "s": "Restraint",
+  "o": "751★",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Raphael Salaja — Sylph",
+  "u": "https://next-sylph-portfolio.vercel.app",
+  "c": "Minimal MDX template; maintains a living manual of interface notes",
+  "t": "MDX",
+  "s": "Publish 'distributed-systems field notes'",
+  "o": "340★",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Santiago — santifer.io",
+  "u": "https://santifer.io",
+  "c": "AI avatar on pgvector + BM25 + reranking with voice, Langfuse traces, /ops LLMOps dashboard, 71 evals gating CI, 6-layer injection defense",
+  "t": "pgvector, Langfuse, evals in CI",
+  "s": "Best fit for an AI-agent engineer: the observability and evals ARE the exhibit",
+  "o": "850★ / 282 forks",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Erik Cunha",
+  "u": "https://erikunha.dev",
+  "c": "Repo described as a 'hiring artifact'",
+  "t": "MCP server, /.well-known/agent.json, CI gates on perf + 80% coverage, AI budget cap",
+  "s": "A portfolio agents can read and query, with public quality gates",
+  "o": "14★",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Eki Zulfar Rachman",
+  "u": "https://ekizr.com",
+  "c": "Supabase admin dashboard + moderated comment wall",
+  "t": "Supabase",
+  "s": "Guestbook with pinned comments",
+  "o": "737★ / 300 forks",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "blento (flo-bit)",
+  "u": "https://blento.app",
+  "c": "Bento builder storing data on your Bluesky server — started because bento.me shut down",
+  "t": "atproto",
+  "s": "Evidence the bento era has peaked",
+  "o": "213★",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Dockfolio (Framer)",
+  "u": "https://www.framer.com/marketplace/",
+  "c": "macOS dock nav sold as a template",
+  "t": "Framer",
+  "s": "The dock is a commodity",
+  "e": "search",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Nik (Sri Nikhil)",
+  "u": "https://coolestdesigner.com",
+  "c": "Indian design engineer with a memorable domain",
+  "t": "—",
+  "s": "Personality in the domain name",
+  "e": "search",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Aaryan Samanta",
+  "u": "https://aaryansamanta.github.io",
+  "c": "Plain HTML page dense with credentials (papers, USACO Platinum)",
+  "t": "HTML",
+  "s": "A papers-style index of engineering write-ups",
+  "o": "323★",
+  "e": "gh",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Peerlist Launchpad",
+  "u": "https://peerlist.io",
+  "c": "Indian tech network with weekly 'Project of the Week'",
+  "t": "Platform",
+  "s": "Launch Orchrez/Semages there and show the badge",
+  "e": "search",
+  "lanes": [
+   "viral"
+  ]
+ },
+ {
+  "n": "Sofía Ferro",
+  "u": "https://www.sofiaferro.com.ar",
+  "c": "Every page is also markdown; /api/resume.json, /api/mcp, /.well-known/ai-catalog.json",
+  "t": "Next 16 + Tailwind 4; Zod schemas as the single content source",
+  "s": "One typed content schema generates HTML, markdown, JSON-LD, JSON Resume and MCP — on his exact stack",
+  "e": "gh",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Tanay Shah",
+  "u": "https://tanayshah.dev",
+  "c": "'AI Engineer | Agent Infrastructure' — each project has its own architecture page",
+  "t": "Repo READMEs link back to /projects/<slug>",
+  "s": "Bidirectional links between each repo and its architecture page",
+  "e": "gh",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Rushikesh Nimkar",
+  "u": "https://rushikeshnimkar.xyz",
+  "c": "Portfolio assistant built on LangGraph",
+  "t": "Next.js + LangChain + LangGraph + OpenRouter",
+  "s": "Show the live node trace beside each answer",
+  "e": "gh",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Adrian Zumbrunnen",
+  "u": "https://azumbrunnen.me",
+  "c": "The original conversational portfolio with preset reply chips",
+  "t": "Deterministic chat UI",
+  "s": "Chip-based Q&A as the no-LLM fallback",
+  "e": "gh",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Enji (enjidev)",
+  "u": "https://enji.dev",
+  "c": "Per-section emoji reactions with salted, hashed IPs",
+  "t": "Turborepo monorepo, keyboard shortcuts",
+  "s": "Privacy-preserving view counts — write up the dedupe design",
+  "o": "595★",
+  "e": "gh",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Jason Ketron — enscribe",
+  "u": "https://enscribe.dev",
+  "c": "Knuth–Plass justification toggle, reader mode, live WakaTime/Spotify/Discord",
+  "t": "Live widgets",
+  "s": "A live telemetry strip: commits this week, NeonStays uptime",
+  "o": "605★",
+  "e": "gh",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Michael D'Angelo",
+  "u": "https://mldangelo.com",
+  "c": "Filterable résumé that prints in full; size budget enforced in CI",
+  "t": "Static-export Next.js + tests",
+  "s": "Print stylesheet + perf budget in CI, cited in the footer",
+  "o": "1.7k★ / 979 forks",
+  "e": "gh",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Bartosz Jarocki — CV",
+  "u": "https://cv.jarocki.me",
+  "c": "Print-perfect minimalist CV page from one data file",
+  "t": "Next.js",
+  "s": "/cv as an HTML page, not only a PDF (HN asks for exactly this)",
+  "o": "9.7k★ / 1k forks",
+  "e": "gh",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Zeno Rocha",
+  "u": "https://zenorocha.com",
+  "c": "Popularised the ⌘K command palette on personal sites",
+  "t": "kbar",
+  "s": "⌘K: jump to project, copy email, open architecture diagram",
+  "o": "487★",
+  "e": "gh",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Alex Harri",
+  "u": "https://alexharri.com",
+  "c": "Long-form posts built from custom interactive components",
+  "t": "Sliders, 2D/ASCII scenes",
+  "s": "Semages explainer: HNSW ef / top-k sliders show recall vs latency",
+  "e": "gh",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Xe Iaso",
+  "u": "https://xeiaso.net",
+  "c": "Character 'conversation' asides voice the reader's objections",
+  "t": "Go + Lume + Nix",
+  "s": "Two-voice asides: 'Recruiter: why Celery over Kafka here?'",
+  "o": "732★",
+  "e": "gh",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Jacky Zhao",
+  "u": "https://jzhao.xyz",
+  "c": "Networked garden with backlinks and a graph view",
+  "t": "Quartz (his own, 13.4k★)",
+  "s": "A graph linking projects to tech (Kafka, Neo4j, pgvector)",
+  "e": "gh",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Max Böck",
+  "u": "https://mxb.dev",
+  "c": "IndieWeb webmentions under posts",
+  "t": "Eleventy",
+  "s": "Show external discussion under each write-up",
+  "o": "569★",
+  "e": "gh",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Sean Goedecke",
+  "u": "https://www.seangoedecke.com",
+  "c": "Plain blog of system-design essays that hit HN's front page",
+  "t": "Static",
+  "s": "Opinionated systems essays beat visuals",
+  "e": "search",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Redowan Delowar",
+  "u": "https://rednafi.com",
+  "c": "Minimal backend notes (Go/Python, concurrency)",
+  "t": "Static",
+  "s": "Short searchable backend notes as proof of depth",
+  "e": "search",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Susam Pal",
+  "u": "https://susam.net",
+  "c": "Tiny fast site generated by his own Common Lisp code",
+  "t": "Common Lisp",
+  "s": "A colophon / 'how this site is built' page",
+  "e": "gh",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Facundo Olano",
+  "u": "https://olano.dev",
+  "c": "Built a custom static site generator (jorge, Go)",
+  "t": "Go",
+  "s": "'How this site works' page with an architecture diagram",
+  "e": "gh",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Mu-An Chiou",
+  "u": "https://muan.co",
+  "c": "JS-light, declares content LLM-free",
+  "t": "anti-javascript-javascript-club",
+  "s": "An explicit 'written by me' stance to build trust",
+  "e": "gh",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "erica (CompeyDev)",
+  "u": "https://devcomp.xyz",
+  "c": "Rust ratatui portfolio over `ssh erica@devcomp.xyz`; web page mimics the TUI",
+  "t": "Rust, ratatui",
+  "s": "`ssh divyansh.dev` — the strongest backend flex",
+  "o": "94★",
+  "e": "gh",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Anmol — npx anmol",
+  "u": "https://github.com/anmol098/npx_card",
+  "c": "Business card in the terminal via npx",
+  "t": "Node",
+  "s": "`npx divyansh` card",
+  "o": "532★",
+  "e": "gh",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "TokenRollAI — curl -N résumé",
+  "u": "https://github.com/TokenRollAI/curl-resume",
+  "c": "Animated résumé streamed to the terminal over curl",
+  "t": "Chunked streaming",
+  "s": "A streamed résumé that quietly demos streaming backends",
+  "o": "75★",
+  "e": "gh",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "malted",
+  "u": "https://malted.dev",
+  "c": "Whole site is a server-rendered streamed plain-text file",
+  "t": "Rust",
+  "s": "A text/plain mode of the site",
+  "e": "gh",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Albino Tonnina",
+  "u": "https://albinotonnina.com",
+  "c": "Scroll-driven illustrated story of a desk scene",
+  "t": "Scroll animation",
+  "s": "Scroll story of one request's lifecycle through Orchrez",
+  "o": "2.8k★",
+  "e": "gh",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Adham Dannaway",
+  "u": "https://www.adhamdannaway.com",
+  "c": "Classic split hero: half designer, half coder",
+  "t": "Hover split",
+  "s": "Split 'builder ↔ systems' hero",
+  "e": "search",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Cassidy Williams",
+  "u": "https://cassidoo.co",
+  "c": "Personality-first, newsletter hook",
+  "t": "—",
+  "s": "A recurring 'systems puzzle of the week'",
+  "e": "search",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Jhey Tompkins",
+  "u": "https://jhey.dev",
+  "c": "Whimsical CSS micro-interactions",
+  "t": "CSS",
+  "s": "One delightful micro-interaction, not ten",
+  "e": "search",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Sivanesh Balaji",
+  "u": "https://sivaneshbalaji.online",
+  "c": "Website, SSH terminal and MCP server all on one résumé REST API",
+  "t": "portfolio-mcp",
+  "s": "One API, three surfaces — a natural backend architecture story",
+  "e": "gh",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Cassie Evans",
+  "u": "https://www.cassie.codes",
+  "c": "SVG + GSAP animation craft",
+  "t": "GSAP, SVG",
+  "s": "Animated SVG architecture diagrams instead of static images",
+  "e": "prior",
+  "lanes": [
+   "community"
+  ]
+ },
+ {
+  "n": "Windows XP portfolio (Show HN)",
+  "u": "https://bestofshowhn.com/",
+  "c": "'I recreated Windows XP as my portfolio'",
+  "t": "XP clone",
+  "s": "A strong concept travels: 1032 points vs 'little visibility' for plain dev sites",
+  "o": "1032 HN points, 323 comments",
+  "e": "search",
+  "lanes": [
+   "community"
+  ]
+ }
+]

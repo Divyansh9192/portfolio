@@ -1,42 +1,28 @@
-"use client";
+import type { Metadata } from "next";
+import { Hero } from "@/components/home/Hero";
+import { SystemSection } from "@/components/home/SystemSection";
+import { WorkIndex } from "@/components/home/WorkIndex";
+import { LabsIndex } from "@/components/home/LabsIndex";
+import { About } from "@/components/home/About";
+import { TalkToSite } from "@/components/home/TalkToSite";
+import { Contact } from "@/components/home/Contact";
 
-import { useState, useCallback } from "react";
-import FloatingNav from "@/components/FloatingNav";
-import Hero from "@/components/Hero";
-import WorkSection from "@/components/WorkSection";
-// import Timeline from "@/components/Timeline";
-import Footer from "@/components/Footer";
-import CaseStudyOverlay from "@/components/CaseStudyOverlay";
-import ScrollProgress from "@/components/ScrollProgress";
-import { projects } from "@/data/projects";
+// Title and description come from the root layout's defaults.
+export const metadata: Metadata = {
+  alternates: { canonical: "/", types: { "text/markdown": "/index.md" } },
+  openGraph: { url: "/" },
+};
 
 export default function Home() {
-  const [activeSlug, setActiveSlug] = useState<string | null>(null);
-
-  const openProject = useCallback((slug: string) => {
-    setActiveSlug(slug);
-  }, []);
-
-  const closeProject = useCallback(() => {
-    setActiveSlug(null);
-  }, []);
-
-  const activeProject = projects.find((p) => p.slug === activeSlug) ?? null;
-
   return (
     <>
-      <ScrollProgress />
       <Hero />
-
-      <div className="flex flex-col gap-22 pb-32">
-        <WorkSection projects={projects} onOpen={openProject} />
-        {/* <Timeline /> */}
-        <Footer />
-      </div>
-
-      <FloatingNav />
-
-      <CaseStudyOverlay project={activeProject} onClose={closeProject} onNavigate={openProject} />
+      <SystemSection />
+      <WorkIndex />
+      <LabsIndex />
+      <About />
+      <TalkToSite />
+      <Contact />
     </>
   );
 }

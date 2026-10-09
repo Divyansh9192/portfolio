@@ -1,0 +1,82 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Command } from "lucide-react";
+import { cn } from "@/lib/cn";
+import { OPERATOR_EVENTS } from "@/lib/site";
+import { ModKey } from "./ModKey";
+import { ThemeToggle } from "./ThemeToggle";
+
+const NAV = [
+  { href: "/#work", label: "Work", match: (p: string) => p.startsWith("/work"), narrow: true },
+  { href: "/labs", label: "Labs", match: (p: string) => p.startsWith("/labs"), narrow: true },
+  { href: "/cv", label: "CV", match: (p: string) => p.startsWith("/cv"), narrow: true },
+  // Hidden on the narrowest phones; still reachable from the footer and the shell.
+  { href: "/status", label: "Status", match: (p: string) => p.startsWith("/status"), narrow: false },
+];
+
+export function SiteHeader() {
+  const pathname = usePathname() ?? "/";
+  return (
+    <header
+      data-arch="SiteHeader"
+      data-arch-kind="client"
+      data-print="hide"
+      className="sticky top-0 z-40 border-b border-line bg-bg/80 backdrop-blur-md supports-[backdrop-filter]:bg-bg/65"
+    >
+      <div className="mx-auto flex h-14 w-full max-w-[1240px] items-center gap-2 px-4 sm:gap-3 sm:px-6">
+        <Link href="/" className="group flex items-center gap-2.5 font-mono text-[13px] text-text">
+          <span className="led text-ok" data-pulse="true" aria-hidden />
+          <span className="font-medium">divyansh</span>
+          <span className="hidden text-text-3 sm:inline">@live-system</span>
+          <span className="sr-only">, home</span>
+        </Link>
+
+        <nav aria-label="Primary" className="ml-auto flex min-w-0 items-center gap-0.5 sm:ml-6">
+          {NAV.map((item) => {
+            const active = item.match(pathname);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={active ? "page" : undefined}
+                className={cn(
+                  "rounded-md px-2 py-1.5 text-[13.5px] transition-colors sm:px-2.5",
+                  item.narrow ? "" : "hidden min-[420px]:inline-block",
+                  active ? "bg-surface-2 text-text" : "text-text-2 hover:text-text",
+                )}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
+
+        <div className="flex shrink-0 items-center gap-1 sm:ml-auto">
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new CustomEvent(OPERATOR_EVENTS.open))}
+            className="hidden items-center gap-2 rounded-md border border-line bg-surface px-2.5 py-1.5 font-mono text-[12px] text-text-3 transition-colors hover:border-line-strong hover:text-text-2 md:inline-flex"
+            aria-keyshortcuts="Meta+K Control+K"
+          >
+            <span aria-hidden className="inline-flex items-center gap-1">
+              <ModKey iconClassName="size-3.5" />
+              <span>K</span>
+            </span>
+            <span>run a command</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new CustomEvent(OPERATOR_EVENTS.open))}
+            className="inline-flex size-8 items-center justify-center rounded-md text-text-2 hover:bg-surface-2 hover:text-text md:hidden"
+            aria-label="Open command palette"
+          >
+            <Command className="size-4" aria-hidden />
+          </button>
+          <ThemeToggle />
+        </div>
+      </div>
+    </header>
+  );
+}
