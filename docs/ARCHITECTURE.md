@@ -37,7 +37,7 @@ Tokens live in `src/app/globals.css` and are exposed to Tailwind through `@theme
 | Event | Detail | Effect |
 |---|---|---|
 | `operator:open` | `{ command?: string }` | Open the ⌘K shell, optionally pre-filled |
-| `operator:overlay` | none | Toggle the architecture overlay |
+| `operator:overlay` | `{ on?: boolean }` | Toggle the architecture overlay, or force it on/off |
 | `operator:incident` | `{ on?: boolean }` | Start or stop incident mode |
 | `operator:ask` | `{ question?: string }` | Open the ask-the-agent panel |
 

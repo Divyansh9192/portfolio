@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import { parseWidth, renderAnsiPage, wantsColor } from "@/lib/render/ansi";
+import { SITE_URL } from "@/lib/site";
 
 /**
  * Terminal rendering of a page. `src/proxy.ts` rewrites curl/Wget/HTTPie/xh/PowerShell
@@ -12,7 +13,10 @@ export async function GET(request: NextRequest, context: { params: Promise<{ pat
   const params = request.nextUrl.searchParams;
   const segments = (await context.params).path;
   const page = segments?.length ? `/${segments.join("/")}` : (params.get("path") ?? "/");
+  // Links in the output point at the canonical domain when one is configured, else at the host that was curled.
+  const origin = process.env.NEXT_PUBLIC_SITE_URL || process.env.VERCEL_PROJECT_PRODUCTION_URL ? SITE_URL : request.nextUrl.origin;
   const { status, body } = renderAnsiPage(page, {
+    origin,
     color: wantsColor(params, request.headers.get("user-agent")),
     width: parseWidth(params),
   });
