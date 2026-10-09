@@ -14,7 +14,7 @@ const C = {
   line: "#1f252e",
   text: "#e7eaee",
   text2: "#a2aab7",
-  text3: "#6b7381",
+  text3: "#7c8593",
   ok: "#3ddc84",
 };
 

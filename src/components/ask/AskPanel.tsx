@@ -50,6 +50,7 @@ export function AskPanel({ initialQuestion, onClose, compact = false }: AskPanel
   const motionOK = useMotionOK();
   const { state, ask, stop } = useAskStream();
   const [input, setInput] = useState(initialQuestion ?? "");
+  const [emptyHint, setEmptyHint] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const streaming = state.phase === "streaming";
 
@@ -68,9 +69,11 @@ export function AskPanel({ initialQuestion, onClose, compact = false }: AskPanel
   const submit = (q: string) => {
     const question = q.trim().slice(0, MAX_CHARS);
     if (!question) {
+      setEmptyHint(true);
       inputRef.current?.focus();
       return;
     }
+    setEmptyHint(false);
     void ask(question);
   };
 
@@ -132,12 +135,16 @@ export function AskPanel({ initialQuestion, onClose, compact = false }: AskPanel
             name="question"
             type="text"
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(e) => {
+              setInput(e.target.value);
+              if (emptyHint) setEmptyHint(false);
+            }}
+            aria-describedby={`${inputId}-hint`}
             maxLength={MAX_CHARS}
             autoComplete="off"
             enterKeyHint="send"
             spellCheck
-            className="h-11 min-w-0 flex-1 rounded-lg border border-line-strong bg-bg px-3 text-[15px] text-text placeholder:text-text-3 focus-visible:border-text-3"
+            className="h-11 min-w-0 flex-1 rounded-lg border border-text-3 bg-bg px-3 text-[15px] text-text placeholder:text-text-3 focus-visible:border-text-2"
             placeholder="e.g. How does the gateway check tokens?"
           />
           {streaming ? (
@@ -150,6 +157,9 @@ export function AskPanel({ initialQuestion, onClose, compact = false }: AskPanel
             </button>
           )}
         </div>
+        <p id={`${inputId}-hint`} role="status" className="text-[13px] text-text-2 empty:-mt-2">
+          {emptyHint ? "Type a question first." : ""}
+        </p>
       </form>
 
       <div>

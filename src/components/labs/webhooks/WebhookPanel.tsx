@@ -246,7 +246,7 @@ export function WebhookPanel({ compact }: { compact: boolean }) {
           <MonoTitle>processed_stripe_events</MonoTitle>
           {fix ? (
             world.processedEvents.length ? (
-              <div className="overflow-x-auto rounded-lg border border-line">
+              <div tabIndex={0} role="group" aria-label="Processed Stripe event ids" className="overflow-x-auto rounded-lg border border-line">
                 <table className="w-full border-collapse text-left font-mono text-[12px]">
                   <caption className="sr-only">Processed Stripe event ids</caption>
                   <thead>
@@ -335,7 +335,7 @@ function StateMachine({ status }: { status: BookingStatus | null }) {
           </li>
         ))}
         <li className="flex items-center gap-1">
-          <span className="rounded-md border border-dashed border-line px-1.5 py-1 font-mono text-[11px] text-text-3 opacity-60">EXPIRE</span>
+          <span className="rounded-md border border-dashed border-line px-1.5 py-1 font-mono text-[11px] text-text-3">EXPIRE</span>
           <span className="font-mono text-[10.5px] text-text-3">declared, unused</span>
         </li>
       </ol>

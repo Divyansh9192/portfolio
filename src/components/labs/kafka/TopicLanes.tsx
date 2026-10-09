@@ -60,8 +60,8 @@ export function TopicCard({ topic, compact }: { topic: TopicView; compact: boole
     <div className="rounded-lg border border-line bg-bg/40 p-2.5">
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
-          <p className="truncate font-mono text-[12.5px] font-medium text-text">{spec.name}</p>
-          <p className="truncate font-mono text-[11px] text-text-3">
+          <p className="min-w-0 [overflow-wrap:anywhere] font-mono text-[12.5px] font-medium text-text">{spec.name}</p>
+          <p className="min-w-0 [overflow-wrap:anywhere] font-mono text-[11px] text-text-3">
             {spec.eventClass} · {spec.keyField ? `key ${spec.keyField}` : "no key (sticky)"} · {spec.listener}
           </p>
         </div>

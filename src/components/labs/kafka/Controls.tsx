@@ -72,11 +72,11 @@ export function PublishBar({ snap, on, compact }: { snap: KafkaSnapshot; on: Con
                 compact ? "py-1" : "py-2",
               )}
             >
-              <span className="max-w-full truncate font-mono text-[12.5px] font-medium text-text">{t.eventClass}</span>
+              <span className="max-w-full min-w-0 [overflow-wrap:anywhere] font-mono text-[12.5px] font-medium text-text">{t.eventClass}</span>
               {!compact ? (
                 <>
-                  <span className="max-w-full truncate font-mono text-[11px] text-text-2">{`{${t.fields.join(", ")}}`}</span>
-                  <span className="max-w-full truncate font-mono text-[11px] text-text-3">
+                  <span className="max-w-full min-w-0 [overflow-wrap:anywhere] font-mono text-[11px] text-text-2">{`{${t.fields.join(", ")}}`}</span>
+                  <span className="max-w-full min-w-0 [overflow-wrap:anywhere] font-mono text-[11px] text-text-3">
                     → {t.name} · {t.keyField ? KEY_LABEL[t.keyField] : "no key"}
                   </span>
                 </>

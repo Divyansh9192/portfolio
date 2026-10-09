@@ -25,10 +25,11 @@ export function SiteHeader() {
       className="sticky top-0 z-40 border-b border-line bg-bg/80 backdrop-blur-md supports-[backdrop-filter]:bg-bg/65"
     >
       <div className="mx-auto flex h-14 w-full max-w-[1240px] items-center gap-2 px-4 sm:gap-3 sm:px-6">
-        <Link href="/" className="group flex items-center gap-2.5 font-mono text-[13px] text-text" aria-label="Divyansh Deep, home">
+        <Link href="/" className="group flex items-center gap-2.5 font-mono text-[13px] text-text">
           <span className="led text-ok" data-pulse="true" aria-hidden />
           <span className="font-medium">divyansh</span>
           <span className="hidden text-text-3 sm:inline">@live-system</span>
+          <span className="sr-only">, home</span>
         </Link>
 
         <nav aria-label="Primary" className="ml-auto flex min-w-0 items-center gap-0.5 sm:ml-6">
@@ -56,11 +57,11 @@ export function SiteHeader() {
             type="button"
             onClick={() => window.dispatchEvent(new CustomEvent(OPERATOR_EVENTS.open))}
             className="hidden items-center gap-2 rounded-md border border-line bg-surface px-2.5 py-1.5 font-mono text-[12px] text-text-3 transition-colors hover:border-line-strong hover:text-text-2 md:inline-flex"
-            aria-label="Open command palette"
+            aria-keyshortcuts="Meta+K Control+K"
           >
             <Command className="size-3.5" aria-hidden />
-            <span>K</span>
-            <span className="text-text-3/70">run a command</span>
+            <span aria-hidden>K</span>
+            <span>run a command</span>
           </button>
           <button
             type="button"

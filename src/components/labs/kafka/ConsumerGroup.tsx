@@ -64,7 +64,7 @@ function MemberRow({ m, crashed }: { m: MemberView; crashed: boolean }) {
   return (
     <li className="border-t border-line py-1.5 first:border-t-0">
       <div className="flex items-center justify-between gap-2">
-        <span className="truncate font-mono text-[11.5px] text-text">{m.listener}</span>
+        <span className="min-w-0 [overflow-wrap:anywhere] font-mono text-[11.5px] text-text">{m.listener}</span>
         <span className="flex shrink-0 gap-1">
           {m.assigned.length ? (
             m.assigned.map((p) => (

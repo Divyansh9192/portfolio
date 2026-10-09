@@ -120,7 +120,7 @@ export default function WebhooksLabPage() {
                 <span className="font-mono text-[12px] text-text-3 tnum">{String(i + 1).padStart(2, "0")}</span>
                 <div className="min-w-0">
                   <p className="text-[15px] leading-relaxed text-text">{r.claim}</p>
-                  <p className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1">
+                  <p className="mt-1 flex flex-wrap gap-x-3">
                     {r.refs.map((id) => {
                       const l = refLink(id);
                       return (
@@ -129,7 +129,7 @@ export default function WebhooksLabPage() {
                           href={l.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="break-all font-mono text-[12px] text-link underline decoration-link/30 underline-offset-[3px] hover:decoration-link"
+                          className="inline-block break-all py-1 font-mono text-[12px] text-link underline decoration-link/30 underline-offset-[3px] hover:decoration-link"
                         >
                           {l.text}
                         </a>

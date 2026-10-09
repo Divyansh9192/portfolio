@@ -55,6 +55,7 @@ export function ArchitectureOverlay({ on, onClose }: { on: boolean; onClose: () 
   const [expanded, setExpanded] = useState(() => window.matchMedia("(min-width: 640px)").matches);
   const layerRef = useRef<HTMLDivElement>(null);
   const legendRef = useRef<HTMLElement>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
   const uid = useId();
 
   // Measure tagged elements on scroll/resize/DOM changes, batched to one rAF.
@@ -126,10 +127,28 @@ export function ArchitectureOverlay({ on, onClose }: { on: boolean; onClose: () 
     };
   }, [on]);
 
-  // Esc closes (unless a modal dialog is open; it handles its own Esc). Announce on open.
-  const onCloseRef = useRef(onClose);
+  // Closing hands focus back to whatever had it when the overlay opened, if focus was in the legend.
+  const close = () => {
+    if (legendRef.current?.contains(document.activeElement)) {
+      const opener = openerRef.current;
+      if (opener?.isConnected) opener.focus();
+      else document.getElementById("main")?.focus();
+    }
+    onClose();
+  };
+
+  // On open, remember the focused element and move focus to the legend so it is reachable.
   useEffect(() => {
-    onCloseRef.current = onClose;
+    if (!on) return;
+    const ae = document.activeElement;
+    openerRef.current = ae instanceof HTMLElement && ae !== document.body ? ae : null;
+    if (!document.querySelector("dialog[open]")) legendRef.current?.focus({ preventScroll: true });
+  }, [on]);
+
+  // Esc closes (unless a modal dialog is open; it handles its own Esc). Announce on open.
+  const onCloseRef = useRef(close);
+  useEffect(() => {
+    onCloseRef.current = close;
   });
   useEffect(() => {
     if (!on) return;
@@ -182,9 +201,10 @@ export function ArchitectureOverlay({ on, onClose }: { on: boolean; onClose: () 
 
       <section
         ref={legendRef}
+        tabIndex={-1}
         aria-labelledby={`${uid}-h`}
         data-print="hide"
-        className="pointer-events-auto fixed inset-x-3 bottom-3 z-[61] max-h-[min(70vh,34rem)] overflow-y-auto rounded-xl border border-line-strong bg-surface text-text shadow-[var(--shadow)] sm:left-4 sm:right-auto sm:w-[23rem]"
+        className="pointer-events-auto fixed inset-x-3 bottom-3 z-[61] max-h-[min(70vh,34rem)] overflow-y-auto rounded-xl border border-line-strong bg-surface text-text shadow-[var(--shadow)] focus:outline-none sm:left-4 sm:right-auto sm:w-[23rem]"
       >
         <header className="sticky top-0 flex items-center gap-2 border-b border-line bg-surface py-1.5 pl-4 pr-1.5">
           <h2 id={`${uid}-h`} className="font-mono text-[11.5px] uppercase tracking-[0.1em] text-text-2">
@@ -201,7 +221,7 @@ export function ArchitectureOverlay({ on, onClose }: { on: boolean; onClose: () 
           </button>
           <button
             type="button"
-            onClick={onClose}
+            onClick={close}
             aria-label="Close architecture overlay"
             className="inline-flex size-10 items-center justify-center rounded-md text-text-2 hover:bg-surface-2 hover:text-text sm:size-8"
           >

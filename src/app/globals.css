@@ -20,7 +20,7 @@
   --line-strong: #2d3541;
   --text: #e7eaee;
   --text-2: #a2aab7;
-  --text-3: #6b7381;
+  --text-3: #7c8593;
   --ok: #3ddc84;
   --ok-dim: rgb(61 220 132 / 0.14);
   --warn: #f2b33d;
@@ -29,8 +29,8 @@
   --crit-dim: rgb(255 92 92 / 0.14);
   --sync: #3987e5;
   --sync-dim: rgb(57 135 229 / 0.16);
-  --async: #d55181;
-  --async-dim: rgb(213 81 129 / 0.16);
+  --async: #da6891;
+  --async-dim: rgb(218 104 145 / 0.16);
   --link: #8fb6ff;
   --focus: #8fb6ff;
   --selection: rgb(57 135 229 / 0.35);
@@ -48,17 +48,17 @@
   --line-strong: #cdd2da;
   --text: #11151a;
   --text-2: #4a5262;
-  --text-3: #788091;
-  --ok: #11805a;
-  --ok-dim: rgb(17 128 90 / 0.12);
-  --warn: #a36500;
-  --warn-dim: rgb(163 101 0 / 0.12);
-  --crit: #c8322f;
-  --crit-dim: rgb(200 50 47 / 0.1);
-  --sync: #2a78d6;
-  --sync-dim: rgb(42 120 214 / 0.12);
-  --async: #c2457a;
-  --async-dim: rgb(194 69 122 / 0.12);
+  --text-3: #666d7d;
+  --ok: #0f7451;
+  --ok-dim: rgb(15 116 81 / 0.12);
+  --warn: #905900;
+  --warn-dim: rgb(144 89 0 / 0.12);
+  --crit: #bf302d;
+  --crit-dim: rgb(191 48 45 / 0.1);
+  --sync: #2365b5;
+  --sync-dim: rgb(35 101 181 / 0.12);
+  --async: #ad396a;
+  --async-dim: rgb(173 57 106 / 0.12);
   --link: #1f5fc2;
   --focus: #1f5fc2;
   --selection: rgb(42 120 214 / 0.22);
@@ -211,9 +211,9 @@
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-  :root:not([data-motion="full"]) ::view-transition-group(*),
-  :root:not([data-motion="full"]) ::view-transition-old(*),
-  :root:not([data-motion="full"]) ::view-transition-new(*) {
+  :root:not([data-motion="full"])::view-transition-group(*),
+  :root:not([data-motion="full"])::view-transition-old(*),
+  :root:not([data-motion="full"])::view-transition-new(*) {
     animation: none !important;
   }
 }
@@ -225,9 +225,9 @@
   transition-duration: 0.001ms !important;
   scroll-behavior: auto !important;
 }
-:root[data-motion="reduce"] ::view-transition-group(*),
-:root[data-motion="reduce"] ::view-transition-old(*),
-:root[data-motion="reduce"] ::view-transition-new(*) {
+:root[data-motion="reduce"]::view-transition-group(*),
+:root[data-motion="reduce"]::view-transition-old(*),
+:root[data-motion="reduce"]::view-transition-new(*) {
   animation: none !important;
 }
 

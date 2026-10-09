@@ -45,7 +45,7 @@ export function RealVsSimulated() {
                 {r.text}{" "}
                 <span className="inline-flex flex-wrap gap-x-2">
                   {r.cites.map((c) => (
-                    <Cite key={c} at={c} />
+                    <Cite key={c} at={c} className="inline-block break-all py-1" />
                   ))}
                 </span>
               </li>

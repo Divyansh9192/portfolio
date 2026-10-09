@@ -29,6 +29,8 @@ export function IncidentMode({ on, run, onDismiss }: { on: boolean; run: number;
   const [pmOpen, setPmOpen] = useState(false);
   const pmRef = useRef<HTMLDialogElement>(null);
   const pmTriggerRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
   const uid = useId();
 
   const elapsed = !motionOK ? script.durationS : tick.run === run ? tick.elapsed : 0;
@@ -67,6 +69,37 @@ export function IncidentMode({ on, run, onDismiss }: { on: boolean; run: number;
     else toast({ title: `${script.id}: a simulation`, body: "Reduced motion is on, so the whole timeline is shown at once." });
   }, [on, run, script, motionOK]);
 
+  // Remember what had focus when the panel opened, so closing it can hand focus back.
+  useEffect(() => {
+    if (!on) return;
+    const ae = document.activeElement;
+    openerRef.current = ae instanceof HTMLElement && ae !== document.body ? ae : null;
+  }, [on, run]);
+
+  // The panel is fixed to the bottom of the viewport: reserve that space so focused
+  // elements scroll clear of it instead of hiding underneath (WCAG 2.4.11).
+  useEffect(() => {
+    const panel = panelRef.current;
+    if (!on || !panel) return;
+    const html = document.documentElement;
+    const body = document.body;
+    const apply = () => {
+      const px = `${Math.ceil(window.innerHeight - panel.getBoundingClientRect().top) + 12}px`;
+      html.style.scrollPaddingBottom = px;
+      body.style.paddingBottom = px;
+    };
+    apply();
+    const ro = new ResizeObserver(apply);
+    ro.observe(panel);
+    window.addEventListener("resize", apply);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", apply);
+      html.style.scrollPaddingBottom = "";
+      body.style.paddingBottom = "";
+    };
+  }, [on]);
+
   // Postmortem dialog.
   useEffect(() => {
     const d = pmRef.current;
@@ -78,16 +111,38 @@ export function IncidentMode({ on, run, onDismiss }: { on: boolean; run: number;
     }
   }, [pmOpen]);
 
-  if (!on) return null;
-
   const stop = () => {
+    // Hand focus back if it was inside the panel; otherwise leave it where the visitor is.
+    if (panelRef.current?.contains(document.activeElement)) {
+      const opener = openerRef.current;
+      if (opener?.isConnected) opener.focus();
+      else document.getElementById("main")?.focus();
+    }
     onDismiss();
     if (phase !== "recovered") toast({ title: `${script.id} stopped`, body: "Simulation ended early." });
   };
+  const stopRef = useRef(stop);
+  useEffect(() => {
+    stopRef.current = stop;
+  });
+
+  // Escape dismisses the panel, unless a dialog (shell, postmortem) is open and handles it.
+  useEffect(() => {
+    if (!on) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape" || e.defaultPrevented || document.querySelector("dialog[open]")) return;
+      stopRef.current();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [on]);
+
+  if (!on) return null;
 
   return (
     <>
       <section
+        ref={panelRef}
         aria-labelledby={`${uid}-h`}
         data-arch="IncidentPanel"
         data-arch-kind="client"

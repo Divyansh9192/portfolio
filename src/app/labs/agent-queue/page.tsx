@@ -97,7 +97,10 @@ export default function AgentQueueLabPage() {
         </div>
       </header>
 
-      <section aria-label="Interactive lab" className="mt-10">
+      <section aria-labelledby="lab-title" className="mt-10">
+        <h2 id="lab-title" className="sr-only">
+          Interactive lab
+        </h2>
         <AgentQueueLab sourceBase={`${project.links.repo}/blob/${project.repoBranch}`} />
       </section>
 
@@ -113,7 +116,7 @@ export default function AgentQueueLabPage() {
             {REAL.map((r) => (
               <li key={r.claim} className="text-[14.5px] leading-snug text-text-2">
                 {r.claim}{" "}
-                <a href={href(r.evidence)} target="_blank" rel="noopener noreferrer" className="font-mono text-[12px] text-link underline decoration-link/30 underline-offset-[3px] hover:decoration-link">
+                <a href={href(r.evidence)} target="_blank" rel="noopener noreferrer" className="break-all font-mono text-[12px] text-link underline decoration-link/30 underline-offset-[3px] hover:decoration-link">
                   {r.evidence.replace(/^backend\//, "")}
                 </a>
               </li>
@@ -129,7 +132,7 @@ export default function AgentQueueLabPage() {
             {EDGES.map((r) => (
               <li key={r.claim} className="text-[14.5px] leading-snug text-text-2">
                 {r.claim}{" "}
-                <a href={href(r.evidence)} target="_blank" rel="noopener noreferrer" className="font-mono text-[12px] text-link underline decoration-link/30 underline-offset-[3px] hover:decoration-link">
+                <a href={href(r.evidence)} target="_blank" rel="noopener noreferrer" className="break-all font-mono text-[12px] text-link underline decoration-link/30 underline-offset-[3px] hover:decoration-link">
                   {r.evidence.replace(/^backend\//, "")}
                 </a>
               </li>

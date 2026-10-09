@@ -172,14 +172,14 @@ export default function KafkaLabPage() {
           {REAL_ITEMS.map((item) => (
             <li key={item.claim} className="grid gap-1.5 border-b border-line py-3.5 sm:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] sm:gap-6">
               <p className="text-[15px] text-text">{item.claim}</p>
-              <ul className="flex flex-col gap-0.5">
+              <ul className="flex flex-col">
                 {item.cites.map((c) => (
                   <li key={c.path} className="min-w-0 font-mono text-[12px]">
                     <a
                       href={evidenceUrl(repo, branch, c.path)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="break-all text-link underline decoration-link/30 underline-offset-[3px] hover:decoration-link"
+                      className="inline-block break-all py-1 text-link underline decoration-link/30 underline-offset-[3px] hover:decoration-link"
                     >
                       {file(c.path)}
                     </a>

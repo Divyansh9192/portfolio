@@ -5,9 +5,9 @@ import { cn } from "@/lib/cn";
 function Stat({ label, value, note, tone, compact }: { label: string; value: number; note?: string; tone?: "text-crit" | "text-warn"; compact?: boolean }) {
   return (
     <div className={cn("min-w-0 rounded-lg border border-line bg-bg/40 px-2.5", compact ? "py-1.5" : "py-2")} title={note}>
-      <dt className="truncate font-mono text-[10.5px] uppercase tracking-[0.08em] text-text-3">{label}</dt>
+      <dt className="min-w-0 [overflow-wrap:anywhere] font-mono text-[10.5px] uppercase tracking-[0.08em] text-text-3">{label}</dt>
       <dd className={cn("font-display text-[20px] font-bold leading-tight tnum [font-stretch:112%]", value > 0 && tone ? tone : "text-text")}>{value}</dd>
-      {note && !compact ? <dd className="truncate text-[11px] text-text-3">{note}</dd> : null}
+      {note && !compact ? <dd className="min-w-0 [overflow-wrap:anywhere] text-[11px] text-text-3">{note}</dd> : null}
     </div>
   );
 }
@@ -25,7 +25,7 @@ function Sparkline({ name, data, current }: { name: string; data: number[]; curr
   return (
     <figure className="min-w-0">
       <figcaption className="flex items-baseline justify-between gap-2 font-mono text-[10.5px] text-text-3">
-        <span className="truncate">{name.replace(/-topic$/, "")}</span>
+        <span className="min-w-0 [overflow-wrap:anywhere]">{name.replace(/-topic$/, "")}</span>
         <span className="shrink-0 tnum text-text-2">{current}</span>
       </figcaption>
       <svg viewBox={`0 0 ${SW} ${SH}`} preserveAspectRatio="none" className="mt-0.5 h-7 w-full" role="img" aria-label={`${name} lag over the last ${(n * SIM.sampleEveryMs) / 1000} s of sim time: now ${current}, peak ${peak}.`}>

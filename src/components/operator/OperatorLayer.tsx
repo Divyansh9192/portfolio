@@ -78,7 +78,8 @@ export function OperatorLayer() {
         else openShell();
         return;
       }
-      if (e.metaKey || e.ctrlKey || e.altKey || isTyping(e.target)) {
+      // Single-character shortcuts can be switched off in the footer (WCAG 2.1.4).
+      if (e.metaKey || e.ctrlKey || e.altKey || isTyping(e.target) || document.documentElement.dataset.keys === "off") {
         konami = 0;
         return;
       }

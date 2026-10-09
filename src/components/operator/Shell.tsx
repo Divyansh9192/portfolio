@@ -644,7 +644,7 @@ export function Shell({ open, prefill, onClose, returnFocusRef }: ShellProps) {
             <p id={`${listId}-label`} className="px-4 pt-2 font-mono text-2xs uppercase tracking-[0.12em] text-text-3">
               {input.trim() ? "Matching actions" : "Quick actions"}
             </p>
-            <ul role="listbox" id={listId} aria-labelledby={`${listId}-label`} className="max-h-[min(36vh,15.5rem)] overflow-y-auto overscroll-contain p-1.5">
+            <ul role="listbox" id={listId} aria-labelledby={`${listId}-label`} tabIndex={-1} className="max-h-[min(36vh,15.5rem)] overflow-y-auto overscroll-contain p-1.5">
               {palette.map((h, i) => (
                 <li
                   key={h.action.id}

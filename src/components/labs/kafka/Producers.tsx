@@ -28,7 +28,7 @@ function ProducerRow({ method, topic, keyDesc, count, src, base }: { method: str
   return (
     <li className="border-t border-line py-1.5 first:border-t-0">
       <div className="flex items-baseline justify-between gap-2">
-        <span className="truncate font-mono text-[11.5px] text-text">{method}</span>
+        <span className="min-w-0 [overflow-wrap:anywhere] font-mono text-[11.5px] text-text">{method}</span>
         <span className="shrink-0 font-mono text-[11px] text-text-3 tnum">{count} sent</span>
       </div>
       <p className="flex flex-wrap items-baseline gap-x-2 font-mono text-[11px] text-text-2">
@@ -168,9 +168,9 @@ function GraphPanel({
                   disabled={down}
                   onClick={() => onAccept(e.from, e.to)}
                   className={ctl(false, "px-2.5 font-mono text-[11.5px]")}
-                  aria-label={`Accept the request from user ${e.from} to user ${e.to}`}
                 >
                   Accept {e.from}→{e.to}
+                  <span className="sr-only">: the request from user {e.from} to user {e.to}</span>
                 </button>
               </li>
             ))}
@@ -194,13 +194,13 @@ function GraphPanel({
             <p className="font-mono text-[10.5px] text-text-3">
               getFirstDegreeConnections · <SourceRef path={SRC.firstDegree} base={base} />
             </p>
-            <pre className="mt-0.5 overflow-x-auto rounded border border-line bg-bg px-2 py-1.5 font-mono text-[10.5px] leading-relaxed text-text-2">{CYPHER_FIRST_DEGREE}</pre>
+            <pre tabIndex={0} role="group" aria-label="getFirstDegreeConnections Cypher query" className="mt-0.5 overflow-x-auto rounded border border-line bg-bg px-2 py-1.5 font-mono text-[10.5px] leading-relaxed text-text-2">{CYPHER_FIRST_DEGREE}</pre>
           </div>
           <div>
             <p className="font-mono text-[10.5px] text-text-3">
               addConnection (accept) · <SourceRef path={SRC.addConnection} base={base} />
             </p>
-            <pre className="mt-0.5 overflow-x-auto rounded border border-line bg-bg px-2 py-1.5 font-mono text-[10.5px] leading-relaxed text-text-2">{CYPHER_ADD_CONNECTION}</pre>
+            <pre tabIndex={0} role="group" aria-label="addConnection Cypher query" className="mt-0.5 overflow-x-auto rounded border border-line bg-bg px-2 py-1.5 font-mono text-[10.5px] leading-relaxed text-text-2">{CYPHER_ADD_CONNECTION}</pre>
           </div>
         </div>
       </details>

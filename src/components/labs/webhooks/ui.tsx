@@ -220,7 +220,7 @@ export function InventoryTable({
   highlight?: Set<number>;
 }) {
   return (
-    <div className="overflow-x-auto rounded-lg border border-line">
+    <div tabIndex={0} role="group" aria-label={caption} className="overflow-x-auto rounded-lg border border-line">
       <table className="w-full min-w-[320px] border-collapse text-left font-mono text-[12px] tnum">
         <caption className="sr-only">{caption}</caption>
         <thead>

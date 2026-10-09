@@ -20,6 +20,7 @@ function subscribeAttr(attr: string) {
 
 const subTheme = subscribeAttr("data-theme");
 const subMotion = subscribeAttr("data-motion");
+const subKeys = subscribeAttr("data-keys");
 
 /** Current resolved theme ("dark" | "light") and a setter that persists the choice. */
 export function useTheme(): [Theme, (t: Theme) => void] {
@@ -72,4 +73,26 @@ export function useMotionOK(): boolean {
     },
     () => false,
   );
+}
+
+/**
+ * Single-character shortcuts ("/" opens the shell, "?" toggles the architecture overlay).
+ * On by default; visitors can switch them off (WCAG 2.1.4). ⌘K / Ctrl+K always works.
+ */
+export function useKeysSetting(): [boolean, (on: boolean) => void] {
+  const on = useSyncExternalStore(
+    subKeys,
+    () => document.documentElement.dataset.keys !== "off",
+    () => true,
+  );
+  const set = useCallback((next: boolean) => {
+    const d = document.documentElement;
+    if (next) delete d.dataset.keys;
+    else d.dataset.keys = "off";
+    try {
+      if (next) localStorage.removeItem("keys");
+      else localStorage.setItem("keys", "off");
+    } catch {}
+  }, []);
+  return [on, set];
 }

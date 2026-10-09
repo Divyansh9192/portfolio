@@ -94,7 +94,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </a>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: personJsonLd() }} />
         <SiteHeader />
-        <main id="main">{children}</main>
+        <main id="main" tabIndex={-1} className="focus:outline-none">
+          {children}
+        </main>
         <SiteFooter />
         <OperatorLayer />
       </body>

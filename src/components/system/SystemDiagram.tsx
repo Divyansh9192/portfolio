@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 import { layoutGraph } from "@/lib/graph/layout";
 import { protocolClass, type NodeKind, type ProtocolClass, type SystemGraph } from "@/content/types";
@@ -62,6 +62,9 @@ export function SystemDiagram({ graph, size = "full", title, className, highligh
     [graph, mini],
   );
   const [active, setActive] = useState<string | null>(null);
+  const [focused, setFocused] = useState<string | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const scrolls = useOverflowX(scrollRef);
   const focusSet = useMemo(() => {
     const ids = new Set<string>(highlight ?? []);
     if (active) {
@@ -78,13 +81,19 @@ export function SystemDiagram({ graph, size = "full", title, className, highligh
 
   return (
     <figure data-arch="SystemDiagram" data-arch-kind="client" className={cn("flex flex-col gap-3", className)}>
-      <div className="overflow-x-auto">
+      <div
+        ref={scrollRef}
+        className="overflow-x-auto"
+        // A picture wider than the screen needs a keyboard stop so it can be scrolled (full diagrams scroll as nodes take focus).
+        {...(mini && scrolls ? { tabIndex: 0, role: "group", "aria-label": `${title} (scrolls sideways)` } : {})}
+      >
         <svg
           viewBox={`0 0 ${layout.width} ${layout.height}`}
           width={layout.width}
           height={layout.height}
           role={mini ? "img" : "group"}
           aria-label={mini ? `${title}: ${graph.nodes.map((n) => n.label).join(", ")}` : title}
+          aria-describedby={mini ? `${uid}-edges` : undefined}
           className={cn("block h-auto max-w-none", mini ? "w-full min-w-[420px]" : "w-full min-w-[640px]")}
           style={{ fontFamily: "var(--font-mono)" }}
         >
@@ -128,7 +137,8 @@ export function SystemDiagram({ graph, size = "full", title, className, highligh
             {layout.nodes.map((p) => {
               const n = nodeById.get(p.id)!;
               const on = !dimming || focusSet.has(p.id);
-              const isActive = active === p.id || highlight?.includes(p.id);
+              const isSelected = Boolean(highlight?.includes(p.id));
+              const isHot = active === p.id || isSelected;
               const dashed = n.kind === "external";
               return (
                 <g
@@ -140,11 +150,17 @@ export function SystemDiagram({ graph, size = "full", title, className, highligh
                   tabIndex={mini ? undefined : 0}
                   role={mini ? undefined : "button"}
                   aria-label={mini ? undefined : `${n.label}, ${KIND_LABEL[n.kind]}, ${n.tech}${n.note ? `. ${n.note}` : ""}`}
-                  aria-pressed={!mini && isActive ? true : undefined}
+                  aria-pressed={!mini && onNodeSelect ? isSelected : undefined}
                   onMouseEnter={() => setActive(p.id)}
                   onMouseLeave={() => setActive(null)}
-                  onFocus={() => setActive(p.id)}
-                  onBlur={() => setActive(null)}
+                  onFocus={() => {
+                    setActive(p.id);
+                    setFocused(p.id);
+                  }}
+                  onBlur={() => {
+                    setActive(null);
+                    setFocused(null);
+                  }}
                   onClick={() => onNodeSelect?.(p.id)}
                   onKeyDown={(ev) => {
                     if (ev.key === "Enter" || ev.key === " ") {
@@ -153,13 +169,16 @@ export function SystemDiagram({ graph, size = "full", title, className, highligh
                     }
                   }}
                 >
+                  {focused === p.id ? (
+                    <rect x={-4} y={-4} width={p.w + 8} height={p.h + 8} rx={9} fill="none" stroke="var(--focus)" strokeWidth={2} />
+                  ) : null}
                   <rect
                     width={p.w}
                     height={p.h}
                     rx={n.kind === "db" || n.kind === "cache" || n.kind === "index" ? 10 : 6}
-                    fill="var(--surface-2)"
-                    stroke={isActive ? "var(--text)" : "var(--line-strong)"}
-                    strokeWidth={isActive ? 1.5 : 1}
+                    fill={isSelected ? "var(--surface)" : "var(--surface-2)"}
+                    stroke={isHot ? "var(--text)" : "var(--line-strong)"}
+                    strokeWidth={isSelected ? 2 : isHot ? 1.5 : 1}
                     strokeDasharray={dashed ? "4 3" : undefined}
                   />
                   {n.kind === "broker" ? <rect x={3} y={3} width={p.w - 6} height={p.h - 6} rx={4} fill="none" stroke="var(--line-strong)" /> : null}
@@ -184,6 +203,13 @@ export function SystemDiagram({ graph, size = "full", title, className, highligh
           </g>
         </svg>
       </div>
+      {mini ? (
+        <p id={`${uid}-edges`} className="sr-only">
+          {`Connections: ${graph.edges
+            .map((e) => `${nodeById.get(e.from)?.label} to ${nodeById.get(e.to)?.label} (${e.protocol}${e.label ? `, ${e.label}` : ""})`)
+            .join("; ")}.`}
+        </p>
+      ) : null}
       {!mini ? (
         <figcaption className="flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[11.5px] text-text-3">
           <LegendSwatch cls="sync" label="Synchronous call (HTTP, Feign, LLM)" />
@@ -206,4 +232,19 @@ function LegendSwatch({ cls, label }: { cls: ProtocolClass; label: string }) {
       {label}
     </span>
   );
+}
+
+/** True while the element is narrower than its content, so it scrolls sideways. */
+function useOverflowX(ref: React.RefObject<HTMLElement | null>): boolean {
+  const [over, setOver] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const check = () => setOver(el.scrollWidth > el.clientWidth + 1);
+    check();
+    const ro = new ResizeObserver(check);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [ref]);
+  return over;
 }

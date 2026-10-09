@@ -2,6 +2,7 @@ import Link from "next/link";
 import { profile } from "@/content";
 import { BUILD_SHA } from "@/lib/site";
 import { Container, MonoLabel } from "@/components/ui/primitives";
+import { KeysToggle } from "./KeysToggle";
 import { MotionToggle } from "./MotionToggle";
 
 export function SiteFooter() {
@@ -27,6 +28,7 @@ export function SiteFooter() {
           <Link className="w-fit text-text-2 hover:text-text" href="/status">System status</Link>
           <a className="w-fit text-text-2 hover:text-text" href="/llms.txt">llms.txt</a>
           <MotionToggle />
+          <KeysToggle />
         </div>
       </Container>
       <Container wide className="flex flex-wrap items-center justify-between gap-3 border-t border-line py-5 font-mono text-[12px] text-text-3">

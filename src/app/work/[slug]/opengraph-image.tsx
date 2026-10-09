@@ -26,7 +26,7 @@ const C = {
   lineStrong: "#2d3541",
   text: "#e7eaee",
   text2: "#a2aab7",
-  text3: "#6b7381",
+  text3: "#7c8593",
 } as const;
 
 function Card({ project, custom }: { project?: Project; custom: boolean }) {

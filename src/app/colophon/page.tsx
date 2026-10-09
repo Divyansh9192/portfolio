@@ -117,7 +117,7 @@ export default function ColophonPage() {
           </Block>
 
           <Block id="stack" title="Stack" arch="ColophonStack">
-            <div className="overflow-x-auto rounded-xl border border-line">
+            <div tabIndex={0} role="group" aria-label="Stack (scrolls sideways)" className="overflow-x-auto rounded-xl border border-line">
               <table className="w-full min-w-[520px] border-collapse text-left text-[14px]">
                 <caption className="sr-only">Libraries and the versions declared in package.json</caption>
                 <thead className="bg-surface-2 font-mono text-2xs uppercase tracking-[0.1em] text-text-3">
@@ -189,7 +189,7 @@ export default function ColophonPage() {
               </li>
               <li>
                 It adds two headers to the response:
-                <pre className="mt-2 overflow-x-auto rounded-lg border border-line bg-surface-2 p-3 font-mono text-[12.5px] leading-relaxed text-text">
+                <pre tabIndex={0} role="group" aria-label="Response headers added by the proxy" className="mt-2 overflow-x-auto rounded-lg border border-line bg-surface-2 p-3 font-mono text-[12.5px] leading-relaxed text-text">
 {`Server-Timing: proxy;dur=<ms>;desc="proxy.ts", reqid;desc="req_<12 hex>", region;desc="<vercel region or local>"
 x-request-id: req_<12 hex>`}
                 </pre>
@@ -207,7 +207,7 @@ x-request-id: req_<12 hex>`}
               Every surface is generated from the same typed content as these pages, so a terminal, a language model and a browser all get
               the same facts.
             </p>
-            <div className="overflow-x-auto rounded-xl border border-line">
+            <div tabIndex={0} role="group" aria-label="Machine-readable endpoints (scrolls sideways)" className="overflow-x-auto rounded-xl border border-line">
               <table className="w-full min-w-[640px] border-collapse text-left text-[14px]">
                 <caption className="sr-only">Machine-readable endpoints and what they return</caption>
                 <thead className="bg-surface-2 font-mono text-2xs uppercase tracking-[0.1em] text-text-3">

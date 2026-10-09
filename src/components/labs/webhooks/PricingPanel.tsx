@@ -161,7 +161,7 @@ pricingStrategy = new HolidayPricingStrategy(pricingStrategy);`}
 
       <div className="flex flex-col gap-2">
         <MonoTitle>Per night (exact BigDecimal, shown to 2 dp)</MonoTitle>
-        <div className="overflow-x-auto rounded-lg border border-line">
+        <div tabIndex={0} role="group" aria-label="Price of each night (scrolls sideways)" className="overflow-x-auto rounded-lg border border-line">
           <table className="w-full min-w-[520px] border-collapse text-left font-mono text-[12px] tnum">
             <caption className="sr-only">Price of each night after each decorator</caption>
             <thead>
@@ -241,7 +241,7 @@ pricingStrategy = new HolidayPricingStrategy(pricingStrategy);`}
           <span className="absolute inset-y-0 left-0 border-r border-line-strong" style={{ width: `${(timeline.changeMinute / 60) * 100}%` }} />
           <span className="absolute inset-y-0 bg-warn-dim" style={{ left: `${(timeline.changeMinute / 60) * 100}%`, right: 0 }} />
           <span className="absolute left-1.5 top-1/2 -translate-y-1/2 font-mono text-[10.5px] text-text-3">10:00 run</span>
-          <span className="absolute right-1.5 top-1/2 -translate-y-1/2 font-mono text-[10.5px] text-text-3">11:00 run</span>
+          <span className="absolute right-1.5 top-1/2 -translate-y-1/2 font-mono text-[10.5px] text-text-2">11:00 run</span>
         </div>
         <ul className="flex flex-col gap-2 text-[13px]">
           <li className="rounded-md border border-line px-2.5 py-2">

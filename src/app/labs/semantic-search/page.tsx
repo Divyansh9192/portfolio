@@ -97,9 +97,12 @@ export default function SemanticSearchLabPage() {
         </p>
       </header>
 
-      <div className="mt-10">
+      <section aria-labelledby="lab-title" className="mt-10">
+        <h2 id="lab-title" className="sr-only">
+          Interactive lab
+        </h2>
         <SemanticSearchLab />
-      </div>
+      </section>
 
       <section aria-labelledby="mapping-title" className="mt-16 max-w-[1080px]" data-arch="SemagesMapping" data-arch-kind="server">
         <SectionHeader
