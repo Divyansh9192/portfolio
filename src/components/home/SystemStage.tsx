@@ -1,15 +1,24 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Component, createContext, useContext, useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+import { Component, useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { useMotionOK } from "@/components/chrome/preferences";
 import { cn } from "@/lib/cn";
 
-/** The static view, shown while the 3D chunk loads (next/dynamic's `loading` can't take props, so it reads this). */
-const FallbackContext = createContext<ReactNode>(null);
-
-function LoadingFallback() {
-  return <>{useContext(FallbackContext)}</>;
+/**
+ * While the 3D chunk loads, hold the frame's final size. Swapping the tall static rack for the
+ * shorter frame would shift everything below it while the visitor is looking (CLS); this way
+ * the size changes once, when the section is still off-screen.
+ */
+function LoadingFrame() {
+  return (
+    <div className="bg-grid overflow-hidden rounded-xl border border-line" aria-busy="true">
+      <div className="grid aspect-[16/9] max-h-[min(64vh,680px)] w-full place-items-center font-mono text-2xs uppercase tracking-[0.12em] text-text-3">
+        Loading the live view
+      </div>
+      <p className="border-t border-line px-4 py-2.5 font-mono text-[11.5px] leading-relaxed text-text-3">Packets show direction, not real traffic.</p>
+    </div>
+  );
 }
 
 /** The 3D topology inside its frame. The frame only exists once the chunk has loaded, so the loading
@@ -27,7 +36,7 @@ const LiveTopologyFrame = dynamic(
       }
       return LiveFrame;
     }),
-  { ssr: false, loading: LoadingFallback },
+  { ssr: false, loading: LoadingFrame },
 );
 
 /** If the live view fails (chunk error, WebGL throws), fall back to the static diagrams instead of breaking the page. */
@@ -56,6 +65,20 @@ function subscribeNarrow(cb: () => void) {
   return () => mq.removeEventListener("change", cb);
 }
 const readNarrow = () => window.matchMedia(NARROW).matches;
+
+// Without WebGL the 3D view can only fail, so don't download it unless the visitor asks.
+let webglCache: boolean | null = null;
+function readWebGL(): boolean {
+  if (webglCache === null) {
+    try {
+      const c = document.createElement("canvas");
+      webglCache = Boolean(c.getContext("webgl2") || c.getContext("webgl"));
+    } catch {
+      webglCache = false;
+    }
+  }
+  return webglCache;
+}
 
 type Choice = "live" | "static" | null;
 
@@ -89,7 +112,8 @@ export function SystemStage({ fallback }: { fallback: ReactNode }) {
   }, []);
 
   const narrow = useSyncExternalStore(subscribeNarrow, readNarrow, () => false);
-  const autoOK = motionOK && !saveData && !narrow;
+  const webgl = useSyncExternalStore(noSubscribe, readWebGL, () => true);
+  const autoOK = motionOK && !saveData && !narrow && webgl;
   const live = choice === "live" || (choice === null && autoOK && near);
   // What the switch shows as selected: the visitor's choice, else what auto mode is heading for.
   const selected: "live" | "static" = choice ?? (autoOK ? "live" : "static");
@@ -129,11 +153,9 @@ export function SystemStage({ fallback }: { fallback: ReactNode }) {
       </div>
 
       {live ? (
-        <FallbackContext.Provider value={fallback}>
-          <LiveBoundary fallback={fallback}>
-            <LiveTopologyFrame />
-          </LiveBoundary>
-        </FallbackContext.Provider>
+        <LiveBoundary fallback={fallback}>
+          <LiveTopologyFrame />
+        </LiveBoundary>
       ) : (
         fallback
       )}

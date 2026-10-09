@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { IntentLink } from "@/components/ui/IntentLink";
 import { ArrowRight } from "lucide-react";
 import { labs } from "@/content";
 import { Container, SectionHeader, Tag } from "@/components/ui/primitives";
@@ -35,9 +36,9 @@ export function LabsIndex() {
                 <span className="truncate font-mono text-[11.5px] text-text-3">{lab.projectName}</span>
               </div>
               <h3 className="font-display text-[1.125rem] font-bold leading-snug text-text [font-stretch:108%]">
-                <Link href={`/labs/${lab.slug}`} className="outline-none after:absolute after:inset-0 after:content-['']">
+                <IntentLink href={`/labs/${lab.slug}`} className="outline-none after:absolute after:inset-0 after:content-['']">
                   {lab.title}
-                </Link>
+                </IntentLink>
               </h3>
               <p className="text-[14px] leading-relaxed text-text-2">{lab.blurb}</p>
               <ArrowRight className="mt-auto size-4 text-text-3" aria-hidden />

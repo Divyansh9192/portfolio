@@ -47,6 +47,22 @@ export function OperatorLayer() {
     shellOpenRef.current = shell.open;
   }, [shell.open]);
 
+  // Warm the shell's chunk once the page is idle, so the first ⌘K opens without a network wait.
+  useEffect(() => {
+    let idleId = 0;
+    const warm = () => {
+      const run = () => void import("./Shell").catch(() => {});
+      if ("requestIdleCallback" in window) idleId = window.requestIdleCallback(run, { timeout: 5000 });
+      else globalThis.setTimeout(run, 1500);
+    };
+    if (document.readyState === "complete") warm();
+    else window.addEventListener("load", warm, { once: true });
+    return () => {
+      window.removeEventListener("load", warm);
+      if (idleId) window.cancelIdleCallback(idleId);
+    };
+  }, []);
+
   useEffect(() => {
     let konami = 0;
 

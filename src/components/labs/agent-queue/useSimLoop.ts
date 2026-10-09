@@ -5,7 +5,9 @@ import type { AgentQueueSim } from "@/lib/sim/agent-queue";
 
 /**
  * Drives the simulation with requestAnimationFrame, but only while playing, on screen and with the
- * tab visible. Returns a `refresh` to re-render after a discrete action (buttons, steps).
+ * tab visible. The sim advances every frame; React re-renders at most 30 times a second, which is
+ * plenty for counters and bars and halves the main-thread work on slow phones.
+ * Returns a `refresh` to re-render after a discrete action (buttons, steps).
  */
 export function useSimLoop(sim: AgentQueueSim, opts: { playing: boolean; speed: number; rootRef: RefObject<HTMLElement | null> }) {
   const [, refresh] = useReducer((x: number) => x + 1, 0);
@@ -34,12 +36,16 @@ export function useSimLoop(sim: AgentQueueSim, opts: { playing: boolean; speed: 
     if (!running) return;
     let raf = 0;
     let last = performance.now();
+    let lastPaint = 0;
     const loop = (t: number) => {
       // Cap a frame at 100 ms of wall time so a slow frame never jumps the sim far ahead.
       const dt = Math.min(100, Math.max(0, t - last));
       last = t;
       sim.advance(dt * speed);
-      refresh();
+      if (t - lastPaint >= 33) {
+        lastPaint = t;
+        refresh();
+      }
       raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);

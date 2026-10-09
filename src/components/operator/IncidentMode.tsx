@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 import { useMotionOK } from "@/components/chrome/preferences";
 import { StatusPill, buttonClass } from "@/components/ui/primitives";
-import { projects } from "@/content";
+import { projects } from "@/content/projects";
 import { cn } from "@/lib/cn";
 import { buildIncidentScript, phaseAt, stepsAt, type IncidentPhase } from "@/lib/shell/incident";
 import { toast } from "./Toasts";

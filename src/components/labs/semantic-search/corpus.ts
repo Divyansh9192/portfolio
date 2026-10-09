@@ -21,7 +21,7 @@ export interface CorpusItem {
   source: CorpusSource;
   /** Thumbnail URL: a static path, a data: URL or a blob: URL. null until generated. */
   thumb: string | null;
-  /** Static asset path for project images (the full-size file used for embedding). */
+  /** Image URL used for embedding project images (an optimised 384 px copy, not the original file). */
   src?: string;
   /** Scene id for generated samples. */
   scene?: string;

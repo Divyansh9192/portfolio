@@ -11,21 +11,23 @@ const THUMB_W = 192;
 
 export function buildSamples(): CorpusItem[] {
   const projectItems: CorpusItem[] = projects.map((p) => {
-    // Optimised thumbnail for display; the full-size file is what gets embedded.
+    // One optimised image (384 px wide, so at least 256 px tall) serves as both the thumbnail and
+    // the embedding input: CLIP only needs a 224 px shortest side, and the originals are ~8.6 MB.
     const { props } = getImageProps({
       src: p.image.src,
       alt: p.image.alt,
       width: THUMB_W,
       height: Math.round((THUMB_W * p.image.height) / p.image.width),
     });
+    const optimised = typeof props.src === "string" ? props.src : p.image.src;
     return {
       id: `project:${p.slug}`,
       hash: `project:${p.slug}`,
       label: p.name,
       alt: p.image.alt,
       source: "project",
-      thumb: typeof props.src === "string" ? props.src : p.image.src,
-      src: p.image.src,
+      thumb: optimised,
+      src: optimised,
     };
   });
   const sceneItems: CorpusItem[] = SCENES.map((s) => ({

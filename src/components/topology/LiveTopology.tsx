@@ -4,7 +4,8 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState, useSyncExternalStore, type KeyboardEvent } from "react";
-import { projects } from "@/content";
+// Not the @/content barrel: that also builds the search corpus and index, which this chunk never uses.
+import { projects } from "@/content/projects";
 import type { NodeKind } from "@/content/types";
 import { useMotionOK } from "@/components/chrome/preferences";
 import { cn } from "@/lib/cn";
@@ -220,7 +221,12 @@ export function LiveTopology({ className }: LiveTopologyProps) {
       engineRef.current = null;
       if (!disposed) setMode("fallback");
     };
-    import("./engine")
+    // three.js is the heaviest code on the site: fetch and run it only after the page has
+    // loaded and the browser is idle, so it never competes with the first paint or input.
+    let idleId = 0;
+    let timerId = 0;
+    const start = () =>
+      import("./engine")
       .then((m) => {
         if (disposed) return;
         try {
@@ -242,8 +248,18 @@ export function LiveTopology({ className }: LiveTopologyProps) {
         }
       })
       .catch(fail);
+    const schedule = () => {
+      if (disposed) return;
+      if ("requestIdleCallback" in window) idleId = window.requestIdleCallback(() => void start(), { timeout: 2000 });
+      else timerId = globalThis.setTimeout(() => void start(), 200) as unknown as number;
+    };
+    if (document.readyState === "complete") schedule();
+    else window.addEventListener("load", schedule, { once: true });
     return () => {
       disposed = true;
+      window.removeEventListener("load", schedule);
+      if (idleId) window.cancelIdleCallback(idleId);
+      if (timerId) globalThis.clearTimeout(timerId);
       engine?.dispose();
       engineRef.current = null;
     };

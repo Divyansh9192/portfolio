@@ -56,6 +56,8 @@ function SelectedWork({ className }: { className?: string }) {
 export function Hero() {
   const degree = shortDegree(education[0]);
   const stats = proofStats();
+  const [firstName, ...rest] = profile.name.split(" ");
+  const restName = rest.join(" ");
 
   return (
     <section aria-labelledby="hero-title" data-arch="Hero" data-arch-kind="server">
@@ -86,7 +88,10 @@ export function Hero() {
             id="hero-title"
             className="mt-7 font-display text-[clamp(2.75rem,7vw,5.5rem)] font-black leading-[0.92] tracking-[-0.03em] text-text [font-stretch:125%]"
           >
-            {profile.name}
+            {/* One name per line in every font: the expanded display face wraps where its fallback
+                would not, so a forced break keeps the swap from shifting the page. */}
+            {firstName}{" "}
+            {restName ? <span className="block">{restName}</span> : null}
           </h1>
           <p className="mt-5 font-display text-[clamp(1.25rem,2.3vw,1.75rem)] font-medium leading-tight tracking-[-0.01em] text-text [font-stretch:112%]">
             {profile.role}

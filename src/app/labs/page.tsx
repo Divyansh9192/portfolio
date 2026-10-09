@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { IntentLink } from "@/components/ui/IntentLink";
 import Link from "next/link";
 import { ArrowRight, Cpu, FlaskConical } from "lucide-react";
 import { labs, profile, type LabRef } from "@/content";
@@ -89,12 +90,9 @@ export default function LabsPage() {
                     </span>
                   </div>
                   <h3 className="mt-2.5 font-display text-[clamp(1.25rem,2.4vw,1.6rem)] font-bold leading-tight text-text [font-stretch:112%]">
-                    <Link
-                      href={`/labs/${lab.slug}`}
-                      className="after:absolute after:inset-0 after:content-['']"
-                    >
+                    <IntentLink href={`/labs/${lab.slug}`} className="after:absolute after:inset-0 after:content-['']">
                       {lab.title}
-                    </Link>
+                    </IntentLink>
                   </h3>
                   <p className="mt-2 max-w-[64ch] text-[15px] leading-relaxed text-text-2">{lab.blurb}</p>
                 </div>
