@@ -55,8 +55,9 @@ export function Btn({
       className={cn(
         "inline-flex min-h-10 items-center justify-center gap-1.5 rounded-lg border px-3 py-1.5 font-mono text-[12px] transition-colors disabled:cursor-not-allowed disabled:opacity-45 pointer-fine:min-h-9",
         tone === "primary" && "border-text bg-text text-bg hover:bg-text/90",
-        tone === "default" && "border-line-strong bg-surface text-text hover:border-text-3 hover:bg-surface-2",
-        tone === "danger" && "border-crit/50 bg-surface text-crit hover:bg-crit-dim",
+        // Fault-injection buttons look like any other control: crit is reserved for the state they cause.
+        (tone === "default" || tone === "danger") && "border-line-strong bg-surface text-text hover:border-text-3 hover:bg-surface-2",
+        tone === "danger" && "border-dashed",
         pressed && "border-text bg-surface-2",
         className,
       )}

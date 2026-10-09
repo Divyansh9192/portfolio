@@ -1,21 +1,9 @@
 import type { CSSProperties, ReactNode } from "react";
-import { protocolClass, type EducationItem, type LabRef, type Project, type Protocol, type ProtocolClass, type SystemGraph } from "@/content";
-import { DIAGRAM_LAYOUT, SystemDiagram } from "@/components/system/SystemDiagram";
+import { protocolClass, type EducationItem, type LabRef, type Protocol, type ProtocolClass, type SystemGraph } from "@/content";
+import { SystemDiagram } from "@/components/system/SystemDiagram";
+import { DIAGRAM_LAYOUT } from "@/lib/graph/diagram-layout";
 import { layoutGraph } from "@/lib/graph/layout";
-import type { Health } from "@/components/ui/primitives";
 import { cn } from "@/lib/cn";
-
-/** Project status → health colour + always-visible text label. */
-export function projectStatus(status: Project["status"]): { health: Health; label: string } {
-  switch (status) {
-    case "live":
-      return { health: "ok", label: "Live" };
-    case "in-development":
-      return { health: "warn", label: "In development" };
-    default:
-      return { health: "unknown", label: "Complete" };
-  }
-}
 
 export const LAB_KIND_LABEL: Record<LabRef["kind"], string> = {
   simulation: "Simulation",

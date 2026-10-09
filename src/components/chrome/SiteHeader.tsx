@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Command } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { OPERATOR_EVENTS } from "@/lib/site";
+import { ModKey } from "./ModKey";
 import { ThemeToggle } from "./ThemeToggle";
 
 const NAV = [
@@ -59,8 +60,10 @@ export function SiteHeader() {
             className="hidden items-center gap-2 rounded-md border border-line bg-surface px-2.5 py-1.5 font-mono text-[12px] text-text-3 transition-colors hover:border-line-strong hover:text-text-2 md:inline-flex"
             aria-keyshortcuts="Meta+K Control+K"
           >
-            <Command className="size-3.5" aria-hidden />
-            <span aria-hidden>K</span>
+            <span aria-hidden className="inline-flex items-center gap-1">
+              <ModKey iconClassName="size-3.5" />
+              <span>K</span>
+            </span>
             <span>run a command</span>
           </button>
           <button

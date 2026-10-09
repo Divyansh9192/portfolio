@@ -348,13 +348,14 @@ function pad(n: number): string {
   return n < 10 ? `0${n}` : String(n);
 }
 
+/** Round once, then split, so a value never reads "1m 60s" or "1000 ms". */
 export function formatDuration(ms: number): string {
-  if (ms < 1000) return `${Math.round(ms)} ms`;
-  const s = ms / 1000;
-  if (s < 60) return `${s.toFixed(s < 10 ? 1 : 0)} s`;
-  const m = Math.floor(s / 60);
-  const rs = Math.round(s % 60);
-  if (m < 60) return `${m}m ${pad(rs)}s`;
+  if (ms < 999.5) return `${Math.round(ms)} ms`;
+  if (ms < 9950) return `${(ms / 1000).toFixed(1)} s`;
+  const t = Math.round(ms / 1000);
+  if (t < 60) return `${t} s`;
+  const m = Math.floor(t / 60);
+  if (m < 60) return `${m}m ${pad(t % 60)}s`;
   return `${Math.floor(m / 60)}h ${pad(m % 60)}m`;
 }
 

@@ -8,6 +8,7 @@ import {
   WORKFLOW_CREDITS,
   clockLabel,
   detectPhase,
+  formatDuration,
   routeAfterContext,
   routeAfterResearch,
   type Run,
@@ -461,5 +462,17 @@ describe("nested resume after approval", () => {
     expect(t.schedule_posts.status).toBe("restored");
     expect(t.publish_posts.execs).toBe(2);
     expect(runOf(s, id).published.length).toBe(ids.length);
+  });
+});
+
+describe("formatDuration", () => {
+  it("rounds once, so no unit ever reaches its own limit", () => {
+    expect(formatDuration(999.4)).toBe("999 ms");
+    expect(formatDuration(999.6)).toBe("1.0 s");
+    expect(formatDuration(9960)).toBe("10 s");
+    expect(formatDuration(59700)).toBe("1m 00s");
+    expect(formatDuration(119600)).toBe("2m 00s");
+    expect(formatDuration(3599700)).toBe("1h 00m");
+    expect(formatDuration(75000)).toBe("1m 15s");
   });
 });

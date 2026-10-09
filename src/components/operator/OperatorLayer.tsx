@@ -157,7 +157,10 @@ export function OperatorLayer() {
       {ask.mounted ? (
         <AskDialog open={ask.open} question={ask.question} nonce={ask.nonce} returnFocusRef={askTriggerRef} onClose={() => setAsk((s) => ({ ...s, open: false }))} />
       ) : null}
-      {incident.mounted ? <IncidentMode on={incident.on} run={incident.run} onDismiss={() => setIncident((s) => ({ ...s, on: false }))} /> : null}
+      {/* Keyed by run so each start begins with fresh panel state (e.g. the postmortem closed). */}
+      {incident.mounted ? (
+        <IncidentMode key={incident.run} on={incident.on} run={incident.run} onDismiss={() => setIncident((s) => ({ ...s, on: false }))} />
+      ) : null}
     </>
   );
 }

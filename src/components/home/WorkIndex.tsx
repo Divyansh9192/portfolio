@@ -2,15 +2,15 @@ import Link from "next/link";
 import { ViewTransition } from "react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { projects, type Project } from "@/content";
-import { buttonClass, Container, SectionHeader, StatusPill, Tag } from "@/components/ui/primitives";
-import { LAB_KIND_LABEL, MiniDiagram, projectStatus, Section } from "./shared";
+import { buttonClass, Container, SectionHeader, Tag } from "@/components/ui/primitives";
+import { ProjectStatus } from "@/components/case/ProjectStatus";
+import { LAB_KIND_LABEL, MiniDiagram, Section } from "./shared";
 
 const MAX_TAGS = 6;
 const MAX_METRICS = 3;
 
 function WorkEntry({ project, index }: { project: Project; index: number }) {
   const { slug, name, tagline, headline, summary, period, stack, links, lab, system } = project;
-  const status = projectStatus(project.status);
   const metrics = project.metrics.slice(0, MAX_METRICS);
   const shown = stack.slice(0, MAX_TAGS);
   const rest = stack.slice(MAX_TAGS);
@@ -33,7 +33,7 @@ function WorkEntry({ project, index }: { project: Project; index: number }) {
           </ViewTransition>
           <p className="text-[14px] leading-snug text-text-2">{tagline}</p>
           <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-2">
-            <StatusPill health={status.health} label={status.label} />
+            <ProjectStatus status={project.status} />
             <span className="font-mono text-[12px] text-text-3 tnum">
               <span className="sr-only">Period: </span>
               <time dateTime={period.start}>{period.label}</time>

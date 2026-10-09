@@ -152,7 +152,7 @@ export function Panel({
 type ButtonVariant = "primary" | "secondary" | "ghost";
 
 const buttonBase =
-  "inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-[background-color,border-color,color,transform] duration-150 active:translate-y-px disabled:pointer-events-none disabled:opacity-50";
+  "inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-[background-color,border-color,color,transform] duration-150 active:translate-y-px disabled:pointer-events-none disabled:opacity-50";
 
 const buttonVariant: Record<ButtonVariant, string> = {
   primary: "bg-text text-bg hover:bg-text/90",
@@ -160,8 +160,16 @@ const buttonVariant: Record<ButtonVariant, string> = {
   ghost: "text-text-2 hover:bg-surface-2 hover:text-text",
 };
 
+/**
+ * `cn` is plain clsx (no Tailwind merging), so a caller's padding or text size would lose to a
+ * default listed in the same class string. Defaults apply only when the caller sets none.
+ */
 export function buttonClass(variant: ButtonVariant = "secondary", className?: string) {
-  return cn(buttonBase, buttonVariant[variant], className);
+  const c = className ?? "";
+  const padX = /(^|\s)(p|px)-/.test(c) ? "" : "px-4";
+  const padY = /(^|\s)(p|py)-/.test(c) ? "" : "py-2.5";
+  const size = /(^|\s)text-(\[[\d.]+(px|rem)\]|xs|sm|base|lg)(\s|$)/.test(c) ? "" : "text-sm";
+  return cn(buttonBase, padX, padY, size, buttonVariant[variant], className);
 }
 
 /** Internal or external link styled as a button. External links open in a new tab. */

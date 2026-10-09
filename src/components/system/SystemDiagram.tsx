@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
+import { DIAGRAM_LAYOUT } from "@/lib/graph/diagram-layout";
 import { layoutGraph } from "@/lib/graph/layout";
 import { protocolClass, type NodeKind, type ProtocolClass, type SystemGraph } from "@/content/types";
 
@@ -19,11 +20,6 @@ const KIND_LABEL: Record<NodeKind, string> = {
   ui: "frontend",
 };
 
-/** Layout options per size. Exported so callers can compute a diagram's natural width on the server. */
-export const DIAGRAM_LAYOUT = {
-  mini: { colGap: 40, rowGap: 12, nodeHeight: 30, minWidth: 74, maxWidth: 150, charWidth: 6.6, padding: 6 },
-  full: { colGap: 84, rowGap: 22 },
-} as const;
 
 const EDGE_STYLE: Record<ProtocolClass, { stroke: string; dash?: string }> = {
   sync: { stroke: "var(--sync)" },
@@ -78,6 +74,7 @@ export function SystemDiagram({ graph, size = "full", title, className, highligh
   }, [active, graph.edges, highlight]);
   const dimming = focusSet.size > 0;
   const nodeById = new Map(graph.nodes.map((n) => [n.id, n]));
+  const edgeLabels = !mini && dimming ? placeEdgeLabels(layout.edges, graph, active, focusSet) : [];
 
   return (
     <figure data-arch="SystemDiagram" data-arch-kind="client" className={cn("flex flex-col gap-3", className)}>
@@ -94,8 +91,9 @@ export function SystemDiagram({ graph, size = "full", title, className, highligh
           role={mini ? "img" : "group"}
           aria-label={mini ? `${title}: ${graph.nodes.map((n) => n.label).join(", ")}` : title}
           aria-describedby={mini ? `${uid}-edges` : undefined}
-          className={cn("block h-auto max-w-none", mini ? "w-full min-w-[420px]" : "w-full min-w-[640px]")}
-          style={{ fontFamily: "var(--font-mono)" }}
+          className={cn("block h-auto max-w-none w-full", mini && "min-w-[420px]")}
+          // Full diagrams never shrink below 80% (labels stay ≥ 10px); wider ones scroll inside the box.
+          style={{ fontFamily: "var(--font-mono)", ...(mini ? {} : { minWidth: Math.round(layout.width * 0.8) }) }}
         >
           <defs>
             {(["sync", "async", "data"] as const).map((cls) => (
@@ -123,11 +121,6 @@ export function SystemDiagram({ graph, size = "full", title, className, highligh
                   >
                     <title>{`${nodeById.get(src.from)?.label} → ${nodeById.get(src.to)?.label} · ${src.protocol}: ${src.label}`}</title>
                   </path>
-                  {!mini && on && dimming ? (
-                    <text x={e.mid.x} y={e.mid.y - 6} textAnchor="middle" fontSize={10.5} fill="var(--text-2)" style={{ paintOrder: "stroke", stroke: "var(--surface)", strokeWidth: 4 }}>
-                      {src.protocol} · {src.label.length > 34 ? src.label.slice(0, 33) + "…" : src.label}
-                    </text>
-                  ) : null}
                 </g>
               );
             })}
@@ -201,6 +194,19 @@ export function SystemDiagram({ graph, size = "full", title, className, highligh
               );
             })}
           </g>
+          {/* Labels for the traced edges, drawn last so boxes never cover them. */}
+          {edgeLabels.length ? (
+            <g aria-hidden="true">
+              {edgeLabels.map((l) => (
+                <g key={l.key}>
+                  <rect x={l.x - l.w / 2} y={l.y - 11} width={l.w} height={15} rx={3} fill="var(--surface)" stroke="var(--line)" />
+                  <text x={l.x} y={l.y} textAnchor="middle" fontSize={10.5} fill="var(--text-2)">
+                    {l.text}
+                  </text>
+                </g>
+              ))}
+            </g>
+          ) : null}
         </svg>
       </div>
       {mini ? (
@@ -247,4 +253,31 @@ function useOverflowX(ref: React.RefObject<HTMLElement | null>): boolean {
     return () => ro.disconnect();
   }, [ref]);
   return over;
+}
+
+/** Positions labels for the traced edges, nudging any that would sit on top of each other. */
+function placeEdgeLabels(
+  edges: { from: string; to: string; index: number; mid: { x: number; y: number } }[],
+  graph: SystemGraph,
+  active: string | null,
+  focusSet: Set<string>,
+): { key: string; x: number; y: number; w: number; text: string }[] {
+  const labels = edges
+    .filter((e) => (active ? e.from === active || e.to === active : focusSet.has(e.from) && focusSet.has(e.to)))
+    .map((e) => {
+      const src = graph.edges[e.index];
+      const name = src.label.length > 34 ? `${src.label.slice(0, 33)}…` : src.label;
+      const text = `${src.protocol} · ${name}`;
+      return { key: `${e.from}-${e.to}-${e.index}`, x: e.mid.x, y: e.mid.y - 4, w: Math.round(text.length * 6.3 + 10), text };
+    })
+    .sort((a, b) => a.y - b.y || a.x - b.x);
+  const placed: typeof labels = [];
+  for (const l of labels) {
+    let y = l.y;
+    for (const p of placed) {
+      if (Math.abs(p.x - l.x) < (p.w + l.w) / 2 + 4 && Math.abs(p.y - y) < 17) y = p.y + 17;
+    }
+    placed.push({ ...l, y });
+  }
+  return placed;
 }

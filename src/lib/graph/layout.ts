@@ -164,8 +164,28 @@ export function layoutGraph(nodesIn: LayoutInputNode[], edgesIn: LayoutInputEdge
     x += colWidths[li] + colGap;
   });
   const totalW = x - colGap + padding;
-  const totalH = innerHeight + padding * 2;
+  let totalH = innerHeight + padding * 2;
   const P = new Map(placed.map((p) => [p.id, p]));
+
+  // A forward edge that skips layers would run straight through any box in between at its height.
+  // Those edges arc over the top instead, so make room above the boxes when there are any.
+  const centerY = (n: PlacedNode) => n.y + n.h / 2;
+  const blocked = (a: PlacedNode, b: PlacedNode) => {
+    const lo = Math.min(centerY(a), centerY(b)) - 4;
+    const hi = Math.max(centerY(a), centerY(b)) + 4;
+    return placed.some((n) => n.layer > a.layer && n.layer < b.layer && n.y < hi && n.y + n.h > lo);
+  };
+  const over = new Set<number>();
+  edges.forEach((e, i) => {
+    const a = P.get(e.from)!;
+    const b = P.get(e.to)!;
+    if (!backKeys.has(`${e.from}->${e.to}`) && b.layer - a.layer > 1 && blocked(a, b)) over.add(i);
+  });
+  const OVER_ROOM = 26;
+  if (over.size) {
+    for (const n of placed) n.y += OVER_ROOM;
+    totalH += OVER_ROOM;
+  }
 
   const routed: RoutedEdge[] = edges.map((e, i) => {
     const a = P.get(e.from)!;
@@ -176,6 +196,12 @@ export function layoutGraph(nodesIn: LayoutInputNode[], edgesIn: LayoutInputEdge
       const x1 = a.x + a.w, y1 = a.y + a.h / 2, x2 = b.x + b.w, y2 = b.y + b.h / 2;
       const bulge = 28 + Math.abs(y2 - y1) * 0.15;
       return { from: e.from, to: e.to, back, index: i, d: `M${x1},${y1} C${x1 + bulge},${y1} ${x2 + bulge},${y2} ${x2},${y2}`, mid: { x: Math.max(x1, x2) + bulge * 0.75, y: (y1 + y2) / 2 } };
+    }
+    if (over.has(i)) {
+      // Skip-layer edge with boxes in the way: leave the top of the source, arc over, enter the top of the target.
+      const x1 = a.x + a.w / 2, y1 = a.y, x2 = b.x + b.w / 2, y2 = b.y;
+      const crest = Math.max(2, Math.min(y1, y2) - OVER_ROOM + 4);
+      return { from: e.from, to: e.to, back, index: i, d: `M${x1},${y1} C${x1},${crest} ${x2},${crest} ${x2},${y2}`, mid: { x: (x1 + x2) / 2, y: crest + 4 } };
     }
     if (!back && a.layer < b.layer) {
       const x1 = a.x + a.w, y1 = a.y + a.h / 2, x2 = b.x, y2 = b.y + b.h / 2;

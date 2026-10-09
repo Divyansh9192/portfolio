@@ -185,7 +185,7 @@ export default async function StatusPage() {
           </h2>
           <div className="mt-4 max-w-[68ch] space-y-3 text-[15px] leading-relaxed text-text-2">
             <p>
-              The check runs on the server, never in your browser. It sends one <code className="font-mono text-[13px] text-text">GET</code> to
+              The check runs on the server, never in your browser. It sends one <code className="font-mono text-[13px] text-text">GET</code>{" "}to
               each live app&apos;s URL with a {HEALTH_POLICY.timeoutMs / 1000} second timeout, and records the HTTP status and the time until
               the response headers arrive. The result is cached for {HEALTH_POLICY.cacheSeconds} seconds and shared by this page and{" "}
               <a href="/api/health" className="text-link underline decoration-link/30 underline-offset-[3px] hover:decoration-link">

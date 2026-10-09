@@ -112,7 +112,7 @@ export function Pipeline({ facts, compact }: { facts: PipelineFacts; compact: bo
         ))}
       </ol>
       <p className="mt-4 max-w-[78ch] text-[14px] leading-relaxed text-text-2">
-        <span className="text-text">Why normalise?</span> Cosine similarity is a·b / (‖a‖ ‖b‖). When every vector has length 1 the
+        <span className="text-text">Why normalise?</span>{" "}Cosine similarity is a·b / (‖a‖ ‖b‖). When every vector has length 1 the
         denominator is 1, so cosine is just the dot product. Ranking by cosine, by dot product, or by Qdrant&apos;s cosine distance gives the same
         order, and scores stay comparable across queries.
       </p>

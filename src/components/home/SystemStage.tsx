@@ -12,15 +12,16 @@ function LoadingFallback() {
   return <>{useContext(FallbackContext)}</>;
 }
 
-/** The 3D topology inside a fixed-height frame. The frame only exists once the chunk has loaded, so the
- * loading placeholder (the static diagrams) is never clipped to the frame's height. */
+/** The 3D topology inside its frame. The frame only exists once the chunk has loaded, so the loading
+ * placeholder (the static diagrams) never inherits its styling. The frame grows with its content: the
+ * canvas caps its own height, and the health line below it is never clipped. */
 const LiveTopologyFrame = dynamic(
   () =>
     import("@/components/topology/LiveTopology").then(({ LiveTopology }) => {
       function LiveFrame() {
         return (
-          <div className="bg-grid h-[clamp(420px,64vh,680px)] overflow-hidden rounded-xl border border-line">
-            <LiveTopology className="h-full w-full" />
+          <div className="bg-grid overflow-hidden rounded-xl border border-line">
+            <LiveTopology className="w-full" />
           </div>
         );
       }

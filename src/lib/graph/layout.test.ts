@@ -48,6 +48,21 @@ describe("layoutGraph", () => {
     }
   });
 
+  it("arcs a layer-skipping edge over the boxes in its way", () => {
+    // a → b → c → d in one row, plus a → c and a → d, which would otherwise cross b (and c).
+    const g = layoutGraph(
+      ["a", "b", "c", "d"].map((id) => ({ id, label: id.toUpperCase() })),
+      [{ from: "a", to: "b" }, { from: "b", to: "c" }, { from: "c", to: "d" }, { from: "a", to: "c" }, { from: "a", to: "d" }],
+    );
+    const node = (id: string) => g.nodes.find((n) => n.id === id)!;
+    for (const e of g.edges.filter((x) => x.from === "a" && x.to !== "b")) {
+      const start = e.d.match(/^M([\d.]+),([\d.]+)/)!;
+      expect(Number(start[2]), `${e.from}->${e.to} leaves the top`).toBe(node("a").y);
+      expect(e.mid.y).toBeLessThan(node("b").y);
+    }
+    expect(Math.min(...g.nodes.map((n) => n.y))).toBeGreaterThan(20);
+  });
+
   it("is deterministic", () => {
     const p = projects[0];
     const run = () => layoutGraph(p.system.nodes.map((n) => ({ id: n.id, label: n.label })), p.system.edges);

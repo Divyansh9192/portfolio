@@ -119,7 +119,7 @@ describe("buildTrace", () => {
   });
 
   it("scales the axis to the latest event", () => {
-    expect(buildTrace(base, { hydratedAt: 410 }).scale).toBe(500);
+    expect(buildTrace(base, { hydratedAt: 410 }).scale).toBe(600);
     expect(buildTrace(base, { hydratedAt: null }).scale).toBe(300);
   });
 

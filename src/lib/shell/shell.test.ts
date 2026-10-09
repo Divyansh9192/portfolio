@@ -229,6 +229,12 @@ describe("commands", () => {
     expect(text(await run("curl https://example.com"))).toContain("same-origin");
   });
 
+  it("curl does not print binary bodies", async () => {
+    const pdf = await run("curl /resume.pdf", state(), io({ fetch: async () => ({ status: 200, contentType: "application/pdf", body: "%PDF-1.5 \u0000\u0001" }) }));
+    expect(text(pdf)).toContain("binary output (application/pdf) not shown");
+    expect(text(pdf)).not.toContain("%PDF");
+  });
+
   it("curl with no path fetches the page for the cwd", async () => {
     let fetched = "";
     await run("curl", state(`/work/${P.slug}`), io({ fetch: async (p) => ((fetched = p), { status: 200, contentType: "text/plain", body: "" }) }));

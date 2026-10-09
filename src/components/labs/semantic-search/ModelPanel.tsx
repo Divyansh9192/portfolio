@@ -148,7 +148,7 @@ export function ModelPanel({
 
         <ul id={noteId} className="flex min-w-0 flex-col gap-2.5 text-[13.5px] leading-relaxed text-text-2">
           <li>
-            <span className="text-text">Same architecture as Semages (CLIP ViT-B/32).</span> Semages uses OpenCLIP&apos;s LAION-2B weights; this
+            <span className="text-text">Same architecture as Semages (CLIP ViT-B/32).</span>{" "}Semages uses OpenCLIP&apos;s LAION-2B weights; this
             demo uses the OpenAI weights available for the browser, so scores differ slightly.
           </li>
           <li>

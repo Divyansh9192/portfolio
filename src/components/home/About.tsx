@@ -61,7 +61,7 @@ export function About() {
                       <ul className="inline">
                         {g.items.map((item, i) => (
                           <li key={item} className="inline">
-                            {item}
+                            <span className="whitespace-nowrap">{item}</span>
                             {i < g.items.length - 1 ? (
                               <>
                                 <span aria-hidden className="pl-1.5 text-text-3">

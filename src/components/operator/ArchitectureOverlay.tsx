@@ -30,9 +30,11 @@ interface Box {
 type Summary = Record<Kind, Map<string, number>>;
 
 const KIND_STYLE: Record<Kind, { box: string; label: string; swatch: string; word: string }> = {
-  client: { box: "border-sync border-solid", label: "text-sync", swatch: "border-sync border-solid", word: "hydrated in your browser" },
-  server: { box: "border-text-3 border-dashed", label: "text-text-3", swatch: "border-text-3 border-dashed", word: "rendered on the server, no JS" },
-  static: { box: "border-ok border-dotted", label: "text-ok", swatch: "border-ok border-dotted", word: "prerendered, no JS" },
+  // Neutral on purpose: blue/magenta mean sync/async edges and green/amber/red mean health, so the
+  // three kinds differ by line style and label instead.
+  client: { box: "border-text border-solid", label: "text-text", swatch: "border-text border-solid", word: "hydrated in your browser" },
+  server: { box: "border-text-3 border-dashed", label: "text-text-2", swatch: "border-text-3 border-dashed", word: "rendered on the server, no JS" },
+  static: { box: "border-text-2 border-dotted", label: "text-text-2", swatch: "border-text-2 border-dotted", word: "prerendered, no JS" },
 };
 
 function kindOf(el: Element): Kind {
@@ -87,9 +89,10 @@ export function ArchitectureOverlay({ on, onClose }: { on: boolean; onClose: () 
         const r = el.getBoundingClientRect();
         if (r.width < 2 || r.height < 2) return;
         if (r.bottom < 0 || r.top > vh || r.right < 0 || r.left > vw) return;
-        // Nudge labels down when they would sit on top of another label.
+        // Labels sit just above their box (covering its first line otherwise) unless that would put them
+        // under the sticky header; then nudge down when they would sit on top of another label.
         const lx = Math.max(0, r.left);
-        let ly = Math.max(0, r.top);
+        let ly = r.top > 74 ? r.top - 17 : Math.max(0, r.top);
         let dy = ly - r.top;
         for (let tries = 0; tries < 6 && labels.some((p) => Math.abs(p.x - lx) < 150 && Math.abs(p.y - ly) < 18); tries++) {
           ly += 18;

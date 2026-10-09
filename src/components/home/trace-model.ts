@@ -315,7 +315,8 @@ export function buildTrace(nav: NavTimingLike, opts: { hydratedAt: number | null
     0,
     ...rows.flatMap((r) => [r.bar?.end ?? 0, r.mark ?? 0]),
   );
-  const { scale, ticks } = niceTicks(latest);
+  // Four intervals at most: the axis track can be as narrow as ~220px.
+  const { scale, ticks } = niceTicks(latest, 4);
 
   let transfer: string | null = null;
   if (typeof nav.transferSize === "number") {

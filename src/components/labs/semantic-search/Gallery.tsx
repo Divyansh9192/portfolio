@@ -100,7 +100,7 @@ export function Gallery({
           ) : null}
         </div>
         <p className="mt-2 text-[13.5px] leading-relaxed text-text-2">
-          <span className="text-text">Your photos never leave this device.</span> They are decoded, resized to 224 px and encoded in this tab,
+          <span className="text-text">Your photos never leave this device.</span>{" "}They are decoded, resized to 224 px and encoded in this tab,
           kept in memory only, and gone when you close it. Adding the same photo twice does nothing: ids come from the file&apos;s SHA-256.
           {!modelReady ? " They are encoded once the model is loaded." : ""}
         </p>

@@ -1,20 +1,20 @@
 import Link from "next/link";
 import { projects } from "@/content";
-import { Container, SectionHeader, StatusPill } from "@/components/ui/primitives";
+import { Container, SectionHeader } from "@/components/ui/primitives";
+import { ProjectStatus } from "@/components/case/ProjectStatus";
 import { SystemStage } from "./SystemStage";
-import { EdgeLegend, MiniDiagram, projectStatus, Section } from "./shared";
+import { EdgeLegend, MiniDiagram, Section } from "./shared";
 
 /** Static, accessible view of all four systems: the no-JS / reduced-motion view and the live view's loading placeholder. */
 function SystemRack() {
   return (
     <ul className="border-b border-line" aria-label="The four systems">
       {projects.map((p) => {
-        const s = projectStatus(p.status);
         return (
           <li key={p.slug} className="grid grid-cols-[minmax(0,1fr)] gap-x-10 gap-y-4 border-t border-line py-7 lg:grid-cols-12">
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 lg:col-span-3 lg:flex-col lg:items-start">
               <h3 className="font-display text-[1.125rem] font-bold leading-tight text-text [font-stretch:112%]">{p.name}</h3>
-              <StatusPill health={s.health} label={s.label} />
+              <ProjectStatus status={p.status} />
               <p className="font-mono text-[11.5px] text-text-3 tnum">
                 {p.system.nodes.length} components · {p.system.edges.length} connections
               </p>

@@ -102,9 +102,9 @@ export default function WebhooksLabPage() {
         </header>
       </Container>
 
-      <div className="mx-auto mt-10 w-full max-w-[1480px] px-5 sm:px-6">
+      <Container wide className="mt-10">
         <WebhooksLab sourceBase={`${project.links.repo}/blob/${project.repoBranch}`} />
-      </div>
+      </Container>
 
       <Container wide className="pb-16 pt-14 sm:pb-20">
         <section aria-labelledby="real-title" data-arch="LabEvidence" data-arch-kind="server" className="max-w-[860px]">

@@ -24,7 +24,7 @@ export function MetricsList({ metrics, id = "metrics" }: { metrics: Metric[]; id
         {metrics.map((m) => (
           <div key={m.label} className="flex flex-col gap-2 bg-bg p-5 sm:p-6 sm:odd:last:col-span-2 lg:odd:last:col-span-1">
             <dt className="order-2 text-[15px] leading-snug text-text-2">{m.label}</dt>
-            <dd className="order-1 font-display text-[clamp(2rem,4vw,2.75rem)] font-extrabold leading-none tracking-[-0.02em] text-text tnum [font-stretch:112%]">
+            <dd className="order-1 whitespace-nowrap font-display text-[clamp(1.75rem,3vw,2.5rem)] font-extrabold leading-none tracking-[-0.02em] text-text tnum [font-stretch:112%]">
               {m.value}
             </dd>
             <dd className="order-3 mt-auto pt-2 font-mono text-[11.5px] leading-relaxed text-text-3">

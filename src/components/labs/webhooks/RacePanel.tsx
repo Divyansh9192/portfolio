@@ -294,7 +294,7 @@ function HoldSection({ race, hold, setHold, compact }: { race: RaceState; hold: 
           <dd className="text-text tnum">minute {hold.clock}</dd>
         </div>
         <div className="rounded-md border border-line px-2.5 py-2">
-          <dt className="text-text-3">createdAt.plusMinutes({HOLD_MINUTES}).isBefore(now)</dt>
+          <dt className="text-text-3 [overflow-wrap:anywhere]">createdAt.plusMinutes({HOLD_MINUTES}).isBefore(now)</dt>
           <dd className={cn("tnum", expired ? "text-warn" : "text-text")}>
             {winner.createdAt} + {HOLD_MINUTES} &lt; {hold.clock} → {String(expired)}
           </dd>

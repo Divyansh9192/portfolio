@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ModKey } from "@/components/chrome/ModKey";
 import { ArrowUpRight, FileText, Mail } from "lucide-react";
 import { education, getProject, profile, type ProjectSlug } from "@/content";
 import { ButtonLink, Container, Kbd, MonoLabel } from "@/components/ui/primitives";
@@ -38,16 +39,19 @@ export function Hero() {
         <div className="flex min-w-0 flex-col">
           <p className="flex flex-wrap items-center gap-x-2.5 gap-y-1 font-mono text-[12.5px] text-text-2">
             <span className="inline-flex items-center gap-2 text-text">
-              <span className="led text-ok" aria-hidden />
+              <span className="led text-text-2" aria-hidden />
               Open to internships
             </span>
-            <span aria-hidden className="text-text-3">·</span>
-            <span>{profile.location}</span>
+            {/* Each separator travels with the item after it, so a wrapped line never ends on a dot. */}
+            <span className="whitespace-nowrap">
+              <span aria-hidden className="mr-2.5 text-text-3">·</span>
+              {profile.location}
+            </span>
             {degree ? (
-              <>
-                <span aria-hidden className="text-text-3">·</span>
-                <span>{degree}</span>
-              </>
+              <span className="whitespace-nowrap">
+                <span aria-hidden className="mr-2.5 text-text-3">·</span>
+                {degree}
+              </span>
             ) : null}
           </p>
 
@@ -97,7 +101,10 @@ export function Hero() {
               className="-mx-1 inline-flex min-h-10 items-center gap-1 rounded-md px-1 text-text-2 hover:text-text"
             >
               <span className="inline-flex items-center gap-1 pointer-coarse:hidden">
-                Press <Kbd>⌘</Kbd>
+                Press{" "}
+                <Kbd>
+                  <ModKey />
+                </Kbd>
                 <Kbd>K</Kbd> to run a command
               </span>
               <span className="hidden pointer-coarse:inline">Open the command shell</span>

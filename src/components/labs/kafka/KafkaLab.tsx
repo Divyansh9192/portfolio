@@ -126,7 +126,7 @@ export function KafkaLab({ embedded = false, sourceBase }: KafkaLabProps) {
       aria-label="Kafka rebalance playground (simulation)"
       className={cn(
         "flex min-w-0 flex-col rounded-xl border border-line bg-surface p-3 shadow-[var(--shadow)]",
-        embedded ? "gap-2.5 lg:h-[560px] lg:overflow-hidden" : "gap-3 sm:p-4",
+        embedded ? "gap-2.5 lg:h-[640px] lg:overflow-hidden" : "gap-3 sm:p-4",
       )}
     >
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">

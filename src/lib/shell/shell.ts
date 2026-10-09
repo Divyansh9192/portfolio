@@ -57,7 +57,10 @@ export function createShell(src: ShellSource): Shell {
   const slugs = src.projects.map((p) => p.slug);
   const manTopics = [...commands.keys(), ...slugs];
   completionSpecs.man = { args: (before) => (before.length === 0 ? manTopics : null) };
-  const curlRoutes = Array.from(new Set(routes.map(pathnameOf))).sort();
+  // Pages only: static files such as /resume.pdf are for `open`, not for printing.
+  const curlRoutes = Array.from(new Set(routes.map(pathnameOf)))
+    .filter((p) => !/\.(?!md$|txt$|json$)[a-z0-9]+$/i.test(p))
+    .sort();
 
   async function runCommand(argv: string[], state: MutableState, io: ShellIO, stdin?: Line[]): Promise<Required<CmdOutput>> {
     const [name, ...args] = argv;

@@ -75,7 +75,7 @@ export default function ColophonPage() {
   const asyncEdge = projects.flatMap((p) => p.system.edges).find((e) => protocolClass[e.protocol] === "async");
 
   const surfaces: { request: ReactNode; response: string; tryIt: string }[] = [
-    { request: <Code>curl {host}</Code>, response: "Resume as ANSI text for terminals (add ?plain=1 for no colour). Also Wget, HTTPie, xh and PowerShell.", tryIt: `curl ${SITE_URL}` },
+    { request: <Code>curl {host}</Code>, response: "Resume as ANSI text for terminals (add ?\u2060plain=1 for no colour). Also Wget, HTTPie, xh and PowerShell.", tryIt: `curl ${SITE_URL}` },
     { request: <><Code>.md</Code> path or <Code>Accept: text/markdown</Code></>, response: "Markdown twin of the page", tryIt: `curl ${SITE_URL}/cv.md` },
     { request: <Code>GET /resume.json</Code>, response: "JSON Resume schema", tryIt: `curl ${SITE_URL}/resume.json` },
     { request: <><Code>GET /llms.txt</Code>, <Code>/llms-full.txt</Code></>, response: "Site summary written for language models", tryIt: `curl ${SITE_URL}/llms.txt` },
@@ -118,21 +118,21 @@ export default function ColophonPage() {
 
           <Block id="stack" title="Stack" arch="ColophonStack">
             <div tabIndex={0} role="group" aria-label="Stack (scrolls sideways)" className="overflow-x-auto rounded-xl border border-line">
-              <table className="w-full min-w-[520px] border-collapse text-left text-[14px]">
+              <table className="w-full border-collapse text-left text-[14px] max-sm:block sm:min-w-[520px]">
                 <caption className="sr-only">Libraries and the versions declared in package.json</caption>
-                <thead className="bg-surface-2 font-mono text-2xs uppercase tracking-[0.1em] text-text-3">
+                <thead className="bg-surface-2 font-mono text-2xs uppercase tracking-[0.1em] text-text-3 max-sm:hidden">
                   <tr>
                     <th scope="col" className="px-4 py-2.5 font-medium">Library</th>
                     <th scope="col" className="px-4 py-2.5 font-medium">Version</th>
                     <th scope="col" className="px-4 py-2.5 font-medium">What it does here</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-line">
+                <tbody className="divide-y divide-line max-sm:block">
                   {STACK.filter((s) => deps[s.pkg]).map((s) => (
-                    <tr key={s.pkg}>
-                      <th scope="row" className="px-4 py-2.5 font-medium text-text">{s.name}</th>
-                      <td className="tnum px-4 py-2.5 font-mono text-[13px] text-text-2">{deps[s.pkg]}</td>
-                      <td className="px-4 py-2.5 text-text-2">{s.role}</td>
+                    <tr key={s.pkg} className="max-sm:grid max-sm:grid-cols-[auto_minmax(0,1fr)] max-sm:py-2">
+                      <th scope="row" className="px-4 py-2.5 font-medium text-text max-sm:pb-0.5 max-sm:pr-2">{s.name}</th>
+                      <td className="tnum px-4 py-2.5 font-mono text-[13px] text-text-2 max-sm:pb-0.5 max-sm:pl-0">{deps[s.pkg]}</td>
+                      <td className="px-4 py-2.5 text-text-2 max-sm:col-span-2 max-sm:pt-0.5">{s.role}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -208,21 +208,21 @@ x-request-id: req_<12 hex>`}
               the same facts.
             </p>
             <div tabIndex={0} role="group" aria-label="Machine-readable endpoints (scrolls sideways)" className="overflow-x-auto rounded-xl border border-line">
-              <table className="w-full min-w-[640px] border-collapse text-left text-[14px]">
+              <table className="w-full border-collapse text-left text-[14px] max-sm:block sm:min-w-[640px]">
                 <caption className="sr-only">Machine-readable endpoints and what they return</caption>
-                <thead className="bg-surface-2 font-mono text-2xs uppercase tracking-[0.1em] text-text-3">
+                <thead className="bg-surface-2 font-mono text-2xs uppercase tracking-[0.1em] text-text-3 max-sm:hidden">
                   <tr>
                     <th scope="col" className="px-4 py-2.5 font-medium">Request</th>
                     <th scope="col" className="px-4 py-2.5 font-medium">Response</th>
                     <th scope="col" className="px-4 py-2.5 font-medium">Try</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-line align-top">
+                <tbody className="divide-y divide-line align-top max-sm:block">
                   {surfaces.map((s) => (
-                    <tr key={s.tryIt}>
-                      <th scope="row" className="whitespace-nowrap px-4 py-2.5 font-normal">{s.request}</th>
-                      <td className="px-4 py-2.5 text-text-2">{s.response}</td>
-                      <td className="px-4 py-2.5 font-mono text-[12px] text-text-3">{s.tryIt}</td>
+                    <tr key={s.tryIt} className="max-sm:block max-sm:py-2">
+                      <th scope="row" className="px-4 py-2.5 font-normal max-sm:block max-sm:pb-0.5 sm:whitespace-nowrap">{s.request}</th>
+                      <td className="px-4 py-2.5 text-text-2 max-sm:block max-sm:py-0.5">{s.response}</td>
+                      <td className="px-4 py-2.5 font-mono text-[12px] text-text-3 max-sm:block max-sm:pt-0.5 max-sm:[overflow-wrap:anywhere]">{s.tryIt}</td>
                     </tr>
                   ))}
                 </tbody>

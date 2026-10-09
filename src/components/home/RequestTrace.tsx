@@ -211,10 +211,11 @@ export function RequestTrace({ className }: { className?: string }) {
                 style={{ left: pct(t, trace.scale) }}
               >
                 {t}
-                {i === all.length - 1 ? " ms" : ""}
+                {i === all.length - 1 ? <span className="sm:hidden"> ms</span> : null}
               </span>
             ))}
           </div>
+          <span className="hidden text-right font-mono text-[10.5px] leading-6 text-text-3 sm:block">ms</span>
         </div>
 
         <noscript>

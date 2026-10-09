@@ -641,6 +641,10 @@ const curl: CommandDef = {
         hint("cat README.md shows the same content from this shell's own files"),
       ]);
     }
+    if (res.contentType && !/^text\/|json|markdown/i.test(res.contentType)) {
+      const type = res.contentType.split(";")[0].trim();
+      return ok([{ spans: [{ text: `curl: binary output (${type}) not shown. `, tone: "text-2" }, runSpan(`open ${path}`, `open ${path}`), { text: " opens it.", tone: "text-2" }] }]);
+    }
     const out = ansiToLines(res.body);
     const MAX = 400;
     const lines = out.length > MAX ? [...out.slice(0, MAX), hint(`… ${out.length - MAX} more lines`)] : out;

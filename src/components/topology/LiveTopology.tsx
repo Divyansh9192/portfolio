@@ -327,7 +327,7 @@ export function LiveTopology({ className }: LiveTopologyProps) {
       ) : (
         <div
           className={cn(
-            "relative aspect-[4/5] w-full overflow-hidden rounded-lg sm:aspect-[16/9]",
+            "relative aspect-[4/5] max-h-[min(80vh,640px)] w-full overflow-hidden rounded-lg sm:aspect-[16/9] sm:max-h-[min(64vh,680px)]",
             kbd && "outline-2 outline-offset-4 outline-[var(--focus)] [outline-style:solid]",
           )}
         >
@@ -449,13 +449,9 @@ export function LiveTopology({ className }: LiveTopologyProps) {
         </ul>
       </div>
 
-      <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[11.5px] text-text-3">
-        <LegendSwatch stroke="var(--sync)" label="Call (HTTP, Feign, LLM)" />
-        <LegendSwatch stroke="var(--async)" dash="6 5" label="Message (Kafka, AMQP, webhook, SSE)" />
-        <LegendSwatch stroke="var(--text-3)" dash="1.5 4" label="Data store" />
-        <span>Packets show direction, not real traffic.</span>
-      </div>
-      <p className="mt-1.5 font-mono text-[11.5px] text-text-3" aria-live="polite">
+      {/* The edge legend sits under the frame (EdgeLegend); this line is the frame's own footnote. */}
+      <p className="border-t border-line px-4 py-2.5 font-mono text-[11.5px] leading-relaxed text-text-3" aria-live="polite">
+        <span>Packets show direction, not real traffic. </span>
         {liveName ? (
           <span>
             {liveName} light is a real health check: {liveSummary(live)}
@@ -502,17 +498,6 @@ function TooltipBody({ node, source, live, incident }: { node: TopoNode; source:
       ) : null}
       {node.href ? <p className="mt-2 font-mono text-[10.5px] text-text-3">{hint}</p> : null}
     </div>
-  );
-}
-
-function LegendSwatch({ stroke, dash, label }: { stroke: string; dash?: string; label: string }) {
-  return (
-    <span className="inline-flex items-center gap-2">
-      <svg width="28" height="8" aria-hidden="true">
-        <line x1="1" y1="4" x2="27" y2="4" stroke={stroke} strokeWidth="2" strokeDasharray={dash} />
-      </svg>
-      {label}
-    </span>
   );
 }
 

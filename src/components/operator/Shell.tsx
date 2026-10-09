@@ -473,7 +473,10 @@ export function Shell({ open, prefill, onClose, returnFocusRef }: ShellProps) {
     switch (e.key) {
       case "Enter": {
         e.preventDefault();
-        const pick = activeIndex >= 0 ? palette[activeIndex] : undefined;
+        // Free text that isn't a command runs the best matching action (search or ask) instead of
+        // answering "command not found".
+        const freeText = input.trim() !== "" && !engine.startsWithCommand(input);
+        const pick = activeIndex >= 0 ? palette[activeIndex] : freeText ? palette[0] : undefined;
         void execute(pick ? pick.action.command : input);
         return;
       }
@@ -644,7 +647,11 @@ export function Shell({ open, prefill, onClose, returnFocusRef }: ShellProps) {
             <p id={`${listId}-label`} className="px-4 pt-2 font-mono text-2xs uppercase tracking-[0.12em] text-text-3">
               {input.trim() ? "Matching actions" : "Quick actions"}
             </p>
-            <ul role="listbox" id={listId} aria-labelledby={`${listId}-label`} tabIndex={-1} className="max-h-[min(36vh,15.5rem)] overflow-y-auto overscroll-contain p-1.5">
+            <ul role="listbox" id={listId} aria-labelledby={`${listId}-label`} tabIndex={-1} className={cn(
+                "overflow-y-auto overscroll-contain p-1.5",
+                // Once commands have printed output, give the output the room and keep the actions short.
+                lines.length > WELCOME.length && !input.trim() ? "max-h-[min(20vh,8.5rem)]" : "max-h-[min(36vh,15.5rem)]",
+              )}>
               {palette.map((h, i) => (
                 <li
                   key={h.action.id}

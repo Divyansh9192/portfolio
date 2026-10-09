@@ -42,7 +42,7 @@ export function EvidenceList({ facts, repo, branch }: { facts: Fact[]; repo: str
                 target="_blank"
                 rel="noopener noreferrer"
                 title={e.display}
-                className="group flex min-h-10 min-w-0 items-center gap-1 rounded-sm font-mono text-[12px] text-link md:min-h-0 md:justify-self-end"
+                className="group flex min-h-10 min-w-0 items-center gap-1 rounded-sm font-mono text-[12px] text-link md:min-h-0 md:justify-end"
               >
                 <span className="min-w-0 truncate text-text-3 group-hover:text-text-2">{e.dir}</span>
                 <span className="shrink-0 underline decoration-link/30 underline-offset-[3px] group-hover:decoration-link">
