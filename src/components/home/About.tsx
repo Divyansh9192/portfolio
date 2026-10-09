@@ -5,7 +5,7 @@ import { Section } from "./shared";
 export function About() {
   return (
     <Section id="about" labelledBy="about-title" arch="About">
-      <Container wide className="grid gap-x-10 gap-y-14 lg:grid-cols-12">
+      <Container wide className="grid grid-cols-[minmax(0,1fr)] gap-x-10 gap-y-14 lg:grid-cols-12">
         <div className="lg:col-span-7">
           <SectionHeader id="about-title" eyebrow="About" title="I care about what happens under load" />
           <div className="mt-8 flex max-w-[62ch] flex-col gap-5 text-[1.0625rem] leading-relaxed text-text-2">
@@ -63,9 +63,11 @@ export function About() {
                           <li key={item} className="inline">
                             {item}
                             {i < g.items.length - 1 ? (
-                              <span aria-hidden className="px-1.5 text-text-3">
-                                ·
-                              </span>
+                              <>
+                                <span aria-hidden className="pl-1.5 text-text-3">
+                                  ·
+                                </span>{" "}
+                              </>
                             ) : null}
                           </li>
                         ))}

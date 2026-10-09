@@ -17,7 +17,7 @@ function WorkEntry({ project, index }: { project: Project; index: number }) {
   const n = String(index + 1).padStart(2, "0");
 
   return (
-    <li id={`work-${slug}`} className="grid scroll-mt-20 gap-x-10 gap-y-8 border-t border-line py-12 lg:grid-cols-12 lg:py-16">
+    <li id={`work-${slug}`} className="grid scroll-mt-20 grid-cols-[minmax(0,1fr)] gap-x-10 gap-y-8 border-t border-line py-12 lg:grid-cols-12 lg:py-16">
       {/* Identity column */}
       <div className="lg:col-span-3">
         <div className="flex flex-col gap-3 lg:sticky lg:top-24">

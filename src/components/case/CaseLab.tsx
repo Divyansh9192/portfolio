@@ -4,7 +4,8 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useRef, useState, type ComponentType } from "react";
 
-type LabProps = { embedded?: boolean };
+/** Props every lab accepts. `sourceBase` lets a lab link its file:line notes to GitHub without importing content. */
+type LabProps = { embedded?: boolean; sourceBase?: string };
 
 /** Reserved height so the page does not jump while a lab's code loads. */
 const RESERVED = "min-h-[520px]";
@@ -41,7 +42,7 @@ const LABS: Record<string, ComponentType<LabProps>> = {
  * Embeds a project's lab in the case study. The lab's code is fetched only when the
  * section comes within ~800px of the viewport, then rendered client-side (`ssr: false`).
  */
-export function CaseLab({ labSlug, title }: { labSlug: string; title: string }) {
+export function CaseLab({ labSlug, title, sourceBase }: { labSlug: string; title: string; sourceBase?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const [near, setNear] = useState(false);
   const Lab = LABS[labSlug];
@@ -80,7 +81,7 @@ export function CaseLab({ labSlug, title }: { labSlug: string; title: string }) 
 
   return (
     <div ref={ref} data-arch="CaseLab" data-arch-kind="client" data-print="hide" className="min-w-0">
-      {near ? <Lab embedded /> : <LabPlaceholder title={title} />}
+      {near ? <Lab embedded sourceBase={sourceBase} /> : <LabPlaceholder title={title} />}
     </div>
   );
 }

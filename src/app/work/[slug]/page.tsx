@@ -130,7 +130,7 @@ export default async function CaseStudyPage({ params }: Props) {
                   {lab.blurb}{" "}
                   <strong className="font-medium text-text">{LAB_KIND_LABEL[lab.kind]}.</strong> {LAB_NOTE[lab.kind]}
                 </p>
-                <CaseLab labSlug={lab.slug} title={lab.title} />
+                <CaseLab labSlug={lab.slug} title={lab.title} sourceBase={`${project.links.repo}/blob/${project.repoBranch}`} />
                 <p>
                   <Link
                     href={`/labs/${lab.slug}`}

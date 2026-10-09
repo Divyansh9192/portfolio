@@ -66,7 +66,7 @@ function Block({ id, title, children, arch }: { id: string; title: string; child
 }
 
 function Code({ children }: { children: ReactNode }) {
-  return <code className="rounded border border-line bg-surface-2 px-1.5 py-px font-mono text-[0.86em] text-text">{children}</code>;
+  return <code className="rounded border border-line bg-surface-2 px-1.5 py-px font-mono text-[0.86em] text-text [overflow-wrap:anywhere]">{children}</code>;
 }
 
 export default function ColophonPage() {

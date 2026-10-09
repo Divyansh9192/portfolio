@@ -181,6 +181,7 @@ const orchrez: Project = {
       "The backend is built and tested: 445 test functions across unit and integration suites, 33 endpoints, three workflow types (full pipeline, research only, execution only), publishing to LinkedIn, WordPress and Mailchimp, and Razorpay billing on the credit ledger. The dashboard starts runs, streams their progress live and handles approvals. It is the project I point to first for agent orchestration, durable workflows and async pipelines.",
     nextSteps: [
       "Turn on per-phase tasks so research and execution run as separate jobs on their own queues, each with its own time limit.",
+      "Add an integration test that kills a worker mid-research and checks which inner nodes run again.",
       "Serialise the balance check when placing a credit hold, so two runs started at once in the same workspace cannot overdraw.",
       "Make releasing credits consume the original hold, so a run that fails, resumes and fails again can only release once.",
       "Connect Clerk sign-in in the dashboard (the API already verifies Clerk JWTs) and finish the billing screens.",
@@ -228,7 +229,7 @@ const neonstays: Project = {
   metrics: [
     { value: "35", label: "REST endpoints across 10 controllers", source: "mapping annotations counted in the controller package" },
     { value: "5", label: "pricing strategies chained as decorators", source: "classes in the strategy package" },
-    { value: "10 min", label: "reservation hold before payment", source: "hasBookingExpired in BookingServiceImpl" },
+    { value: "10 min", label: "window to add guests and pay after reserving", source: "hasBookingExpired in BookingServiceImpl" },
   ],
   system: {
     nodes: [
@@ -259,23 +260,23 @@ const neonstays: Project = {
     intro:
       "NeonStays is a hotel booking backend. Booking looks like CRUD until two guests try to reserve the last room on the same night, a guest abandons checkout halfway, or prices need to move with demand. Those three problems shaped the design.",
     problem: [
-      "Availability is per room, per night. A three-night stay touches three inventory rows, and every one of them must have space at the moment the booking is made, even when several requests race for the same room.",
+      "Availability is per room, per date. A stay touches one inventory row for every date from check-in to check-out, and every one of them must have space at the moment the booking is made, even when several requests race for the same room.",
       "Payment happens on Stripe's page, not in my API. The booking has to wait in a pending state until Stripe confirms the payment in a separate webhook call.",
     ],
     constraints: [
       "Two concurrent bookings must never both take the last room.",
-      "A guest who abandons checkout must not hold rooms forever.",
+      "A guest who abandons checkout should not block the room for everyone else.",
       "Prices change with occupancy, lead time and manual surges, but search has to stay fast.",
       "Only Stripe's signed webhook can confirm a payment. The browser's success redirect proves nothing.",
     ],
     architecture:
-      "Inventory is one row per hotel, room and date, with total, reserved and booked counts. Starting a booking locks the inventory rows for the stay's dates with a PESSIMISTIC_WRITE query (SELECT … FOR UPDATE), checks that each one has space, and increments reservedCount, which holds the rooms for 10 minutes. The booking then moves through RESERVED, GUEST_ADDED and PAYMENT_PENDING. Paying opens a Stripe Checkout Session whose id is saved on the booking. Stripe calls POST /api/v1/webhook/payment, the handler verifies the Stripe-Signature header, and on checkout.session.completed it finds the booking by session id, moves the reserved rooms to booked and marks it CONFIRMED. Prices come from a decorator chain (base → surge → occupancy → urgency → holiday) that an hourly job applies to every day for the next year, writing a daily minimum price per hotel that search reads instead of pricing every room per query.",
+      "Inventory is one row per hotel, room and date, with total, reserved and booked counts. Starting a booking locks the inventory rows for the stay's dates with a PESSIMISTIC_WRITE query (SELECT … FOR UPDATE), checks that each one has space, and increments reservedCount. The guest then has 10 minutes to add guests and start payment. The booking then moves through RESERVED, GUEST_ADDED and PAYMENT_PENDING. Paying opens a Stripe Checkout Session whose id is saved on the booking. Stripe calls POST /api/v1/webhook/payment, the handler verifies the Stripe-Signature header, and on checkout.session.completed it finds the booking by session id, moves the reserved rooms to booked and marks it CONFIRMED. Prices come from a decorator chain (base → surge → occupancy → urgency → holiday) that an hourly job applies to every day for the next year, writing a daily minimum price per hotel that search reads instead of pricing every room per query.",
     decisions: [
       { kind: "choice", text: "Lock inventory rows with SELECT … FOR UPDATE while reserving. Concurrent bookings for the same room and dates wait on the lock instead of overbooking." },
-      { kind: "tradeoff", text: "Row locks serialise bookings for a busy room. That is the right call for correctness at this scale; under heavy contention I would move to an atomic conditional UPDATE." },
+      { kind: "tradeoff", text: "Row locks serialise bookings for a busy room. That is the right call for correctness at this scale; under heavy contention I would drop the lock, rely on the guarded UPDATE alone and check how many rows it changed." },
       { kind: "choice", text: "Model pricing as a chain of small decorators. A new rule, such as a weekend surcharge, is one new class wrapping the others." },
       { kind: "choice", text: "Precompute prices hourly and keep a daily minimum price per hotel for search. Search reads one small table instead of pricing every room on every request." },
-      { kind: "tradeoff", text: "Precomputed prices can be up to an hour old. A booking is priced from the stored nightly prices at the moment it is created, so what the guest sees is what they pay." },
+      { kind: "tradeoff", text: "Search shows prices the hourly job precomputed, so they can be up to an hour old. The booking itself is priced live when it is created, so the total at checkout can differ slightly from what search showed." },
       { kind: "choice", text: "Treat Stripe's signed webhook as the only proof of payment. The browser's redirect back to the site never confirms a booking." },
       { kind: "tradeoff", text: "The webhook handler confirms without recording which Stripe events it has already processed, so a redelivered event is handled again. The lab for this project shows what that means and how storing event ids fixes it." },
     ],
@@ -283,7 +284,7 @@ const neonstays: Project = {
       "The API has 35 endpoints across 10 controllers: sign-up and login with JWTs and a 7-day refresh cookie, Google sign-in, hotel and room management, inventory controls, search, booking and payments, documented with Swagger. The frontend is deployed at neonstays.vercel.app.",
     nextSteps: [
       "Make the payment webhook idempotent: store processed Stripe event ids and require PAYMENT_PENDING before confirming.",
-      "Expire abandoned holds with a scheduled job instead of only checking expiry on the guest's next request.",
+      "Release abandoned reservations with a scheduled job; today an expired hold is only noticed on the guest's next request and the rooms stay reserved.",
       "Add integration tests for the booking state machine and the inventory locks.",
       "Replace the always-on holiday multiplier with a real holiday calendar.",
     ],
@@ -291,7 +292,7 @@ const neonstays: Project = {
   lab: {
     slug: "webhooks",
     title: "Booking, webhook and pricing lab",
-    blurb: "Race two guests for the last room, replay and reorder Stripe webhooks against the real booking states, and price a stay with the real decorator chain.",
+    blurb: "Race two guests for the last room, replay Stripe webhooks against the real booking states, and price a stay with the real decorator chain.",
     kind: "simulation",
   },
   facts: [
@@ -384,7 +385,9 @@ const semages: Project = {
     { claim: "Vectors are stored in a Qdrant collection named image_search with 512 dimensions and cosine distance.", evidence: "src/indexer.py:15-24" },
     { claim: "Image embeddings are L2-normalised before they are stored.", evidence: "src/indexer.py:33-36" },
     { claim: "Text query embeddings are L2-normalised before searching, so cosine similarity compares like with like.", evidence: "src/search.py:25-28" },
-    { claim: "Search calls Qdrant query_points and returns the top matches with their cosine scores.", evidence: "src/search.py:20-40" },
+    { claim: "Search calls Qdrant query_points with the normalised query vector and returns the top matches with their cosine scores.", evidence: "src/search.py:29-33" },
+    { claim: "A search returns the top 2 matches by default.", evidence: "src/search.py:20" },
+    { claim: "The interface shows each result's cosine score to four decimal places.", evidence: "app.py:24" },
     { claim: "Each indexed point carries the image path as its payload.", evidence: "src/indexer.py:39-48" },
   ],
   tags: ["vector search", "embeddings", "clip", "openclip", "qdrant", "retrieval", "semantic search", "ml infrastructure", "computer vision", "python"],

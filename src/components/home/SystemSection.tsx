@@ -11,7 +11,7 @@ function SystemRack() {
       {projects.map((p) => {
         const s = projectStatus(p.status);
         return (
-          <li key={p.slug} className="grid gap-x-10 gap-y-4 border-t border-line py-7 lg:grid-cols-12">
+          <li key={p.slug} className="grid grid-cols-[minmax(0,1fr)] gap-x-10 gap-y-4 border-t border-line py-7 lg:grid-cols-12">
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 lg:col-span-3 lg:flex-col lg:items-start">
               <h3 className="font-display text-[1.125rem] font-bold leading-tight text-text [font-stretch:112%]">{p.name}</h3>
               <StatusPill health={s.health} label={s.label} />
