@@ -76,10 +76,11 @@ const linkedin: Project = {
       { kind: "tradeoff", text: "Two kinds of database (PostgreSQL and Neo4j) means two backup and monitoring stories for a small system. I accepted that to learn graph modelling properly." },
     ],
     result:
-      "The six services run together under Docker Compose, wired through Eureka and the gateway, with Kafka carrying four event types to the notification service. It is the project I use to talk about service boundaries, identity at the edge and event delivery.",
+      "Six Spring Boot services, four Kafka topics and three PostgreSQL databases plus Neo4j, defined in Docker Compose and routed through Eureka and the gateway. It is the project I use to talk about service boundaries, identity at the edge and event delivery.",
     nextSteps: [
       "Add retries and a dead-letter topic to the notification consumer so a poison event cannot be lost or block a partition.",
       "Remove the synchronous Feign call from the post-created consumer by carrying recipients in the event.",
+      "Add container health checks so Compose starts the services in dependency order without manual restarts.",
       "Finish the Kubernetes manifests (image names, ports and service discovery) so the cluster matches the Compose setup.",
     ],
   },
@@ -165,20 +166,21 @@ const orchrez: Project = {
       "People should watch progress as it happens, without the browser polling a dozen endpoints.",
     ],
     architecture:
-      "Starting a run inserts a workflow_runs row, places a credit hold on the ledger and enqueues conductor_task on RabbitMQ. A Celery worker (acks_late, prefetch 1) invokes a LangGraph metagraph with thread_id set to the run's id, so PostgresSaver checkpoints the run under that id. The metagraph routes load_run_context into a 17-node research subgraph (crawl, classify the business, extract positioning, audience, messaging and keywords, build the brand profile) and an 11-node execution subgraph (plan the content mix, generate the calendar, fan out one generator per entry with Send, generate images, approval gate, schedule, publish). persist_results then commits or releases the credits. The approval gate calls interrupt(), which parks the run in awaiting_approval; POST /approve flips it to resuming with a compare-and-set and re-enqueues the conductor with Command(resume=…). Workers write run events to Postgres and publish a wake-up on Redis, and the dashboard follows them over Server-Sent Events with Last-Event-ID, so a dropped connection loses nothing.",
+      "Starting a run inserts a workflow_runs row, places a credit hold on the ledger and enqueues conductor_task on RabbitMQ. A Celery worker (acks_late, prefetch 1) invokes a LangGraph metagraph with thread_id set to the run's id, so PostgresSaver checkpoints the run under that id; the subgraphs inherit the same checkpointer under their own namespaces. The metagraph routes load_run_context into a 17-node research subgraph (crawl, classify the business, extract positioning, audience, messaging and keywords, build the brand profile) and an 11-node execution subgraph (plan the content mix, generate the calendar, fan out one generator per entry with Send, generate images, approval gate, schedule, publish). persist_results then commits or releases the credits. The approval gate calls interrupt(), which parks the run in awaiting_approval; POST /approve flips it to resuming with a compare-and-set and re-enqueues the conductor with Command(resume=…). Workers write run events to Postgres and publish a wake-up on Redis. The dashboard follows them over Server-Sent Events, and the endpoint resumes from a Last-Event-ID cursor, so a client that reconnects catches up on what it missed.",
     decisions: [
       { kind: "choice", text: "Use the run's database id as the LangGraph thread_id. One identifier ties together the queue message, the checkpoint history, the run events and the credit hold." },
       { kind: "choice", text: "Pause for approval with LangGraph's interrupt() instead of ending the run and starting a new one. The graph's own state stays the source of truth for what was generated and what is waiting." },
       { kind: "choice", text: "Guard approval with a compare-and-set from awaiting_approval to resuming. A double-click or a retried request gets a 409 instead of resuming the run twice." },
-      { kind: "choice", text: "Stream progress over Server-Sent Events that tail the run_events table, with Redis pub/sub used only as a wake-up. Events are durable in Postgres, so reconnecting with Last-Event-ID replays exactly what was missed." },
+      { kind: "choice", text: "Stream progress over Server-Sent Events that tail the run_events table, with Redis pub/sub used only as a wake-up. Events are durable in Postgres, so a client reconnecting with Last-Event-ID gets the events it missed." },
       { kind: "choice", text: "Keep credits on a ledger: hold when a run starts, commit on success, release on failure. Razorpay webhooks are deduplicated by a UNIQUE event id, and top-ups by a UNIQUE payment id." },
-      { kind: "tradeoff", text: "The research and execution subgraphs run inside wrapper nodes, so the parent graph checkpoints at subgraph boundaries. A crash halfway through research resumes from the start of research, not from the exact node." },
+      { kind: "tradeoff", text: "One conductor task runs the whole graph up to the approval interrupt, so a run has to reach that point inside Celery's 20-minute soft time limit. The code to split runs into per-phase tasks on the research and content queues exists but is not switched on yet." },
       { kind: "tradeoff", text: "Tenant isolation is enforced in application code on every route rather than with Postgres row-level security. It is simpler to reason about, but it relies on every query carrying the workspace filter, so it depends on review and tests." },
     ],
     result:
       "The backend is built and tested: 445 test functions across unit and integration suites, 33 endpoints, three workflow types (full pipeline, research only, execution only), publishing to LinkedIn, WordPress and Mailchimp, and Razorpay billing on the credit ledger. The dashboard starts runs, streams their progress live and handles approvals. It is the project I point to first for agent orchestration, durable workflows and async pipelines.",
     nextSteps: [
-      "Mount the research and execution subgraphs directly so checkpoints land on every inner node.",
+      "Turn on per-phase tasks so research and execution run as separate jobs on their own queues, each with its own time limit.",
+      "Serialise the balance check when placing a credit hold, so two runs started at once in the same workspace cannot overdraw.",
       "Make releasing credits consume the original hold, so a run that fails, resumes and fails again can only release once.",
       "Connect Clerk sign-in in the dashboard (the API already verifies Clerk JWTs) and finish the billing screens.",
       "Add publishers for X, Instagram and ads, which currently skip with a clear error.",
@@ -266,7 +268,7 @@ const neonstays: Project = {
       "Only Stripe's signed webhook can confirm a payment. The browser's success redirect proves nothing.",
     ],
     architecture:
-      "Inventory is one row per hotel, room and date, with total, reserved and booked counts. Starting a booking locks the matching rows with a PESSIMISTIC_WRITE query (SELECT … FOR UPDATE), checks that every night has space, and increments reservedCount, which holds the rooms for 10 minutes. The booking then moves through RESERVED, GUEST_ADDED and PAYMENT_PENDING. Paying opens a Stripe Checkout Session carrying the booking id in its metadata. Stripe calls POST /api/v1/webhook/payment, the handler verifies the Stripe-Signature header, and on checkout.session.completed it moves the reserved rooms to booked and marks the booking CONFIRMED. Prices come from a decorator chain (base → surge → occupancy → urgency → holiday) that an hourly job applies to every day for the next year, writing a daily minimum price per hotel that search reads instead of pricing every room per query.",
+      "Inventory is one row per hotel, room and date, with total, reserved and booked counts. Starting a booking locks the inventory rows for the stay's dates with a PESSIMISTIC_WRITE query (SELECT … FOR UPDATE), checks that each one has space, and increments reservedCount, which holds the rooms for 10 minutes. The booking then moves through RESERVED, GUEST_ADDED and PAYMENT_PENDING. Paying opens a Stripe Checkout Session whose id is saved on the booking. Stripe calls POST /api/v1/webhook/payment, the handler verifies the Stripe-Signature header, and on checkout.session.completed it finds the booking by session id, moves the reserved rooms to booked and marks it CONFIRMED. Prices come from a decorator chain (base → surge → occupancy → urgency → holiday) that an hourly job applies to every day for the next year, writing a daily minimum price per hotel that search reads instead of pricing every room per query.",
     decisions: [
       { kind: "choice", text: "Lock inventory rows with SELECT … FOR UPDATE while reserving. Concurrent bookings for the same room and dates wait on the lock instead of overbooking." },
       { kind: "tradeoff", text: "Row locks serialise bookings for a busy room. That is the right call for correctness at this scale; under heavy contention I would move to an atomic conditional UPDATE." },
@@ -293,7 +295,7 @@ const neonstays: Project = {
   },
   facts: [
     { claim: "Bookings move through RESERVED, GUEST_ADDED, PAYMENT_PENDING, CONFIRMED and CANCELLED.", evidence: "src/main/java/com/divyansh/airbnbapp/entity/enums/BookingStatus.java:3-9" },
-    { claim: "Available inventory is selected with a PESSIMISTIC_WRITE lock across every night of the stay.", evidence: "src/main/java/com/divyansh/airbnbapp/repository/InventoryRepository.java:43-56" },
+    { claim: "Available inventory for the stay's dates is selected with a PESSIMISTIC_WRITE lock (SELECT … FOR UPDATE).", evidence: "src/main/java/com/divyansh/airbnbapp/repository/InventoryRepository.java:43-56" },
     { claim: "A booking's hold expires 10 minutes after it is created.", evidence: "src/main/java/com/divyansh/airbnbapp/service/BookingServiceImpl.java:315-316" },
     { claim: "The webhook endpoint verifies the Stripe-Signature header with Webhook.constructEvent.", evidence: "src/main/java/com/divyansh/airbnbapp/controller/WebHookController.java:19-31" },
     { claim: "Only checkout.session.completed is handled; it marks the booking CONFIRMED and moves reserved rooms to booked.", evidence: "src/main/java/com/divyansh/airbnbapp/service/BookingServiceImpl.java:161-195" },
