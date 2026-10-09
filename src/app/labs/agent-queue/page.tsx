@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { evidenceUrl, getProject, profile } from "@/content";
 import { CITE } from "@/lib/sim/agent-queue/spec";
-import { Container, MonoLabel, SectionHeader, TextLink } from "@/components/ui/primitives";
+import { Container, TextLink } from "@/components/ui/primitives";
 import { AgentQueueLab } from "@/components/labs/agent-queue/AgentQueueLab";
+import { LabHeader } from "@/components/labs/LabHeader";
 
 const project = getProject("orchrez");
 const title = project?.lab.title ?? "Agent queue and checkpoint lab";
@@ -67,35 +67,14 @@ export default function AgentQueueLabPage() {
   const href = (e: string) => evidenceUrl(project.links.repo, project.repoBranch, e);
   return (
     <Container wide className="py-10 sm:py-14">
-      <nav aria-label="Breadcrumb" className="font-mono text-[12px] text-text-3">
-        <Link href="/labs" className="underline decoration-line-strong underline-offset-[3px] hover:text-text">
-          Labs
-        </Link>
-        <span aria-hidden> / </span>
-        <Link href={`/work/${project.slug}`} className="underline decoration-line-strong underline-offset-[3px] hover:text-text">
-          {project.name}
-        </Link>
-      </nav>
-
-      <header data-arch="AgentQueueLabIntro" data-arch-kind="server" className="mt-5 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)]">
-        <SectionHeader
-          as="h1"
-          eyebrow="Lab · simulation · Orchrez"
-          title={title}
-          lede="An Orchrez run is a long LangGraph job behind a queue. It has to survive dead workers, flaky model providers and a human who approves hours later. This lab replays that path with the real names and settings from the code, and lets you break it."
-        />
-        <div>
-          <MonoLabel as="p">Things to try</MonoLabel>
-          <ol className="mt-3 flex flex-col gap-2.5">
-            {TRY.map((t, i) => (
-              <li key={t} className="grid grid-cols-[1.5rem_minmax(0,1fr)] text-[14.5px] leading-snug text-text-2">
-                <span className="tnum font-mono text-[12px] text-text-3">{String(i + 1).padStart(2, "0")}</span>
-                <span>{t}</span>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </header>
+      <LabHeader
+        project={project}
+        kind={project.lab.kind}
+        title={title}
+        arch="AgentQueueLabIntro"
+        lede="An Orchrez run is a long LangGraph job behind a queue. It has to survive dead workers, flaky model providers and a human who approves hours later. This lab replays that path with the real names and settings from the code, and lets you break it."
+        tries={TRY}
+      />
 
       <section aria-labelledby="lab-title" className="mt-10">
         <h2 id="lab-title" className="sr-only">

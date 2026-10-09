@@ -85,7 +85,7 @@ export default function ColophonPage() {
   ];
 
   return (
-    <Container className="py-12 sm:py-16">
+    <Container wide className="py-12 sm:py-16">
       <header data-arch="ColophonHeader" data-arch-kind="server" className="max-w-[760px]">
         <SectionHeader as="h1" eyebrow="Colophon" title="How this site is built" />
       </header>

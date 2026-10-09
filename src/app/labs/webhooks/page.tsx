@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeft, ExternalLink } from "lucide-react";
 import { evidenceUrl, getProject, profile } from "@/content";
 import { CODE, codeEvidence, type CodeRefId } from "@/lib/sim/booking/code";
-import { ButtonLink, Container, MonoLabel } from "@/components/ui/primitives";
+import { Container } from "@/components/ui/primitives";
 import { WebhooksLab } from "@/components/labs/webhooks/WebhooksLab";
+import { LabHeader } from "@/components/labs/LabHeader";
 
 const project = getProject("neonstays")!;
 const title = project.lab.title;
@@ -74,32 +73,12 @@ export default function WebhooksLabPage() {
   return (
     <>
       <Container wide className="pt-10 sm:pt-14">
-        <header data-arch="LabHeader" data-arch-kind="server" className="max-w-[780px]">
-          <nav aria-label="Breadcrumb" className="mb-5">
-            <Link href="/labs" className="inline-flex min-h-10 items-center gap-1.5 font-mono text-[12px] text-text-3 hover:text-text">
-              <ArrowLeft className="size-3.5" aria-hidden />
-              All labs
-            </Link>
-          </nav>
-          <MonoLabel as="p">Lab · {project.name} · Simulation</MonoLabel>
-          <h1 className="mt-3 font-display text-[clamp(1.9rem,4.4vw,3rem)] font-extrabold leading-[1.04] tracking-[-0.015em] text-text [font-stretch:112%]">
-            {title}
-          </h1>
-          <p className="mt-4 max-w-[64ch] text-[1.0625rem] leading-relaxed text-text-2">
-            NeonStays is my hotel booking backend: one Spring Boot app with PostgreSQL and Stripe Checkout. This lab runs three of its mechanisms in your
-            browser, using the names from the code. You can race two guests for the last room, replay the Stripe webhook that confirms a payment, and price
-            a night with the decorator chain. It also shows the gaps I found in my own code, and what the fix changes.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <ButtonLink href={`/work/${project.slug}`} variant="secondary">
-              Read the case study
-            </ButtonLink>
-            <ButtonLink href={project.links.repo} variant="ghost">
-              Source on GitHub
-              <ExternalLink className="size-3.5" aria-hidden />
-            </ButtonLink>
-          </div>
-        </header>
+        <LabHeader
+          project={project}
+          kind={project.lab.kind}
+          title={title}
+          lede="NeonStays is my hotel booking backend: one Spring Boot app with PostgreSQL and Stripe Checkout. This lab runs three of its mechanisms in your browser, using the names from the code. You can race two guests for the last room, replay the Stripe webhook that confirms a payment, and price a night with the decorator chain. It also shows the gaps I found in my own code, and what the fix changes."
+        />
       </Container>
 
       <Container wide className="mt-10">

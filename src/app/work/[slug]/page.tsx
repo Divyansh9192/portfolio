@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { LabKindBadge } from "@/components/labs/LabKindBadge";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Maximize2 } from "lucide-react";
@@ -121,9 +122,7 @@ export default async function CaseStudyPage({ params }: Props) {
 
               <CaseSection id="lab" print="hide">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="inline-flex items-center rounded-full border border-line-strong bg-surface px-2.5 py-1 font-mono text-[12px] text-text-2">
-                    {LAB_KIND_LABEL[lab.kind]}
-                  </span>
+                  <LabKindBadge kind={lab.kind} />
                   <span className="font-mono text-[12px] text-text-3">{lab.title}</span>
                 </div>
                 <p className={prose}>

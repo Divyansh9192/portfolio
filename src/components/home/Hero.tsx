@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ModKey } from "@/components/chrome/ModKey";
-import { ArrowUpRight, FileText, Mail } from "lucide-react";
-import { education, getProject, profile, type ProjectSlug } from "@/content";
+import { ArrowRight, ArrowUpRight, FileText, Mail } from "lucide-react";
+import { education, getProject, profile, projects, type ProjectSlug } from "@/content";
 import { ButtonLink, Container, Kbd, MonoLabel } from "@/components/ui/primitives";
 import { OperatorButton } from "./OperatorButton";
 import { RequestTrace } from "./RequestTrace";
@@ -23,6 +23,33 @@ function proofStats() {
     const m = project?.metrics[metric];
     return project && m ? [{ project, metric: m }] : [];
   });
+}
+
+/** The four projects in the first screen, so nobody has to scroll to find the work. */
+function SelectedWork({ className }: { className?: string }) {
+  return (
+    <nav aria-labelledby="selected-work-label" data-arch="SelectedWork" data-arch-kind="server" className={className}>
+      <p id="selected-work-label" className="font-mono text-2xs uppercase tracking-[0.12em] text-text-3">
+        Selected work
+      </p>
+      <ol className="mt-3 divide-y divide-line border-y border-line">
+        {projects.map((p, i) => (
+          <li key={p.slug}>
+            <Link href={`/work/${p.slug}`} className="group grid grid-cols-[1.75rem_minmax(0,1fr)_auto] items-center gap-x-3 py-3">
+              <span className="font-mono text-[11.5px] text-text-3 tnum">{String(i + 1).padStart(2, "0")}</span>
+              <span className="min-w-0">
+                <span className="block font-display text-[15px] font-bold leading-tight text-text [font-stretch:112%] group-hover:underline group-hover:underline-offset-4">
+                  {p.name}
+                </span>
+                <span className="mt-0.5 block text-[13px] leading-snug text-text-2">{p.tagline}</span>
+              </span>
+              <ArrowRight className="size-4 text-text-3 transition-transform group-hover:translate-x-0.5 group-hover:text-text" aria-hidden />
+            </Link>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
 }
 
 /** Server-rendered hero: name, role, pitch, actions and proof. This text is the LCP; nothing heavy sits in front of it. */
@@ -146,7 +173,11 @@ export function Hero() {
           ) : null}
         </div>
 
-        <RequestTrace className="lg:mt-1" />
+        {/* Phones see the work list before the trace; wide screens stack it under the trace. */}
+        <div className="flex min-w-0 flex-col gap-10 lg:mt-1">
+          <RequestTrace />
+          <SelectedWork className="max-lg:order-first" />
+        </div>
       </Container>
     </section>
   );

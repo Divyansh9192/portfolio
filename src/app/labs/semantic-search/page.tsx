@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Cpu } from "lucide-react";
 import { evidenceUrl, getProject, profile } from "@/content";
-import { Container, MonoLabel, SectionHeader, Tag, TextLink } from "@/components/ui/primitives";
+import { Container, MonoLabel, SectionHeader, TextLink } from "@/components/ui/primitives";
 import { SemanticSearchLab } from "@/components/labs/semantic-search/SemanticSearchLab";
+import { LabHeader } from "@/components/labs/LabHeader";
 
 const project = getProject("semages");
 const title = project?.lab.title ?? "Semantic search in your browser";
@@ -72,30 +71,24 @@ export default function SemanticSearchLabPage() {
 
   return (
     <Container wide className="py-10 sm:py-14">
-      <header data-arch="LabIntro" data-arch-kind="server" className="max-w-[780px]">
-        <Link href="/labs" className="inline-flex min-h-10 items-center gap-1.5 font-mono text-[12.5px] text-text-2 hover:text-text">
-          <ArrowLeft className="size-3.5" aria-hidden />
-          All labs
-        </Link>
-        <SectionHeader
-          as="h1"
-          className="mt-3"
-          eyebrow={`Lab · from ${project.name}`}
-          title={title}
-          lede="This is not a simulation. When you press Load, your browser downloads a CLIP model and runs it on your own device. It turns every image, and then your sentence, into 512 numbers, and ranks the images by how closely their numbers point the same way as yours."
-        />
-        <div className="mt-5 flex flex-wrap items-center gap-3">
-          <Tag className="gap-1.5">
-            <Cpu className="size-3.5" aria-hidden />
-            In your browser
-          </Tag>
-          <span className="text-[14px] text-text-2">Real computation on your device. Nothing you add is uploaded.</span>
-        </div>
-        <p className="mt-5 max-w-[68ch] text-[15.5px] leading-relaxed text-text-2">
-          I built {project.name} to find photos by describing them. It runs these steps in Python with Qdrant as the index. Here they run in your
-          browser, with a few dozen vectors held in memory instead of a database. Start with the sample images, then drop in your own.
-        </p>
-      </header>
+      <LabHeader
+        project={project}
+        kind={project.lab.kind}
+        title={title}
+        arch="LabIntro"
+        lede={
+          <>
+            <p>
+              When you press Load, your browser downloads a CLIP model and runs it on your own device. It turns every image, and then your sentence,
+              into 512 numbers, and ranks the images by how closely their numbers point the same way as yours.
+            </p>
+            <p className="mt-3">
+              I built {project.name} to find photos by describing them. It runs these steps in Python with Qdrant as the index. Here they run in your
+              browser, with a few dozen vectors held in memory instead of a database. Start with the sample images, then drop in your own.
+            </p>
+          </>
+        }
+      />
 
       <section aria-labelledby="lab-title" className="mt-10">
         <h2 id="lab-title" className="sr-only">

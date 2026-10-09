@@ -25,7 +25,7 @@ const GROUPS: RouteGroup[] = [
 
 export default function NotFound() {
   return (
-    <Container className="py-16 sm:py-24">
+    <Container wide className="py-16 sm:py-24">
       <div className="max-w-[760px]" data-arch="NotFound" data-arch-kind="server">
         <SectionHeader
           as="h1"

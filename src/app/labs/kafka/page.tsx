@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { evidenceUrl, getProject, profile } from "@/content";
-import { Container, MonoLabel, SectionHeader, TextLink } from "@/components/ui/primitives";
+import { Container, MonoLabel } from "@/components/ui/primitives";
 import { KafkaLab } from "@/components/labs/kafka/KafkaLab";
+import { LabHeader } from "@/components/labs/LabHeader";
 
 const title = "Kafka rebalance playground";
 const description =
@@ -123,6 +124,13 @@ const UPSTREAM: { claim: string; href: string; label: string }[] = [
   },
 ];
 
+const TRY = [
+  "Press + and watch the stop-the-world rebalance.",
+  "Set connections-service to Slow and only post-created lag grows. Add instances and it shrinks, up to three, because a fourth gets no partition.",
+  "Set it to Down and every new post's notifications are dropped after 10 attempts.",
+  "Crash consumer 2. Its partitions stall until the session timeout, then anything it processed without committing is delivered again.",
+];
+
 export default function KafkaLabPage() {
   const project = getProject("linkedin-clone");
   if (!project) notFound();
@@ -133,24 +141,14 @@ export default function KafkaLabPage() {
 
   return (
     <Container wide className="py-10 sm:py-14">
-      <header data-arch="KafkaLabIntro" data-arch-kind="server" className="max-w-[780px]">
-        <SectionHeader
-          as="h1"
-          eyebrow={`Lab · ${project.name} · Simulation`}
-          title={title}
-          lede="This models the event flow of my LinkedIn clone with the names from its code. Posts and connection requests go to four Kafka topics, and one notification-service consumer group turns them into notification rows. Scale that group, crash an instance, or slow down connections-service, and watch what happens to partitions, offsets and lag."
-        />
-        <p className="mt-4 text-[14px] text-text-3">
-          Things to try: press + and watch the stop-the-world rebalance. Set connections-service to Slow and only post-created lag grows. Add instances
-          and it shrinks, up to three, because a fourth gets no partition. Set it to Down and every new post&apos;s notifications are dropped after 10
-          attempts. Crash consumer 2 and its partitions stall until the session timeout, then anything it processed without committing is delivered again.
-        </p>
-        <p className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-[14px]">
-          <TextLink href={`/work/${project.slug}`}>Read the case study</TextLink>
-          <TextLink href={repo}>Source on GitHub</TextLink>
-          <TextLink href="/labs">All labs</TextLink>
-        </p>
-      </header>
+      <LabHeader
+        project={project}
+        kind={project.lab.kind}
+        title={title}
+        arch="KafkaLabIntro"
+        lede="This models the event flow of my LinkedIn clone with the names from its code. Posts and connection requests go to four Kafka topics, and one notification-service consumer group turns them into notification rows. Scale that group, crash an instance, or slow down connections-service, and watch what happens to partitions, offsets and lag."
+        tries={TRY}
+      />
 
       <div className="mt-8">
         <KafkaLab sourceBase={sourceBase} />

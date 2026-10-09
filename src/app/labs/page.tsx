@@ -43,7 +43,7 @@ function KindBadge({ kind }: { kind: LabRef["kind"] }) {
 export default function LabsPage() {
   const kindsInUse = (Object.keys(KIND) as LabRef["kind"][]).filter((k) => labs.some((l) => l.kind === k));
   return (
-    <Container className="py-12 sm:py-16">
+    <Container wide className="py-12 sm:py-16">
       <header data-arch="LabsIntro" data-arch-kind="server" className="max-w-[760px]">
         <SectionHeader
           as="h1"

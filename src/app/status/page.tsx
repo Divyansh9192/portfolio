@@ -57,8 +57,8 @@ export default async function StatusPage() {
   const host = bare(SITE_URL);
 
   return (
-    <Container className="py-12 sm:py-16">
-      <div className="mx-auto max-w-[860px]">
+    <Container wide className="py-12 sm:py-16">
+      <div className="max-w-[860px]">
         <header data-arch="StatusHeader" data-arch-kind="server">
           <SectionHeader
             as="h1"

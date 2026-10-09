@@ -47,12 +47,22 @@ function readSaveData(): boolean {
 }
 const noSubscribe = () => () => {};
 
+// Phones get the static diagrams by default: the 3D map is hard to read at that size and
+// costs a large download. The live view is still one tap away.
+const NARROW = "(max-width: 639px)";
+function subscribeNarrow(cb: () => void) {
+  const mq = window.matchMedia(NARROW);
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+}
+const readNarrow = () => window.matchMedia(NARROW).matches;
+
 type Choice = "live" | "static" | null;
 
 /**
  * Client wrapper for "Everything here is running". Loads the three.js topology only when
  * the section is about to scroll into view AND motion is allowed AND the visitor hasn't
- * turned on Save-Data, or when the visitor asks for it. Otherwise, and while the chunk
+ * turned on Save-Data AND the screen is wider than a phone, or when the visitor asks for it. Otherwise, and while the chunk
  * loads, it shows the server-rendered static diagrams passed in as `fallback`.
  */
 export function SystemStage({ fallback }: { fallback: ReactNode }) {
@@ -78,7 +88,8 @@ export function SystemStage({ fallback }: { fallback: ReactNode }) {
     return () => io.disconnect();
   }, []);
 
-  const autoOK = motionOK && !saveData;
+  const narrow = useSyncExternalStore(subscribeNarrow, readNarrow, () => false);
+  const autoOK = motionOK && !saveData && !narrow;
   const live = choice === "live" || (choice === null && autoOK && near);
   // What the switch shows as selected: the visitor's choice, else what auto mode is heading for.
   const selected: "live" | "static" = choice ?? (autoOK ? "live" : "static");
