@@ -94,10 +94,13 @@ export function WebhooksLabClient({ embedded = false, links }: { embedded?: bool
       <div data-arch="WebhooksLab" data-arch-kind="client" data-embedded={embedded} className="flex min-w-0 flex-col gap-4">
         <div className="flex flex-col gap-2">
           <div className="flex flex-wrap items-center gap-2">
-            <Tag className="gap-1.5">
-              <FlaskConical className="size-3.5" aria-hidden />
-              Simulation
-            </Tag>
+            {/* On the lab's own page the LabHeader already shows the kind; embedded, this is the only badge. */}
+            {embedded ? (
+              <Tag className="gap-1.5">
+                <FlaskConical className="size-3.5" aria-hidden />
+                Simulation
+              </Tag>
+            ) : null}
             <p className="min-w-0 flex-1 basis-[16rem] text-[13px] leading-snug text-text-2">
               A deterministic model of the NeonStays Spring Boot code, with its real queries, states, guards and multipliers. There is no real database,
               Stripe account or network, and time is a simulated clock.

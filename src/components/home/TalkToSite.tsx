@@ -6,7 +6,16 @@ import { Section } from "./shared";
 function surfaces(): Surface[] {
   const example = projects[0];
   return [
-    { kind: "curl", path: "/", title: "Resume in your terminal", detail: "Coloured text for curl, Wget and HTTPie. Add ?\u2060plain=1 for no colour." },
+    {
+      kind: "curl",
+      path: "/",
+      title: "Resume in your terminal",
+      detail: (
+        <>
+          Coloured text for curl, Wget and HTTPie. Add <code className="whitespace-nowrap font-mono text-[0.92em]">?plain=1</code> for no colour.
+        </>
+      ),
+    },
     ...(example
       ? [
           {

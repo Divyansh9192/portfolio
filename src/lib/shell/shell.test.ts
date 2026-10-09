@@ -229,6 +229,10 @@ describe("commands", () => {
     expect(text(await run("curl https://example.com"))).toContain("same-origin");
   });
 
+  it("suggests the lowercase command for a mistyped case", async () => {
+    expect(text(await run("Ls"))).toContain("did you mean ls");
+  });
+
   it("curl does not print binary bodies", async () => {
     const pdf = await run("curl /resume.pdf", state(), io({ fetch: async () => ({ status: 200, contentType: "application/pdf", body: "%PDF-1.5 \u0000\u0001" }) }));
     expect(text(pdf)).toContain("binary output (application/pdf) not shown");

@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { useSyncExternalStore } from "react";
 import { MessageSquare, Terminal } from "lucide-react";
 import { CopyButton } from "./CopyButton";
@@ -10,7 +11,7 @@ export interface Surface {
   kind: "curl" | "url";
   path: string;
   title: string;
-  detail: string;
+  detail: ReactNode;
 }
 
 const noop = () => () => {};

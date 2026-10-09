@@ -641,7 +641,7 @@ const curl: CommandDef = {
         hint("cat README.md shows the same content from this shell's own files"),
       ]);
     }
-    if (res.contentType && !/^text\/|json|markdown/i.test(res.contentType)) {
+    if (res.contentType && !/^text\/|json|markdown|xml/i.test(res.contentType)) {
       const type = res.contentType.split(";")[0].trim();
       return ok([{ spans: [{ text: `curl: binary output (${type}) not shown. `, tone: "text-2" }, runSpan(`open ${path}`, `open ${path}`), { text: " opens it.", tone: "text-2" }] }]);
     }
@@ -819,7 +819,7 @@ const overlay: CommandDef = {
   run({ args }) {
     const v = args[0];
     if (v && v !== "on" && v !== "off") return usageError(overlay, `unknown argument '${v}'`);
-    return ok([line(`overlay: ${v ?? "toggled"} · press ? to toggle it from anywhere`, "text-2")], [{ type: "overlay", on: v ? v === "on" : undefined }]);
+    return ok([line(`overlay: ${v ?? "toggled"} · Esc closes it (so does ?, unless key shortcuts are off)`, "text-2")], [{ type: "overlay", on: v ? v === "on" : undefined }]);
   },
 };
 
@@ -972,7 +972,9 @@ export const COMMANDS: CommandDef[] = [
 /** `command not found` with Levenshtein suggestions and matching quick actions. Never a dead end. */
 export function notFound(name: string, args: string[], env: ShellEnv): CmdOutput {
   const lines: Line[] = [err(`command not found: ${name}`)];
-  const near = didYouMean(name, [...env.commands.keys()]);
+  // Commands are lowercase; "LS" or "Ls" should suggest "ls" first (didYouMean skips exact matches).
+  const lower = name.toLowerCase();
+  const near = [...(env.commands.has(lower) ? [lower] : []), ...didYouMean(name, [...env.commands.keys()])];
   if (near.length) {
     lines.push({
       spans: [

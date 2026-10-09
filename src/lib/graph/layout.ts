@@ -168,24 +168,63 @@ export function layoutGraph(nodesIn: LayoutInputNode[], edgesIn: LayoutInputEdge
   const P = new Map(placed.map((p) => [p.id, p]));
 
   // A forward edge that skips layers would run straight through any box in between at its height.
-  // Those edges arc over the top instead, so make room above the boxes when there are any.
+  // When both ends are the top box of their column, it arcs over everything it spans; when both are
+  // the bottom box, it dips under. Otherwise it keeps the normal side route. The arc's control height
+  // is solved so the curve's midpoint clears every box in the layers it spans, and the diagram grows
+  // to make room.
   const centerY = (n: PlacedNode) => n.y + n.h / 2;
   const blocked = (a: PlacedNode, b: PlacedNode) => {
     const lo = Math.min(centerY(a), centerY(b)) - 4;
     const hi = Math.max(centerY(a), centerY(b)) + 4;
     return placed.some((n) => n.layer > a.layer && n.layer < b.layer && n.y < hi && n.y + n.h > lo);
   };
-  const over = new Set<number>();
+  const lastOrder = layers.map((l) => l.length - 1);
+  const spanned = (a: PlacedNode, b: PlacedNode) => placed.filter((n) => n.layer >= a.layer && n.layer <= b.layer);
+  const CLEAR = 8;
+  // A cubic with both control points at height c peaks near (y1 + y2) / 8 + 0.75 c at its middle.
+  const solve = (target: number, y1: number, y2: number) => (target - (y1 + y2) / 8) / 0.75;
+  const ends = (a: PlacedNode, b: PlacedNode, via: "over" | "under") =>
+    via === "over"
+      ? { x1: a.x + a.w / 2, y1: a.y, x2: b.x + b.w / 2, y2: b.y }
+      : { x1: a.x + a.w / 2, y1: a.y + a.h, x2: b.x + b.w / 2, y2: b.y + b.h };
+  // Start from the midpoint estimate, then push the control height outwards until the sampled curve
+  // clears every box in the layers it spans (taller columns near either end can poke through).
+  const arcHeight = (a: PlacedNode, b: PlacedNode, via: "over" | "under") => {
+    const span = spanned(a, b).filter((n) => n !== a && n !== b);
+    const { x1, y1, x2, y2 } = ends(a, b, via);
+    const hits = (c: number) => {
+      for (let k = 1; k < 48; k++) {
+        const t = k / 48, u = 1 - t;
+        const x = u * u * u * x1 + 3 * u * u * t * x1 + 3 * u * t * t * x2 + t * t * t * x2;
+        const y = u * u * u * y1 + 3 * u * u * t * c + 3 * u * t * t * c + t * t * t * y2;
+        if (span.some((n) => x > n.x - 2 && x < n.x + n.w + 2 && y > n.y - CLEAR / 2 && y < n.y + n.h + CLEAR / 2)) return true;
+      }
+      return false;
+    };
+    const all = spanned(a, b);
+    let c = via === "over" ? solve(Math.min(...all.map((n) => n.y)) - CLEAR, y1, y2) : solve(Math.max(...all.map((n) => n.y + n.h)) + CLEAR, y1, y2);
+    for (let k = 0; k < 40 && hits(c); k++) c += via === "over" ? -6 : 6;
+    return c;
+  };
+  const detour = new Map<number, "over" | "under">();
+  let roomTop = 0;
+  let roomBottom = 0;
   edges.forEach((e, i) => {
     const a = P.get(e.from)!;
     const b = P.get(e.to)!;
-    if (!backKeys.has(`${e.from}->${e.to}`) && b.layer - a.layer > 1 && blocked(a, b)) over.add(i);
+    if (backKeys.has(`${e.from}->${e.to}`) || b.layer - a.layer <= 1 || !blocked(a, b)) return;
+    if (a.order === 0 && b.order === 0) {
+      detour.set(i, "over");
+      roomTop = Math.max(roomTop, 4 - arcHeight(a, b, "over"));
+    } else if (a.order === lastOrder[a.layer] && b.order === lastOrder[b.layer]) {
+      detour.set(i, "under");
+      roomBottom = Math.max(roomBottom, arcHeight(a, b, "under") + 4 - totalH);
+    }
   });
-  const OVER_ROOM = 26;
-  if (over.size) {
-    for (const n of placed) n.y += OVER_ROOM;
-    totalH += OVER_ROOM;
-  }
+  roomTop = Math.ceil(Math.max(0, roomTop));
+  roomBottom = Math.ceil(Math.max(0, roomBottom));
+  if (roomTop) for (const n of placed) n.y += roomTop;
+  totalH += roomTop + roomBottom;
 
   const routed: RoutedEdge[] = edges.map((e, i) => {
     const a = P.get(e.from)!;
@@ -197,11 +236,12 @@ export function layoutGraph(nodesIn: LayoutInputNode[], edgesIn: LayoutInputEdge
       const bulge = 28 + Math.abs(y2 - y1) * 0.15;
       return { from: e.from, to: e.to, back, index: i, d: `M${x1},${y1} C${x1 + bulge},${y1} ${x2 + bulge},${y2} ${x2},${y2}`, mid: { x: Math.max(x1, x2) + bulge * 0.75, y: (y1 + y2) / 2 } };
     }
-    if (over.has(i)) {
-      // Skip-layer edge with boxes in the way: leave the top of the source, arc over, enter the top of the target.
-      const x1 = a.x + a.w / 2, y1 = a.y, x2 = b.x + b.w / 2, y2 = b.y;
-      const crest = Math.max(2, Math.min(y1, y2) - OVER_ROOM + 4);
-      return { from: e.from, to: e.to, back, index: i, d: `M${x1},${y1} C${x1},${crest} ${x2},${crest} ${x2},${y2}`, mid: { x: (x1 + x2) / 2, y: crest + 4 } };
+    const via = detour.get(i);
+    if (via) {
+      const { x1, y1, x2, y2 } = ends(a, b, via);
+      const c = arcHeight(a, b, via);
+      const peak = (y1 + y2) / 8 + 0.75 * c;
+      return { from: e.from, to: e.to, back, index: i, d: `M${x1},${y1} C${x1},${c} ${x2},${c} ${x2},${y2}`, mid: { x: (x1 + x2) / 2, y: via === "over" ? peak : peak + 12 } };
     }
     if (!back && a.layer < b.layer) {
       const x1 = a.x + a.w, y1 = a.y + a.h / 2, x2 = b.x, y2 = b.y + b.h / 2;

@@ -146,9 +146,10 @@ export function SystemDiagram({ graph, size = "full", title, className, highligh
                   aria-pressed={!mini && onNodeSelect ? isSelected : undefined}
                   onMouseEnter={() => setActive(p.id)}
                   onMouseLeave={() => setActive(null)}
-                  onFocus={() => {
+                  onFocus={(ev) => {
                     setActive(p.id);
-                    setFocused(p.id);
+                    // The ring is for keyboard focus; a mouse click selects without it.
+                    if (ev.currentTarget.matches(":focus-visible")) setFocused(p.id);
                   }}
                   onBlur={() => {
                     setActive(null);

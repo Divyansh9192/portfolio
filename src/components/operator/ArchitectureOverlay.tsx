@@ -1,5 +1,6 @@
 "use client";
 
+import { useKeysSetting } from "@/components/chrome/preferences";
 import { X } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
@@ -58,6 +59,7 @@ export function ArchitectureOverlay({ on, onClose }: { on: boolean; onClose: () 
   const layerRef = useRef<HTMLDivElement>(null);
   const legendRef = useRef<HTMLElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
+  const [keysOn] = useKeysSetting();
   const uid = useId();
 
   // Measure tagged elements on scroll/resize/DOM changes, batched to one rAF.
@@ -134,8 +136,8 @@ export function ArchitectureOverlay({ on, onClose }: { on: boolean; onClose: () 
   const close = () => {
     if (legendRef.current?.contains(document.activeElement)) {
       const opener = openerRef.current;
-      if (opener?.isConnected) opener.focus();
-      else document.getElementById("main")?.focus();
+      if (opener?.isConnected) opener.focus({ preventScroll: true });
+      else document.getElementById("main")?.focus({ preventScroll: true });
     }
     onClose();
   };
@@ -155,10 +157,12 @@ export function ArchitectureOverlay({ on, onClose }: { on: boolean; onClose: () 
   });
   useEffect(() => {
     if (!on) return;
-    toast({ title: "Architecture overlay on", body: "Press ? or Esc to close." });
+    const keysOff = document.documentElement.dataset.keys === "off";
+    toast({ title: "Architecture overlay on", body: keysOff ? "Press Esc to close." : "Press ? or Esc to close." });
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Escape" || e.defaultPrevented) return;
       if (document.querySelector("dialog[open]")) return;
+      e.preventDefault(); // one Escape closes one layer
       onCloseRef.current();
     };
     window.addEventListener("keydown", onKey);
@@ -204,6 +208,7 @@ export function ArchitectureOverlay({ on, onClose }: { on: boolean; onClose: () 
 
       <section
         ref={legendRef}
+        data-overlay-legend
         tabIndex={-1}
         aria-labelledby={`${uid}-h`}
         data-print="hide"
@@ -313,7 +318,7 @@ export function ArchitectureOverlay({ on, onClose }: { on: boolean; onClose: () 
               </div>
             </div>
           ) : null}
-          <p className="mt-3 text-[12px] text-text-3">Press ? or Esc to close.</p>
+          <p className="mt-3 text-[12px] text-text-3">{keysOn ? "Press ? or Esc to close." : "Press Esc to close."}</p>
         </div>
       </section>
     </>

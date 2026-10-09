@@ -74,8 +74,17 @@ export default function ColophonPage() {
   // A real message edge from the content, for the mono specimen.
   const asyncEdge = projects.flatMap((p) => p.system.edges).find((e) => protocolClass[e.protocol] === "async");
 
-  const surfaces: { request: ReactNode; response: string; tryIt: string }[] = [
-    { request: <Code>curl {host}</Code>, response: "Resume as ANSI text for terminals (add ?\u2060plain=1 for no colour). Also Wget, HTTPie, xh and PowerShell.", tryIt: `curl ${SITE_URL}` },
+  const surfaces: { request: ReactNode; response: ReactNode; tryIt: string }[] = [
+    {
+      request: <Code>curl {host}</Code>,
+      response: (
+        <>
+          Resume as ANSI text for terminals (add <code className="whitespace-nowrap font-mono text-[0.92em]">?plain=1</code> for no colour). Also Wget, HTTPie, xh and
+          PowerShell.
+        </>
+      ),
+      tryIt: `curl ${SITE_URL}`,
+    },
     { request: <><Code>.md</Code> path or <Code>Accept: text/markdown</Code></>, response: "Markdown twin of the page", tryIt: `curl ${SITE_URL}/cv.md` },
     { request: <Code>GET /resume.json</Code>, response: "JSON Resume schema", tryIt: `curl ${SITE_URL}/resume.json` },
     { request: <><Code>GET /llms.txt</Code>, <Code>/llms-full.txt</Code></>, response: "Site summary written for language models", tryIt: `curl ${SITE_URL}/llms.txt` },

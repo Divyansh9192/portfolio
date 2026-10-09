@@ -9,9 +9,11 @@ import { AgentQueueSim } from "@/lib/sim/agent-queue";
 const noop = () => {};
 it("server-renders the lab (standalone and embedded)", () => {
   const html = renderToString(createElement(AgentQueueLab, {}));
-  expect(html).toContain("Simulation");
+  // Standalone, the page's LabHeader carries the "Simulation" badge; the lab keeps its specific note.
+  expect(html).toContain("durations, failures and model output are simulated");
   const html2 = renderToString(createElement(AgentQueueLab, { embedded: true }));
   expect(html2.length).toBeGreaterThan(1000);
+  expect(html2).toContain("Simulation");
 });
 it("renders both views through a crash, an approval, a 409, a dropped stream and a stall", () => {
   const s = new AgentQueueSim({ seed: 3, params: { requireApproval: true, arrivalPerMin: 1, llmFailRate: 0.2, dbBlipRate: 0.1 } });

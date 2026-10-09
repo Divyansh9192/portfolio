@@ -42,6 +42,8 @@ export function OperatorLayer() {
   const triggerRef = useRef<HTMLElement | null>(null);
   const askTriggerRef = useRef<HTMLElement | null>(null);
   const shellOpenRef = useRef(false);
+  const overlayOnRef = useRef(false);
+  const overlayOpenerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     shellOpenRef.current = shell.open;
@@ -79,7 +81,21 @@ export function OperatorLayer() {
       shellOpenRef.current = false;
       setShell((s) => ({ ...s, open: false }));
     };
-    const toggleOverlay = (on?: boolean) => setOverlay((s) => ({ mounted: true, on: on ?? !s.on }));
+    const toggleOverlay = (on?: boolean) => {
+      const was = overlayOnRef.current;
+      const next = on ?? !was;
+      if (next && !was) {
+        const ae = document.activeElement;
+        overlayOpenerRef.current = ae instanceof HTMLElement && ae !== document.body ? ae : null;
+      }
+      // Closing with "?" (or the shell) while focus is in the legend: hand focus back before it unmounts.
+      if (!next && was && document.querySelector("[data-overlay-legend]")?.contains(document.activeElement)) {
+        const opener = overlayOpenerRef.current;
+        (opener?.isConnected ? opener : document.getElementById("main"))?.focus({ preventScroll: true });
+      }
+      overlayOnRef.current = next;
+      setOverlay({ mounted: true, on: next });
+    };
     const setIncidentOn = (on?: boolean) => {
       const want = on ?? document.documentElement.dataset.incident !== "on";
       setIncident((s) => (want ? { mounted: true, on: true, run: s.run + 1 } : { ...s, on: false }));
@@ -169,7 +185,15 @@ export function OperatorLayer() {
           }}
         />
       ) : null}
-      {overlay.mounted ? <ArchitectureOverlay on={overlay.on} onClose={() => setOverlay((s) => ({ ...s, on: false }))} /> : null}
+      {overlay.mounted ? (
+        <ArchitectureOverlay
+          on={overlay.on}
+          onClose={() => {
+            overlayOnRef.current = false;
+            setOverlay((s) => ({ ...s, on: false }));
+          }}
+        />
+      ) : null}
       {ask.mounted ? (
         <AskDialog open={ask.open} question={ask.question} nonce={ask.nonce} returnFocusRef={askTriggerRef} onClose={() => setAsk((s) => ({ ...s, open: false }))} />
       ) : null}

@@ -72,7 +72,9 @@ function readWebGL(): boolean {
   if (webglCache === null) {
     try {
       const c = document.createElement("canvas");
-      webglCache = Boolean(c.getContext("webgl2") || c.getContext("webgl"));
+      const gl = c.getContext("webgl2") || c.getContext("webgl");
+      webglCache = Boolean(gl);
+      gl?.getExtension("WEBGL_lose_context")?.loseContext();
     } catch {
       webglCache = false;
     }
@@ -112,13 +114,17 @@ export function SystemStage({ fallback }: { fallback: ReactNode }) {
   }, []);
 
   const narrow = useSyncExternalStore(subscribeNarrow, readNarrow, () => false);
-  const webgl = useSyncExternalStore(noSubscribe, readWebGL, () => true);
-  const autoOK = motionOK && !saveData && !narrow && webgl;
+  // Probe WebGL only when the live view could load on its own (a probe creates a GL context).
+  const wouldAuto = motionOK && !saveData && !narrow;
+  const webgl = useSyncExternalStore(noSubscribe, () => (wouldAuto || choice === "live" ? readWebGL() : true), () => true);
+  const autoOK = wouldAuto && webgl;
   const live = choice === "live" || (choice === null && autoOK && near);
   // What the switch shows as selected: the visitor's choice, else what auto mode is heading for.
   const selected: "live" | "static" = choice ?? (autoOK ? "live" : "static");
   const caption = live
-    ? "Live view: the four systems as one topology."
+    ? webgl
+      ? "Live view: the four systems as one topology."
+      : "This browser has no WebGL, so the live view falls back to flat diagrams."
     : selected === "live"
       ? "The live view loads as you scroll here."
       : "Static view: one diagram per system.";

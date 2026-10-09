@@ -131,7 +131,7 @@ export function KafkaLab({ embedded = false, sourceBase }: KafkaLabProps) {
     >
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <div className="flex min-w-0 flex-wrap items-center gap-2">
-          <LabKindBadge kind="simulation" />
+          {embedded ? <LabKindBadge kind="simulation" /> : null}
           {!embedded ? (
             <p className="text-[12.5px] text-text-2">Real topics, keys, partitioner and consumer group from the LinkedIn clone. Timings are made up.</p>
           ) : null}

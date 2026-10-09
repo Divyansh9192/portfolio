@@ -115,8 +115,8 @@ export function IncidentMode({ on, run, onDismiss }: { on: boolean; run: number;
     // Hand focus back if it was inside the panel; otherwise leave it where the visitor is.
     if (panelRef.current?.contains(document.activeElement)) {
       const opener = openerRef.current;
-      if (opener?.isConnected) opener.focus();
-      else document.getElementById("main")?.focus();
+      if (opener?.isConnected) opener.focus({ preventScroll: true });
+      else document.getElementById("main")?.focus({ preventScroll: true });
     }
     onDismiss();
     if (phase !== "recovered") toast({ title: `${script.id} stopped`, body: "Simulation ended early." });
@@ -131,6 +131,7 @@ export function IncidentMode({ on, run, onDismiss }: { on: boolean; run: number;
     if (!on) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Escape" || e.defaultPrevented || document.querySelector("dialog[open]")) return;
+      e.preventDefault(); // one Escape closes one layer
       stopRef.current();
     };
     window.addEventListener("keydown", onKey);

@@ -7,6 +7,7 @@ import { useEffect, useId, useRef, useState, type KeyboardEvent as ReactKeyboard
 import { useMotionSetting, useTheme } from "@/components/chrome/preferences";
 import { Kbd } from "@/components/ui/primitives";
 import { cn } from "@/lib/cn";
+import { didYouMean } from "@/lib/shell/suggest";
 import { createSiteShell, readNavigation, type Effect, type Line, type ShellIO, type Span, type Tone } from "@/lib/shell";
 import { OPERATOR_EVENTS } from "@/lib/site";
 
@@ -473,9 +474,13 @@ export function Shell({ open, prefill, onClose, returnFocusRef }: ShellProps) {
     switch (e.key) {
       case "Enter": {
         e.preventDefault();
-        // Free text that isn't a command runs the best matching action (search or ask) instead of
-        // answering "command not found".
-        const freeText = input.trim() !== "" && !engine.startsWithCommand(input);
+        // A phrase (several words, not starting with a command or something close to one, in any
+        // case) runs the best matching action instead of "command not found". A single word or a
+        // typo of a command still runs as typed, so the shell can say "did you mean …?".
+        const words = input.trim().split(/\s+/);
+        const first = (words[0] ?? "").toLowerCase();
+        const nearCommand = engine.commandNames.includes(first) || didYouMean(first, engine.commandNames).length > 0;
+        const freeText = words.length > 1 && !nearCommand;
         const pick = activeIndex >= 0 ? palette[activeIndex] : freeText ? palette[0] : undefined;
         void execute(pick ? pick.action.command : input);
         return;

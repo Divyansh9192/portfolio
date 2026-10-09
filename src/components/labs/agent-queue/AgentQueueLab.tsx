@@ -103,10 +103,13 @@ export function AgentQueueLab({ embedded = false, sourceBase }: AgentQueueLabPro
         {/* Header + clock */}
         <div className="flex flex-col gap-3 rounded-xl border border-line bg-surface p-3 sm:p-4">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-            <Tag className="gap-1.5">
-              <FlaskConical className="size-3.5" aria-hidden />
-              Simulation
-            </Tag>
+            {/* On the lab's own page the LabHeader already shows the kind; embedded, this is the only badge. */}
+            {embedded ? (
+              <Tag className="gap-1.5">
+                <FlaskConical className="size-3.5" aria-hidden />
+                Simulation
+              </Tag>
+            ) : null}
             <p className="min-w-0 flex-1 text-[13px] leading-snug text-text-2">
               Real names, states, queues, retry settings and checkpoint rules from the Orchrez code; durations, failures and model output are simulated.
             </p>

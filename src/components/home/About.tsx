@@ -61,7 +61,8 @@ export function About() {
                       <ul className="inline">
                         {g.items.map((item, i) => (
                           <li key={item} className="inline">
-                            <span className="whitespace-nowrap">{item}</span>
+                            {/* Short items never break mid-item; long ones (e.g. "LLM integration (…)") must wrap. */}
+                            <span className={item.length <= 24 ? "whitespace-nowrap" : undefined}>{item}</span>
                             {i < g.items.length - 1 ? (
                               <>
                                 <span aria-hidden className="pl-1.5 text-text-3">

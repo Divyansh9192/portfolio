@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { IntentLink } from "@/components/ui/IntentLink";
 import { ViewTransition } from "react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { projects, type Project } from "@/content";
@@ -108,14 +109,14 @@ function WorkEntry({ project, index }: { project: Project; index: number }) {
             <span className="sr-only">: {name}</span>
             <ArrowRight className="size-4 text-text-3" aria-hidden />
           </Link>
-          <Link
+          <IntentLink
             href={`/labs/${lab.slug}`}
             className="inline-flex min-h-10 items-center gap-2 text-[14px] text-text underline decoration-line-strong underline-offset-4 hover:decoration-text-2"
           >
             Open the lab
             <span className="sr-only">: {lab.title},</span>
             <Tag className="no-underline">{LAB_KIND_LABEL[lab.kind]}</Tag>
-          </Link>
+          </IntentLink>
           <a
             href={links.repo}
             target="_blank"
