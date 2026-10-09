@@ -43,9 +43,27 @@ Tokens live in `src/app/globals.css` and are exposed to Tailwind through `@theme
 
 Incident mode is visible to CSS as `:root[data-incident="on"]` (the `--ok` token turns red).
 
+### Visitor preferences
+
+Set on `<html>` before paint by `ThemeScript` from `localStorage`, and read through hooks in `src/components/chrome/preferences.ts`:
+
+| Attribute | Values | Set from |
+|---|---|---|
+| `data-theme` | `dark` / `light` | header toggle, shell `theme` |
+| `data-motion` | absent (follow the OS) / `reduce` / `full` | footer toggle, shell `motion` |
+| `data-keys` | absent / `off` | footer toggle; `off` disables the single-key `/` and `?` shortcuts (WCAG 2.1.4). ⌘K / Ctrl+K always works. |
+
 ### Architecture overlay
 
-Components opt in with `data-arch="ComponentName"` and `data-arch-kind="server" | "client" | "static"`. The overlay outlines them and labels each box.
+Components opt in with `data-arch="ComponentName"` and `data-arch-kind="server" | "client" | "static"`. The overlay outlines them and labels each box. Kinds differ by line style (solid, dashed, dotted), not colour, because colour is reserved for health and edge protocols.
+
+### Diagrams
+
+`src/lib/graph/layout.ts` lays out every system graph (layered, left to right; edges that skip a layer arc over the boxes in their way). `src/lib/graph/diagram-layout.ts` holds the mini and full spacing. It lives outside the `"use client"` `SystemDiagram` module so server components can size diagrams from the real values. Full diagrams never render below 80% scale and scroll sideways instead.
+
+### Labs
+
+Every lab page starts with `LabHeader` (`src/components/labs/LabHeader.tsx`) and labels itself with `LabKindBadge`: **Simulation** or **In your browser**.
 
 ### Request trace
 
@@ -84,6 +102,12 @@ Health is measured server-side with a short timeout and cached for 60 seconds. `
 | `GET /llms.txt`, `/llms-full.txt` | LLM-oriented site summary |
 | `POST /api/mcp` | MCP server (Streamable HTTP, read-only tools) |
 | `POST /api/ask` | Grounded Q&A with a streamed trace |
+
+Request paths are decoded and stripped of control characters before any 404 echoes them, so a crafted URL cannot inject terminal escapes or markdown. Unknown markdown and text paths are rendered per request with `Cache-Control: no-store`. OG images exist only for known slugs.
+
+### Security headers
+
+`next.config.ts` sends, on production builds, a Content-Security-Policy plus `X-Content-Type-Options`, `Referrer-Policy` and `Permissions-Policy`. The policy allows jsDelivr and Hugging Face for the semantic-search lab site-wide (a policy is fixed per document, and client-side navigation keeps the first page's), `'unsafe-inline'` for Next's inline bootstrap and the theme script, and `'unsafe-eval'` / `'wasm-unsafe-eval'` for the ONNX runtime. Preview deployments also allow the Vercel toolbar.
 
 ## Honesty rules
 
